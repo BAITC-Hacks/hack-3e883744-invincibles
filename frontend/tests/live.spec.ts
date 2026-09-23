@@ -2,13 +2,34 @@ import { expect, test } from '@playwright/test'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-test('живой backend: вход, профиль, HR-импорт и новый профиль', async ({ page }) => {
+test('живой backend: вход, примерка, выполнение, HR-импорт и новый профиль', async ({ page }) => {
+  const recommendationResponse = page.waitForResponse(response => response.url().endsWith('/recommendations'))
   await page.goto('/')
   await page.getByLabel('Логин').fill('employee')
   await page.getByLabel('Пароль').fill('demo-employee')
   await page.getByRole('button', { name: 'Войти →' }).click()
   await expect(page.getByText('ID E0001', { exact: false })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Ваш следующий шаг' })).toBeVisible()
+  const recommendation = await recommendationResponse
+  expect(recommendation.status()).toBe(200)
+  const recommendationBody = await recommendation.json()
+  expect(recommendationBody.status).toBe('ready')
+  expect(['llm', 'deterministic_fallback']).toContain(recommendationBody.source)
+  const before = await page.evaluate(async () => (await fetch('/api/v1/employees/E0001', { credentials: 'include' })).json())
+  await page.getByRole('button', { name: 'Примерить' }).first().click()
+  await expect(page.getByRole('dialog', { name: 'Примерка шага' })).toBeVisible()
+  await expect(page.getByText('БЕЗ ЗАПИСИ В ПРОФИЛЬ')).toBeVisible()
+  const afterPreview = await page.evaluate(async () => (await fetch('/api/v1/employees/E0001', { credentials: 'include' })).json())
+  expect(afterPreview.employee_version).toBe(before.employee_version)
+  expect(afterPreview.history.length).toBe(before.history.length)
+  await page.getByRole('button', { name: 'Подтвердить выполнение' }).click()
+  const completionResponse = page.waitForResponse(response => response.url().endsWith('/completions'))
+  await page.getByRole('button', { name: 'Да, выполнено' }).click()
+  expect((await completionResponse).status()).toBe(201)
+  await expect(page.getByText('Выполнение записано.', { exact: false })).toBeVisible()
+  const afterCompletion = await page.evaluate(async () => (await fetch('/api/v1/employees/E0001', { credentials: 'include' })).json())
+  expect(afterCompletion.employee_version).toBe(before.employee_version + 1)
+  expect(afterCompletion.history.length).toBe(before.history.length + 1)
   await page.getByRole('button', { name: 'Выйти' }).click()
   await page.getByLabel('Логин').fill('hr')
   await page.getByLabel('Пароль').fill('demo-hr')
@@ -16,13 +37,13 @@ test('живой backend: вход, профиль, HR-импорт и новы�
   await expect(page.getByRole('heading', { name: 'Где нужен следующий шаг' })).toBeVisible()
   await page.getByRole('link', { name: 'Импортировать данные' }).click()
   const employee = JSON.parse(readFileSync(resolve(process.cwd(), '../data/synthetic/employees.json'), 'utf8'))[0]
-  employee.employee_id = 'A3_CHECK_01'
+  employee.employee_id = `A3_${Date.now().toString(36).toUpperCase()}`
   await page.getByLabel('Профили сотрудников').setInputFiles({ name: 'employees.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify([employee])) })
   await page.getByLabel('История активностей').setInputFiles({ name: 'activity_history.csv', mimeType: 'text/csv', buffer: Buffer.from('history_id,employee_id,event_id,status,occurred_at\n') })
   await page.getByRole('button', { name: 'Проверить файлы' }).click()
   await expect(page.getByText('Файлы прошли проверку.')).toBeVisible()
   await page.getByRole('button', { name: 'Подтвердить и применить' }).click()
-  await expect(page.getByRole('link', { name: 'Открыть профиль A3_CHECK_01' })).toBeVisible()
-  await page.getByRole('link', { name: 'Открыть профиль A3_CHECK_01' }).click()
-  await expect(page.getByText('ID A3_CHECK_01', { exact: false })).toBeVisible()
+  await expect(page.getByRole('link', { name: `Открыть профиль ${employee.employee_id}` })).toBeVisible()
+  await page.getByRole('link', { name: `Открыть профиль ${employee.employee_id}` }).click()
+  await expect(page.getByText(`ID ${employee.employee_id}`, { exact: false })).toBeVisible()
 })

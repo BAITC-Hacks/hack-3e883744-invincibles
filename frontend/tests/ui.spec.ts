@@ -60,6 +60,7 @@ test('профиль, немутирующая примерка и подтве�
   const errors: string[] = []
   page.on('pageerror', error => errors.push(error.message))
   await login(page, 'employee')
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()) })
   await expect(page.getByRole('heading', { name: 'Ваш следующий шаг' })).toBeVisible()
   await expect(page.getByText('Резервный расчёт', { exact: false }).first()).toBeVisible()
   await expect(page.getByText('Истории участия пока нет.', { exact: false }).last()).toBeVisible()
@@ -121,6 +122,7 @@ for (const width of [390, 768, 1280]) {
     const errors: string[] = []
     page.on('pageerror', error => errors.push(error.message))
     await login(page, 'hr')
+    page.on('console', message => { if (message.type() === 'error') errors.push(message.text()) })
     await expect(page.getByRole('heading', { name: 'Где нужен следующий шаг' })).toBeVisible()
     expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1)
     if (browserName === 'chromium' && width === 390) {

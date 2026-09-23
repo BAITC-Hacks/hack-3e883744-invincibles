@@ -1,0 +1,17 @@
+# Проверка интерфейса A3 — 23.09.2026
+
+## Фактические результаты
+
+- `npm --prefix frontend run build` — успешно; TypeScript и Vite, собран `frontend/dist`.
+- `npm --prefix frontend run test:e2e` — 24/24 успешно: Chromium, Firefox, WebKit; основной UI-сценарий с route mocks, HR/импорт, размеры 390/768/1280 px. Проверены отсутствие горизонтального переполнения у профиля, HR и импорта, закрытие примерки Escape, отсутствие ошибок JavaScript и консоли после входа в проверяемых сценариях.
+- `npm run test:e2e:live` из `frontend/` — 1/1 успешно в Chromium против обновлённого backend на `http://localhost:8080` с отдельной БД `runtime/a3-check-fresh.sqlite3`: вход сотрудника, рекомендации, примерка без изменения версии и истории, выполнение с приростом версии и записью истории, вход HR, validate/commit двух файлов, открытие нового профиля.
+- Отдельный запрос к живому endpoint после теста: `status=ready`, `source=deterministic_fallback`, `fallback_reason=unavailable`, `items=3`. `/health`: `model_status=unavailable`, `provider=openai`, `model=gpt-4.1-mini-2025-04-14`. Причина — отсутствие API-ключа в этой проверке.
+- Скриншоты: `profile-390.png`, `profile-1280.png`, `hr-390.png`, `import-390.png`. Они подтверждают внешний вид, а не заменяют проверки поведения.
+
+## Непроверенные критерии
+
+- Реальный OpenAI-вызов с серверным ключом и `source=llm` не проверен. Для закрытия AI-критерия нужен запуск с ключом и проверка фактического ответа модели.
+- Чистый Compose project не запущен: `docker` отсутствует в этой Windows-среде. Локальный backend запущен с Python 3.13 и отдельной БД; Dockerfile закрепляет Python 3.12.
+- Реальный вызов OpenAI/Ollama и совместимость с официальным набором организаторов не проверены.
+
+Передача для интеграции: frontend использует `frontend/dist` для статической раздачи backend и Vite proxy `/api` в разработке. Для проверки AI-критерия A1/A2 должны запустить backend с серверным `OPENAI_API_KEY` и подтвердить `source=llm` на контрольном профиле; UI уже показывает режим ответа без подмены.
