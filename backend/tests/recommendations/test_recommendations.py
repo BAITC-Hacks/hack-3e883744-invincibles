@@ -235,6 +235,61 @@ class RecommendationTests(IsolatedAsyncioTestCase):
 
 
 class CoreContractIntegrationTests(IsolatedAsyncioTestCase):
+    async def test_evidence_uses_readable_enum_labels_and_canonical_refs(self):
+        from app.contracts.domain import EmployeeContext
+        from app.contracts.recommendation import RecommendationRequest
+
+        fixture = next(case for case in json.loads(FIXTURES.read_text(encoding="utf-8"))
+                       if case["id"] == "Q2")
+        for event_type, label in (("course", "курсы"), ("workshop", "практикумы"),
+                                  ("mentoring", "наставничество")):
+            for has_history in (False, True):
+                for source in ("llm", "deterministic_fallback"):
+                    with self.subTest(event_type=event_type, history=has_history, source=source):
+                        data = copy.deepcopy(fixture["context"])
+                        for event in data["events"]:
+                            event["type"] = event_type
+                        if has_history:
+                            data["history"] = [
+                                {"history_id": f"H_{status}", "employee_id": "Q2_EMP",
+                                 "event_id": "Q2_CAPPED", "status": status,
+                                 "occurred_at": "2026-01-01T00:00:00Z"}
+                                for status in ("completed", "skipped", "declined")
+                            ]
+                        ctx = EmployeeContext.model_validate(data)
+                        request = RecommendationRequest.model_validate(
+                            fixture["request"] | {"preferred_type": event_type})
+                        codes = ["TARGET_GAP", "EXPLICIT_PREFERENCE"]
+                        provider = FakeProvider({"choices": [{"candidate": "C1", "reason_codes": codes}]},
+                                                error=ProviderError("timeout") if source != "llm" else None)
+                        result = await service.RecommendationService(provider).recommend(ctx, request)
+                        self.assertEqual(result.source, source)
+                        item = result.items[0]
+                        self.assertEqual((item.event_id, item.rank, item.type.value),
+                                         ("Q2_USEFUL", 1, event_type))
+                        self.assertEqual(item.reason_codes, codes if source == "llm" else ["TARGET_GAP"])
+                        evidence = {entry.kind: entry for entry in item.evidence}
+                        all_text = " ".join(entry.text for entry in item.evidence)
+                        self.assertNotIn("Grade.", all_text)
+                        self.assertNotIn("EventType.", all_text)
+                        self.assertIn("Middle", evidence["GRADE_TARGET"].text)
+                        self.assertIn("Senior", evidence["GRADE_TARGET"].text)
+                        self.assertEqual(evidence["GRADE_TARGET"].refs,
+                                         ["employee.grade", "role.requirements.Senior"])
+                        self.assertEqual(evidence["SKILL_GAP"].refs,
+                                         ["employee.skills.SK_DESIGN", "role.requirements.Senior.SK_DESIGN",
+                                          "event.Q2_USEFUL.gains.SK_DESIGN"])
+                        self.assertIn(label, evidence["HISTORY"].text)
+                        self.assertEqual(evidence["HISTORY"].refs, [f"history.type.{event_type}"])
+                        if has_history:
+                            for count in ("завершено 1", "пропущено 1", "отказов 1"):
+                                self.assertIn(count, evidence["HISTORY"].text)
+                        else:
+                            self.assertIn("нет", evidence["HISTORY"].text)
+                        if source == "llm":
+                            self.assertIn(label, evidence["PREFERENCE"].text)
+                            self.assertEqual(evidence["PREFERENCE"].refs, ["request.preferred_type"])
+
     async def test_q1_q2_q3_with_a1_contracts_and_core(self):
         from app.contracts.domain import EmployeeContext
         from app.contracts.recommendation import RecommendationRequest

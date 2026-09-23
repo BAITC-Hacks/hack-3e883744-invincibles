@@ -1,0 +1,61 @@
+{
+  "timestamp_utc": "2026-09-23T12:39:31.831004+00:00",
+  "git_sha": "f2ed0e86b3bd77d815f6761bcef46d8c5f78746a",
+  "status": "evaluated",
+  "provider": "openai",
+  "model": "gpt-4.1-mini-2025-04-14",
+  "prompt_version": "3",
+  "runs": [
+    {
+      "case": "Q1",
+      "source": "llm",
+      "selected_event_ids": [
+        "Q1_MENTOR",
+        "Q1_COURSE"
+      ],
+      "duration_seconds": 1.8291,
+      "fallback_reason": null,
+      "expected_first": "Q1_MENTOR",
+      "expected_first_met": true,
+      "evidence_complete": true,
+      "llm_valid_under_10s": true
+    },
+    {
+      "case": "Q2",
+      "source": "llm",
+      "selected_event_ids": [
+        "Q2_USEFUL"
+      ],
+      "duration_seconds": 1.1832,
+      "fallback_reason": null,
+      "expected_first": "Q2_USEFUL",
+      "expected_first_met": true,
+      "evidence_complete": true,
+      "llm_valid_under_10s": true
+    },
+    {
+      "case": "Q3",
+      "source": "llm",
+      "selected_event_ids": [
+        "Q3_MENTOR",
+        "Q3_COURSE"
+      ],
+      "duration_seconds": 1.3621,
+      "fallback_reason": null,
+      "expected_first": "Q3_MENTOR",
+      "expected_first_met": true,
+      "evidence_complete": true,
+      "llm_valid_under_10s": true
+    }
+  ],
+  "acceptance_met": true,
+  "usage_ledger": {
+    "attempts": 3,
+    "input_tokens": 1234,
+    "known_cost_usd": 0.00066,
+    "output_tokens": 104,
+    "unknown_usage_attempts": 0
+  },
+  "working_tree_changes": true,
+  "note": "Verification includes pending import/evidence fixes on top of git_sha."
+}

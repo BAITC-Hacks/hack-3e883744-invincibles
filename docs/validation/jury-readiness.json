@@ -1,0 +1,69 @@
+{
+  "commit": "279ae683b7de29bea803d543be2405be0e3dc1c6",
+  "startup_seconds": 0.683,
+  "patches": [
+    "backend/app/application/imports.py",
+    "backend/app/data/kit_v1.py",
+    "backend/app/data/import_adapter.py",
+    "backend/app/recommendations/service.py"
+  ],
+  "checks": [
+    "fresh_database_health",
+    "frontend_html",
+    "frontend_javascript",
+    "unauthenticated_401",
+    "employee_login",
+    "employee_profile",
+    "preview_no_mutation",
+    "human_evidence",
+    "honest_fallback",
+    "completion_idempotent",
+    "employee_hr_forbidden",
+    "employee_logout",
+    "hr_login",
+    "hr_overview",
+    "import_validate",
+    "import_not_applied_until_commit",
+    "import_commit",
+    "import_commit_idempotent"
+  ],
+  "health": {
+    "status": "ok",
+    "dataset_version": 1,
+    "model_status": "unavailable",
+    "provider": "openai",
+    "model": "gpt-4.1-mini-2025-04-14"
+  },
+  "total_seconds": 0.914,
+  "patch_sha256": {
+    "backend/app/application/imports.py": "8855421c87f5286bf4d2d7c5a2dcb2920d9938bd325db3d437d5198befe1d4e9",
+    "backend/app/data/kit_v1.py": "2cf2f7bcfb4c3975d478ee87d234f36164cfbad46f84cc3ea5a92c7d1e7c4f6b",
+    "backend/app/data/import_adapter.py": "09356d2de1b64ded0ccb3208f7110857b9cf2d8b95cd2ce22830450ef494a4c7",
+    "backend/app/recommendations/service.py": "da80f5e82a9478b64741a5ea7e260c0c99120ea0bfd835814b61b4276f89470c"
+  },
+  "pytest": {
+    "command": "env OPENAI_API_KEY= AI_PROVIDER=openai AI_MAX_PAID_CALLS=0 .venv312/bin/python -m pytest -q",
+    "passed": 64,
+    "warnings": 1,
+    "seconds": 6.28
+  },
+  "import_payload_role": "Backend Engineer",
+  "import_payload_has_role_id": false,
+  "scope": "Fresh dependencies and native build, base revision plus listed patch hashes. Docker execution not verified.",
+  "backend_tests_passed": 64,
+  "offline_compose": {
+    "config_valid": true,
+    "api_key_forced_empty": true,
+    "paid_calls_limit": 0,
+    "project": "shagra-jury",
+    "port": 8081,
+    "container_started": false
+  },
+  "demo_import": {
+    "DEMO_ACTIVE": "ready/deterministic_fallback",
+    "DEMO_TARGET_MET": "target_met",
+    "DEMO_FINAL_GRADE": "no_next_grade",
+    "DEMO_UNKNOWN": "incomplete_skills"
+  },
+  "browser": "Employee login, rule-based card, readable evidence, preview and confirmed completion in isolated native server."
+}

@@ -5,7 +5,8 @@ from collections import Counter
 from datetime import datetime,timezone
 from pydantic import ValidationError
 from app.contracts.api import ImportValidation,ImportSummary,ErrorDetail,ImportCommit
-from app.data.kit_v1 import parse_employees,parse_history,KitParseError
+from app.data.kit_v1 import parse_history,KitParseError
+from app.data.import_adapter import parse_import_employees
 from app.data.repository import Repository,RepoError
 
 MAX_FILE=5*1024*1024
@@ -30,9 +31,11 @@ class ImportService:
         if len(employees_file)>MAX_FILE or len(history_file)>MAX_FILE or len(employees_file)+len(history_file)>2*MAX_FILE:
             errors.append(detail(None,'files','FILE_TOO_LARGE','Файл превышает допустимый размер.'))
             return ImportValidation(import_id=None,valid=False,base_dataset_version=base,expires_at=None,summary=zero,errors=errors)
-        try: employees=parse_employees(employees_file)
+        try: employees=parse_import_employees(employees_file,roles)
         except ValidationError as exc:
             errors.append(schema_error('employees.json',exc));employees=[]
+        except KitParseError as exc:
+            errors.append(detail('employees.json',exc.path,exc.code,str(exc)));employees=[]
         except (ValueError,UnicodeError):
             errors.append(detail('employees.json','root','INVALID_DATA','Неверный JSON.'));employees=[]
         try: history=parse_history(history_file)

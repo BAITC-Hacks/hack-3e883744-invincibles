@@ -125,6 +125,16 @@ $env:AI_PROVIDER = 'openai'
 
 **Direct uvicorn startup does not automatically load `.env`.** Supply settings through environment variables. An empty key enables fallback. The app creates `runtime/`. Native startup and Compose use separate database storage.
 
+## Jury verification
+
+[Expert checklist and three modes](docs/JURY.md): live OpenAI with a privately supplied test key, local Ollama without an account, and a prepared offline scenario. The offline mode requires no key and disables paid calls:
+
+```bash
+docker compose --env-file config/jury-offline.env -p shagra-jury -f compose.yaml -f compose.offline.yaml up -d --build app
+```
+
+Open **http://localhost:8081**. A separate volume keeps the demo independent of the main app. This mode is explicitly **rule-based**, not live AI. [Four prepared import profiles](data/demo-import/README.md) cover a useful next step, a met target, the final grade, and an unknown skill assessment.
+
 ## Configuration and AI
 
 | Variable | Default | Purpose |
@@ -232,4 +242,4 @@ For Vite development, run the backend on 8080 with `APP_ORIGIN=http://localhost:
 - [Architecture](docs/ARCHITECTURE.md) · [Data](docs/DATA.md) · [AI](docs/AI.md) · [Testing](docs/TESTING.md).
 - [Components, licenses and sources](THIRD_PARTY.md). A project-wide license has not been declared.
 
-This is a local demonstration MVP. Skill coverage is not a promotion decision; compatibility with the organizers' official kit is unverified. Some server evidence still contains enum names; some HR responses omit role names. `docs/validation/ui/redesign` and `start-design.sh` are historical previews and are not required by the working app. `.env`, runtime databases and installed dependencies are excluded from Git.
+This is a local demonstration MVP. Skill coverage is not a promotion decision; compatibility with the organizers' official kit is unverified. Server evidence currently remains in Russian; some HR responses omit role names. `docs/validation/ui/redesign` and `start-design.sh` are historical previews and are not required by the working app. `.env`, runtime databases and installed dependencies are excluded from Git.

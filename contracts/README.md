@@ -31,3 +31,5 @@ Success bodies are direct objects, without a `data` wrapper. Error bodies are `E
 | 422 | `INVALID_DATA`, `UNSUPPORTED_KIT_SCHEMA`, `INELIGIBLE_EVENT`, `INCOMPLETE_SKILLS` |
 
 Profile `skill_rows` sort unknown target skills first, then positive gaps descending, then skill ID; `history` sorts date descending and history ID ascending; `available_events` sorts event ID. Recommendation `source` is `llm`, `deterministic_fallback`, or `null` for empty states. A fallback is a working deterministic calculation, not a successful AI call. Import validation expires after 15 minutes; a repeated successful commit returns `applied=false` without changing versions.
+
+Import files: employee JSON is an array. Each employee may use canonical `role_id` or `role` matched against a current catalog ID/localized name (trimmed and case-insensitive). Both fields must agree if supplied. Unknown/ambiguous roles are rejected with field errors. CSV requires the five documented column names, in any order; duplicate/missing/extra columns are rejected. [Runnable examples](../data/demo-import/README.md).
