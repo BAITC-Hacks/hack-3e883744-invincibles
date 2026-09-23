@@ -14,11 +14,15 @@ def test_auth_401_403_and_preview_no_mutation(tmp_path):
         assert c.post('/api/v1/auth/login',json={'username':'employee','password':'demo-employee'},headers=ORIGIN).status_code==200
         assert c.get('/api/v1/employees/E0002').status_code==403
         assert c.get('/api/v1/hr/overview').status_code==403
+        files={'employees_file':('employees.json',b'[]','application/json'),'history_file':('activity_history.csv',b'history_id,employee_id,event_id,status,occurred_at\n','text/csv')}
+        assert c.post('/api/v1/imports/validate',files=files,headers=ORIGIN).status_code==403
         before=c.get('/api/v1/employees/E0001').json()
         req={'event_id':'EV_BACKEND_01','employee_version':before['employee_version'],'dataset_version':before['dataset_version']}
         preview=c.post('/api/v1/employees/E0001/preview',json=req,headers=ORIGIN)
         assert preview.status_code==200
         assert c.get('/api/v1/employees/E0001').json()==before
+        assert c.post('/api/v1/auth/logout',json={},headers=ORIGIN).status_code==204
+        assert c.get('/api/v1/employees/E0001').status_code==401
 
 def test_completion_version_conflict_and_origin(tmp_path):
     with client(tmp_path) as c:
@@ -115,3 +119,15 @@ def test_imported_missing_skill_is_unknown_in_profile(tmp_path):
         assert result['state']=='incomplete_skills' and result['coverage'] is None
         python=next(row for row in result['skill_rows'] if row['skill_id']=='SK_PYTHON')
         assert python['current'] is None and python['gap'] is None
+
+
+def test_built_frontend_is_served_with_api_on_same_origin(tmp_path,monkeypatch):
+    dist=tmp_path/'dist'
+    (dist/'assets').mkdir(parents=True)
+    (dist/'index.html').write_text('<html>ШАГРА</html>')
+    (dist/'assets'/'app.js').write_text('console.log("ok")')
+    monkeypatch.setenv('FRONTEND_DIST',str(dist))
+    with client(tmp_path) as c:
+        assert c.get('/').text=='<html>ШАГРА</html>'
+        assert c.get('/assets/app.js').status_code==200
+        assert c.get('/api/v1/health').json()['status']=='ok'
