@@ -166,7 +166,7 @@ fieldset {
   background: var(--bg-panel);
   font-weight: 500;
   line-height: 22px;
-  transition: background 0.15s;
+  transition: background 0.15s, filter 0.15s, transform 0.15s, box-shadow 0.15s;
   text-align: center;
 }
 .sh-primary {
@@ -192,6 +192,19 @@ fieldset {
 }
 .sh-primary:hover {
   filter: brightness(1.1);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 24%, transparent);
+}
+.sh-button:hover:not(:disabled),
+.sh-icon-button:hover:not(:disabled),
+.sh-theme-button:hover:not(:disabled),
+.sh-languages button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.sh-button:active:not(:disabled),
+.sh-icon-button:active:not(:disabled),
+.sh-theme-button:active:not(:disabled),
+.sh-languages button:active:not(:disabled) {
+  transform: translateY(1px) scale(0.98);
 }
 .sh-text-button {
   display: inline-flex;
@@ -224,6 +237,7 @@ fieldset {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-panel);
   background: var(--bg-panel);
+  animation: sh-rise 0.32s ease-out both;
 }
 .sh-panel > h2 + p {
   margin-top: 8px;
@@ -234,6 +248,7 @@ fieldset {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
+  animation: sh-fade 0.25s ease-out both;
 }
 .sh-page-heading p {
   margin-top: 8px;
@@ -397,6 +412,27 @@ fieldset {
   border-radius: 8px;
   background: var(--bg-panel);
   font-size: 14px;
+}
+.sh-toast {
+  position: fixed;
+  z-index: 60;
+  top: 20px;
+  right: 20px;
+  max-width: min(360px, calc(100vw - 32px));
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1px solid var(--border-control);
+  border-radius: 10px;
+  color: var(--text-primary);
+  background: var(--bg-panel);
+  box-shadow: 0 16px 40px color-mix(in srgb, #000 24%, transparent);
+  animation: sh-toast-in 0.28s ease-out both;
+}
+.sh-toast .sh-icon {
+  color: var(--positive);
 }
 .sh-mobile-brand,
 .sh-topbar .sh-mobile-account,
@@ -836,6 +872,7 @@ fieldset {
   background: color-mix(in srgb, var(--bg-app) 85%, transparent);
   display: flex;
   justify-content: flex-end;
+  animation: sh-fade 0.18s ease-out both;
 }
 .sh-dialog {
   background: var(--bg-panel);
@@ -844,6 +881,7 @@ fieldset {
   display: flex;
   flex-direction: column;
   border-left: 1px solid var(--border-control);
+  animation: sh-dialog-in 0.24s ease-out both;
 }
 .sh-dialog-heading {
   padding: 20px 24px;
@@ -1377,6 +1415,22 @@ tbody tr:hover {
     opacity: 0.55;
   }
 }
+@keyframes sh-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes sh-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes sh-dialog-in {
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes sh-toast-in {
+  from { opacity: 0; transform: translateY(-10px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 @media (min-width: 768px) and (max-width: 1199px) {
   .sh-sidebar {
     width: 80px;
@@ -1418,6 +1472,12 @@ tbody tr:hover {
   }
 }
 @media (max-width: 767px) {
+  .sh-toast {
+    top: 12px;
+    right: 16px;
+    left: 16px;
+    max-width: none;
+  }
   html {
     scroll-padding-top: 136px;
   }

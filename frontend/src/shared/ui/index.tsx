@@ -3,6 +3,7 @@ import {
   useId,
   useLayoutEffect,
   useRef,
+  useState,
   type ReactNode,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
@@ -82,6 +83,12 @@ export function Icon({ name }: { name: keyof typeof paths }) {
 }
 export function PreferencesControls() {
   const { language, theme, setLanguage, toggleTheme, t } = usePreferences()
+  const [toast, setToast] = useState<string | null>(null)
+  useEffect(() => {
+    if (!toast) return
+    const timer = window.setTimeout(() => setToast(null), 2400)
+    return () => window.clearTimeout(timer)
+  }, [toast])
   return (
     <div className="sh-preferences" aria-label={t('settings')}>
       <div className="sh-languages" role="group" aria-label={t('language')}>
@@ -91,7 +98,10 @@ export function PreferencesControls() {
             type="button"
             lang={value}
             aria-pressed={language === value}
-            onClick={() => setLanguage(value)}
+            onClick={() => {
+              setLanguage(value)
+              setToast(value === 'kk' ? 'KZ' : value.toUpperCase())
+            }}
           >
             {value === 'kk' ? 'KZ' : value.toUpperCase()}
           </button>
@@ -102,11 +112,20 @@ export function PreferencesControls() {
         type="button"
         aria-label={t(theme === 'dark' ? 'light' : 'dark')}
         title={t(theme === 'dark' ? 'light' : 'dark')}
-        onClick={toggleTheme}
+        onClick={() => {
+          setToast(t(theme === 'dark' ? 'light' : 'dark'))
+          toggleTheme()
+        }}
       >
         <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
         <span>{t(theme === 'dark' ? 'light' : 'dark')}</span>
       </button>
+      {toast && (
+        <div className="sh-toast" role="status" aria-live="polite" aria-atomic="true">
+          <Icon name="check" />
+          <span>{t('preferenceSaved', { value: toast })}</span>
+        </div>
+      )}
     </div>
   )
 }
