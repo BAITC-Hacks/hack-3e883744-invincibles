@@ -60,7 +60,7 @@ export function RecommendationCard({
       </div>
       {!compact && (
         <div className="sh-rec-skills">
-          {item.preview.changes.slice(0, 2).map((change) => (
+          {item.preview.changes.slice(0, 3).map((change) => (
             <div key={change.skill_id}>
               <span>
                 {label(
@@ -73,13 +73,14 @@ export function RecommendationCard({
               </span>
             </div>
           ))}
-          {item.preview.changes.length > 2 && (
+          {item.preview.changes.length > 3 && (
             <small className="sh-muted">
-              {t('moreSkills', { count: item.preview.changes.length - 2 })}
+              {t('moreSkills', { count: item.preview.changes.length - 3 })}
             </small>
           )}
         </div>
       )}
+      {item.evidence[0] && !compact && <p className="sh-rec-reason">{item.evidence[0].text}</p>}
       <button
         className="sh-button sh-primary sh-wide"
         onClick={(event) => {

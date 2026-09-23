@@ -22,12 +22,14 @@ export function PreviewDialog({
   onStale: () => void
   onComplete: () => void
 }) {
-  const { t, label, percent } = usePreferences()
+  const { t, label, percent, number } = usePreferences()
   const alternatives = profile.available_events.filter(
     (event) => event.event_id !== item.event_id,
   )
   const [alternativeId, setAlternativeId] = useState(
-    item.comparison_event_id || alternatives[0]?.event_id || '',
+    alternatives.some(event => event.event_id === item.comparison_event_id)
+      ? item.comparison_event_id || ''
+      : alternatives[0]?.event_id || '',
   )
   const [compare, setCompare] = useState(false)
   const [first, setFirst] = useState<Preview | null>(null)
@@ -181,6 +183,7 @@ export function PreviewDialog({
                       <strong className="sh-number">
                         {percent(preview.coverage_after)}
                       </strong>
+                      {preview.coverage_before !== null && preview.coverage_after !== null && <span className="sh-delta">+{number(preview.coverage_after - preview.coverage_before)} {t('pp')}</span>}
                     </div>
                     {ids.map((id) => {
                       const row = profile.skill_rows.find(
@@ -205,11 +208,12 @@ export function PreviewDialog({
                             <span>
                               {t('required')}: {target ?? '—'}
                             </span>
+                            <span>{t('remainingGap')}: {change?.remaining_gap ?? row?.gap ?? t('noData')}</span>
                           </div>
                           <div className="sh-three-bars" aria-hidden="true">
-                            <span style={{ width: `${(before || 0) * 20}%` }} />
-                            <span style={{ width: `${(after || 0) * 20}%` }} />
-                            <span style={{ width: `${(target || 0) * 20}%` }} />
+                            <span style={before === null ? { visibility: 'hidden' } : { width: `${before * 20}%` }} />
+                            <span style={after === null ? { visibility: 'hidden' } : { width: `${after * 20}%` }} />
+                            <span style={target === null ? { visibility: 'hidden' } : { width: `${target * 20}%` }} />
                           </div>
                         </div>
                       )

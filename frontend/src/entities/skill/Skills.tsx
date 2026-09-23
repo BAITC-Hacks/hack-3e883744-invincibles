@@ -3,11 +3,11 @@ import { useSearchParams } from 'react-router-dom'
 import type { SkillRow } from '../../shared/api/types'
 import { usePreferences } from '../../shared/lib/preferences'
 import { Disclosure, EmptyState, Icon, Panel } from '../../shared/ui'
-const state = (row: SkillRow) =>
-  row.current === null
-    ? 'unknown'
-    : row.target === null
+export const state = (row: SkillRow) =>
+  row.target === null
       ? 'unrequired'
+    : row.current === null || row.gap === null
+      ? 'unknown'
       : (row.gap || 0) > 0
         ? 'gaps'
         : 'covered'
@@ -89,14 +89,8 @@ export function Skills({ rows }: { rows: SkillRow[] }) {
               )}
             </div>
             <div className="sh-level" aria-hidden="true">
-              <span
-                className="sh-level-target"
-                style={{ width: `${(row.target || 0) * 20}%` }}
-              />
-              <span
-                className="sh-level-current"
-                style={{ width: `${(row.current || 0) * 20}%` }}
-              />
+              {row.target !== null && <span className="sh-level-target" style={{ width: `${row.target * 20}%` }} />}
+              {row.current !== null && <span className="sh-level-current" style={{ width: `${row.current * 20}%` }} />}
             </div>
           </div>
         ))}

@@ -5,6 +5,7 @@ import {
   useRef,
   type ReactNode,
   type ButtonHTMLAttributes,
+  type HTMLAttributes,
   type InputHTMLAttributes,
 } from 'react'
 import { usePreferences, type Language } from '../lib/preferences'
@@ -107,65 +108,56 @@ export function PreferencesControls() {
     </div>
   )
 }
-export function Panel({
-  children,
-  className = '',
-}: {
-  children: ReactNode
-  className?: string
-}) {
-  return <section className={`sh-panel ${className}`}>{children}</section>
+export type PanelProps = HTMLAttributes<HTMLElement> & { children: ReactNode }
+export function Panel({ children, className = '', ...rest }: PanelProps) {
+  return <section {...rest} className={`sh-panel ${className}`}>{children}</section>
 }
+export type PageHeaderProps = { title: string; description?: string; aside?: ReactNode; actions?: ReactNode }
 export function PageHeader({
   title,
   description,
   aside,
-}: {
-  title: string
-  description?: string
-  aside?: ReactNode
-}) {
+  actions,
+}: PageHeaderProps) {
   return (
     <div className="sh-page-heading">
       <div>
         <h1>{title}</h1>
         {description && <p className="sh-muted">{description}</p>}
       </div>
-      {aside}
+      {actions || aside}
     </div>
   )
 }
+export type EmptyStateProps = { title: string; description?: string; children?: ReactNode; action?: ReactNode }
 export function EmptyState({
   title,
   description,
   children,
-}: {
-  title: string
-  description?: string
-  children?: ReactNode
-}) {
+  action,
+}: EmptyStateProps) {
   return (
     <div className="sh-empty">
       <Icon name="check" />
       <h3>{title}</h3>
       {description && <p className="sh-muted">{description}</p>}
-      {children}
+      {action || children}
     </div>
   )
 }
+export type ErrorStateProps = { error?: unknown; message?: string; onRetry?: () => void; busy?: boolean }
 export function ErrorState({
   error,
+  message,
   onRetry,
-}: {
-  error: unknown
-  onRetry?: () => void
-}) {
+  busy = false,
+}: ErrorStateProps) {
   const { t, error: errorMessage } = usePreferences()
   return (
     <div className="sh-notice sh-error" role="alert">
-      <p>{errorMessage(error)}</p>
+      <p>{message || errorMessage(error)}</p>
       {onRetry && (
-        <button className="sh-button sh-secondary" onClick={onRetry}>
+        <button className="sh-button sh-secondary" onClick={onRetry} disabled={busy} aria-busy={busy || undefined}>
           {t('retry')}
         </button>
       )}
@@ -178,25 +170,24 @@ export function ErrorState({
     </div>
   )
 }
-export function Skeleton({ className = '' }: { className?: string }) {
+export type SkeletonProps = HTMLAttributes<HTMLDivElement>
+export function Skeleton({ className = '', ...rest }: SkeletonProps) {
   const { t } = usePreferences()
   return (
     <div
+      {...rest}
       className={`sh-skeleton ${className}`}
       role="status"
       aria-label={t('loading')}
     />
   )
 }
+export type StatProps = { label: string; value: ReactNode; hint?: ReactNode }
 export function Stat({
   label,
   value,
   hint,
-}: {
-  label: string
-  value: ReactNode
-  hint?: string
-}) {
+}: StatProps) {
   return (
     <div className="sh-stat">
       <span className="sh-muted">{label}</span>

@@ -2,6 +2,10 @@
 export const messages = {
   overview: ['Обзор', 'Шолу', 'Overview'],
   skills: ['Навыки', 'Дағдылар', 'Skills'],
+  skillMap: ['Карта навыков', 'Дағдылар картасы', 'Skill map'],
+  noKnownGaps: ['Известных дефицитов нет', 'Белгілі тапшылықтар жоқ', 'No known gaps'],
+  allHistory: ['Вся история', 'Толық тарих', 'Full history'],
+  remainingGap: ['Осталось', 'Қалды', 'Remaining gap'],
   history: ['История', 'Тарих', 'History'],
   import: ['Импорт', 'Импорт', 'Import'],
   account: ['Аккаунт', 'Аккаунт', 'Account'],

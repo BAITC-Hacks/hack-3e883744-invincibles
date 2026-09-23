@@ -109,7 +109,7 @@ export type HrOverview = {
   no_step: {
     employee_id: string
     role_id: string
-    role_name?: LocalizedText
+    role_name: LocalizedText
     reason: string
   }[]
   participation: {
@@ -126,7 +126,7 @@ export type EmployeeList = {
   items: {
     employee_id: string
     role_id: string
-    role_name?: LocalizedText
+    role_name: LocalizedText
     grade: string
   }[]
   total: number

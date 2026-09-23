@@ -17,7 +17,8 @@ export function LoginPage({ onLogin }: { onLogin: (auth: Auth) => void }) {
     setBusy(true)
     setError(null)
     try {
-      const auth = await api.login(username.trim(), password)
+      await api.login(username.trim(), password)
+      const auth = await api.me()
       onLogin(auth)
       navigate(auth.role === 'hr' ? '/hr' : '/me', { replace: true })
     } catch (cause) {

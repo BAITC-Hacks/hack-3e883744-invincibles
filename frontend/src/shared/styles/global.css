@@ -1802,3 +1802,63 @@ tbody tr:hover {
     scroll-behavior: auto !important;
   }
 }
+
+.sh-profile-overview { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.sh-profile-overview > .sh-readiness { grid-column: 1 / -1; }
+.sh-profile-overview > .sh-skill-map { grid-column: 1; }
+.sh-profile-overview > .sh-next-step { grid-column: 2; }
+.sh-readiness-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: center; }
+.sh-readiness-coverage { min-width: 0; }
+.sh-readiness-coverage p { font-size: 13px; margin-top: 2px; }
+.sh-readiness-coverage .sh-coverage-number { display: block; margin-top: 6px; }
+.sh-readiness-grid .sh-stat { border: 0; border-left: 1px solid var(--border-subtle); border-radius: 0; padding: 8px 16px; }
+.sh-readiness-grid .sh-stat > strong { font-size: 28px; margin-top: 4px; }
+.sh-readiness .sh-progress { margin: 12px 0 4px; }
+.sh-skill-map-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.sh-skill-map-head .sh-text-button { min-height: 44px; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.sh-skill-map-head .sh-icon { width: 16px; height: 16px; }
+.sh-skill-map-content { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+.sh-skill-map .sh-matrix { margin-top: 0; }
+.sh-skill-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; font-size: 12px; color: var(--text-secondary); }
+.sh-skill-legend > span { display: flex; align-items: center; gap: 6px; }
+.sh-skill-legend .sh-cell-mark { width: 12px; height: 12px; flex-shrink: 0; }
+.sh-selected-skill { background: var(--bg-raised); padding: 12px; margin-top: 12px; border-radius: 6px; }
+.sh-selected-skill strong, .sh-selected-skill span { display: block; }
+.sh-selected-skill span { color: var(--text-secondary); margin-top: 4px; }
+.sh-top-gaps h3 { font-size: 15px; margin-bottom: 12px; }
+.sh-gap-row { margin-bottom: 12px; }
+.sh-gap-row > div:first-child { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 5px; font-size: 13px; }
+.sh-gap-row .sh-number { color: var(--text-secondary); white-space: nowrap; }
+.sh-gap-row .sh-level { height: 6px; }
+.sh-gap-row .sh-level span { height: 6px; }
+.sh-recent-history { margin-top: 24px; }
+.sh-rec-reason { color: var(--text-secondary); font-size: 13px; margin: -8px 0 16px; }
+.sh-recommendation h3 { overflow-wrap: anywhere; }
+.sh-recent-list > div { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--border-subtle); padding: 12px 0; }
+.sh-recent-list > div:first-child { border-top: 0; }
+.sh-recent-list small { color: var(--text-secondary); white-space: nowrap; }
+@media (max-width: 1199px) {
+  .sh-profile-overview { grid-template-columns: minmax(0, 1fr); }
+  .sh-profile-overview > .sh-skill-map, .sh-profile-overview > .sh-next-step { grid-column: 1; }
+  .sh-readiness-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sh-readiness-coverage { grid-column: 1 / -1; }
+  .sh-skill-map-head { flex-wrap: wrap; }
+  .sh-skill-map-content { grid-template-columns: minmax(0, 1fr); }
+  .sh-skill-legend { grid-template-columns: minmax(0, 1fr); }
+  .sh-gap-row > div:first-child { flex-wrap: wrap; overflow-wrap: anywhere; }
+}
+@media (max-width: 767px) {
+  .sh-profile-overview { display: flex; flex-direction: column; gap: 16px; }
+  .sh-profile-overview > * { width: 100%; }
+  .sh-profile-overview > .sh-readiness { order: 0; }
+  .sh-profile-overview > .sh-next-step { order: 1; }
+  .sh-profile-overview > .sh-skill-map { order: 2; }
+  .sh-readiness-grid { display: block; }
+  .sh-readiness-grid .sh-stat { display: none; }
+  .sh-readiness-grid .sh-stat { padding: 4px 6px; }
+  .sh-readiness-grid .sh-stat > span { font-size: 12px; }
+  .sh-readiness-grid .sh-stat > strong { font-size: 23px; }
+  .sh-readiness-coverage .sh-coverage-number { font-size: 23px; }
+  .sh-skill-map-content { grid-template-columns: minmax(0, 1fr); }
+  .sh-recent-list > div { display: grid; }
+}

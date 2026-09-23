@@ -13,6 +13,12 @@ import type {
 
 const base = '/api/v1'
 
+function sessionExpired(path: string, status: number) {
+  if (status === 401 && !path.startsWith('/auth/')) {
+    window.dispatchEvent(new Event('shagra:session-expired'))
+  }
+}
+
 export class ApiError extends Error {
   constructor(
     public status: number,
@@ -39,6 +45,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   if (response.status === 204) return undefined as T
   const payload = await response.json().catch(() => null)
   if (!response.ok) {
+    sessionExpired(path, response.status)
     throw new ApiError(
       response.status,
       payload?.error?.code ?? 'HTTP_ERROR',
@@ -112,13 +119,15 @@ export const api = {
     const payload = await response.json().catch(() => null)
     if (response.status === 422 && payload?.valid === false)
       return payload as ImportValidation
-    if (!response.ok)
+    if (!response.ok) {
+      sessionExpired('/imports/validate', response.status)
       throw new ApiError(
         response.status,
         payload?.error?.code ?? 'HTTP_ERROR',
         payload?.error?.message ?? 'Проверка не удалась.',
         payload?.error?.details ?? [],
       )
+    }
     return payload as ImportValidation
   },
   commit: (importId: string, version: number) =>

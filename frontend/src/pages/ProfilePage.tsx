@@ -22,9 +22,11 @@ import {
   Panel,
   Progress,
   Skeleton,
+  Stat,
 } from '../shared/ui'
 import { DataTable, type Column } from '../shared/ui/DataTable'
 import { Skills } from '../entities/skill/Skills'
+import { SkillMap } from '../entities/skill/SkillMap'
 import { RecommendationCard } from '../features/recommendations/RecommendationCard'
 import { PreviewDialog } from '../features/preview/PreviewDialog'
 import { CompletionDialog } from '../features/completion/CompletionDialog'
@@ -62,12 +64,14 @@ export function ProfilePage({ auth }: { auth: Auth }) {
     body: EventAction
   } | null>(null)
   const pending = useRef(false)
+  const staleRecommendations = useRef(0)
   useEffect(() => {
     setExcluded([])
     setPreviewItem(null)
     setConfirmItem(null)
     setBanner(null)
     operation.current = null
+    staleRecommendations.current = 0
   }, [employeeId])
   useEffect(() => {
     if (!employeeId) return
@@ -92,6 +96,11 @@ export function ProfilePage({ auth }: { auth: Auth }) {
     setBanner('stale')
     setRefresh((value) => value + 1)
   }, [])
+  const retryStaleRecommendation = useCallback(() => {
+    staleRecommendations.current += 1
+    if (staleRecommendations.current === 1) stale()
+    else setRecError(new ApiError(409, 'STALE_CONTEXT', 'Профиль изменился. Обновите данные и запросите рекомендации снова.'))
+  }, [stale])
   useEffect(() => {
     if (!profile || !employeeId) return
     const controller = new AbortController()
@@ -100,18 +109,27 @@ export function ProfilePage({ auth }: { auth: Auth }) {
     api
       .recommendations(employeeId, profile, excluded, controller.signal)
       .then((value) => {
-        if (!controller.signal.aborted) setRecommendations(value)
+        if (controller.signal.aborted) return
+        if (value.employee_id !== employeeId ||
+          value.employee_version !== profile.employee_version ||
+          value.dataset_version !== profile.dataset_version ||
+          value.items.some(item => item.preview.employee_version !== profile.employee_version || item.preview.dataset_version !== profile.dataset_version)) {
+          retryStaleRecommendation()
+          return
+        }
+        staleRecommendations.current = 0
+        setRecommendations(value)
       })
       .catch((cause) => {
         if (isAbort(cause)) return
         if (cause instanceof ApiError && cause.code === 'STALE_CONTEXT') {
-          stale()
+          retryStaleRecommendation()
           return
         }
         setRecError(cause)
       })
     return () => controller.abort()
-  }, [employeeId, profile, excluded, recAttempt, stale])
+  }, [employeeId, profile, excluded, recAttempt, retryStaleRecommendation])
   function beginComplete(item: RecommendationItem) {
     if (!employeeId || !profile) return
     const body = {
@@ -247,60 +265,28 @@ export function ProfilePage({ auth }: { auth: Auth }) {
         <>
           <div className="sh-profile-overview">
             <Panel className="sh-readiness">
-              <div className="sh-readiness-head">
-                <div>
+              <div className="sh-readiness-grid">
+                <div className="sh-readiness-coverage">
                   <h2>{t('coverage')}</h2>
                   <p className="sh-muted">
                     {profile.target_grade
                       ? t('coverageHint', { grade: profile.target_grade })
                       : t('noTarget')}
                   </p>
+                  <strong className="sh-number sh-coverage-number">{percent(profile.coverage)}</strong>
                 </div>
-                <strong className="sh-number sh-coverage-number">
-                  {percent(profile.coverage)}
-                </strong>
+                <Stat label={t('deficits')} value={profile.skill_rows.filter(row => row.gap !== null && row.gap > 0).length} />
+                <Stat label={t('completedCount')} value={profile.history.filter(row => row.status === 'completed').length} />
               </div>
               <Progress value={profile.coverage} label={t('coverage')} />
               <Disclosure title={t('details')}>
                 <p className="sh-muted">{t('coverageDisclaimer')}</p>
-                <div className="sh-summary-pair">
-                  <div>
-                    <strong className="sh-number">
-                      {
-                        profile.skill_rows.filter((row) => (row.gap || 0) > 0)
-                          .length
-                      }
-                    </strong>
-                    <span>{t('deficits')}</span>
-                  </div>
-                  <div>
-                    <strong className="sh-number">
-                      {
-                        profile.history.filter(
-                          (row) => row.status === 'completed',
-                        ).length
-                      }
-                    </strong>
-                    <span>{t('completedCount')}</span>
-                  </div>
-                </div>
               </Disclosure>
               {profile.state !== 'active' && (
                 <p className="sh-notice">{t(reasonKey(profile.state))}</p>
               )}
-              <div className="sh-explore-links">
-                <Link to={sectionLink('skills')}>
-                  <Icon name="skills" />
-                  {t('skills')}
-                  <Icon name="chevron" />
-                </Link>
-                <Link to={sectionLink('history')}>
-                  <Icon name="history" />
-                  {t('history')}
-                  <Icon name="chevron" />
-                </Link>
-              </div>
             </Panel>
+            <SkillMap rows={profile.skill_rows} skillsLink={sectionLink('skills')} />
             <div className="sh-next-step">
               <div className="sh-section-heading">
                 <h2>{t('nextStep')}</h2>
@@ -319,7 +305,12 @@ export function ProfilePage({ auth }: { auth: Auth }) {
               {Boolean(recError) && (
                 <ErrorState
                   error={recError}
-                  onRetry={() => setRecAttempt((value) => value + 1)}
+                  onRetry={() => {
+                    if (recError instanceof ApiError && recError.code === 'STALE_CONTEXT') {
+                      staleRecommendations.current = 0
+                      setRefresh(value => value + 1)
+                    } else setRecAttempt(value => value + 1)
+                  }}
                 />
               )}
               {recommendations &&
@@ -333,7 +324,7 @@ export function ProfilePage({ auth }: { auth: Auth }) {
                       >
                         <div className="sh-alternative-list">
                           {recommendations.items
-                            .slice(1)
+                            .slice(1, 3)
                             .map((item) => showItem(item, true))}
                         </div>
                       </Disclosure>
@@ -363,6 +354,10 @@ export function ProfilePage({ auth }: { auth: Auth }) {
                 ))}
             </div>
           </div>
+          <Panel className="sh-recent-history">
+            <div className="sh-skill-map-head"><h2>{t('history')}</h2><Link className="sh-text-button" to={sectionLink('history')}>{t('allHistory')} <Icon name="chevron" /></Link></div>
+            {profile.history.length ? <div className="sh-recent-list">{[...profile.history].sort((a, b) => b.occurred_at.localeCompare(a.occurred_at)).slice(0, 3).map(row => <div key={row.history_id}><span>{label(row.title)}</span><small>{date(row.occurred_at)} · {t(row.status)}</small></div>)}</div> : <p className="sh-muted">{t('noHistory')}</p>}
+          </Panel>
         </>
       )}
       {profile && section === 'skills' && (

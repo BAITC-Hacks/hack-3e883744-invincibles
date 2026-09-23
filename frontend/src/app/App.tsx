@@ -17,6 +17,14 @@ export default function App() {
     [attempt, setAttempt] = useState(0)
   const navigate = useNavigate()
   useEffect(() => {
+    const expired = () => {
+      setAuth(null)
+      navigate('/login', { replace: true })
+    }
+    window.addEventListener('shagra:session-expired', expired)
+    return () => window.removeEventListener('shagra:session-expired', expired)
+  }, [navigate])
+  useEffect(() => {
     const controller = new AbortController()
     setError(null)
     api
