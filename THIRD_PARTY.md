@@ -19,3 +19,15 @@ Backend использует версии из `backend/requirements.lock`: Fast
 Проектирование опиралось на [Gagné и Deci (2005)](https://selfdeterminationtheory.org/SDT/documents/2005_GagneDeci_JOB_SDTtheory.pdf), [Large Language Models are Zero-Shot Rankers (2023)](https://arxiv.org/abs/2305.08845), [Microsoft Counterfactual Analysis](https://learn.microsoft.com/en-us/azure/machine-learning/concept-counterfactual-analysis), [NIST AI 600-1](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf), [SQLite Appropriate Uses](https://www.sqlite.org/whentouse.html) и документацию [FastAPI](https://fastapi.tiangolo.com/tutorial/bigger-applications/). Эти источники объясняют решения, но не доказывают эффективность продукта. Синтетический набор создан проектом и не является данными Halyk Bank.
 
 В разработке интерфейса использован OpenAI Codex как помощник по коду и тексту. Визуальный ориентир `docs/implementation/a3-template.jpg` предоставлен пользователем; интерфейс использует компоновку мобильных карточек и цвета из проектного ТЗ, не копирует содержимое изображения.
+
+Для отдельного прототипа редизайна в `docs/validation/ui/redesign` добавлены локальные ресурсы:
+
+| Ресурс | Пакет и версия | Лицензия | Использование |
+|---|---|---|---|
+| IBM Plex Sans | @fontsource/ibm-plex-sans 5.3.0 | SIL OFL 1.1 | Кириллица и основной текст, 400/500/600 |
+| IBM Plex Mono | @fontsource/ibm-plex-mono 5.3.0 | SIL OFL 1.1 | Числа и короткие метаданные, 400/500 |
+| Lucide SVG | lucide-static 1.47.0 | ISC; производные Feather — MIT | Контурные иконки |
+
+Тексты лицензий поставляются рядом с ресурсами: [IBM Plex Sans](docs/validation/ui/redesign/assets/LICENSE-ibm-plex-sans.txt), [IBM Plex Mono](docs/validation/ui/redesign/assets/LICENSE-ibm-plex-mono.txt), [Lucide и Feather](docs/validation/ui/redesign/assets/LICENSE-lucide.txt). Шрифты загружаются с того же origin, внешнего CDN нет. Версии подтверждены содержимым npm-пакетов и записаны в [assets-manifest.json](docs/validation/ui/redesign/assets-manifest.json).
+
+[Новые требования](docs/implementation/a3-redesign-requirements.md) заменяют прежнюю светлую палитру тёмной. Четыре макета подготовлены для принятия по §2.2; это пока отдельные материалы проверки, а не внедрённый редизайн production frontend.
