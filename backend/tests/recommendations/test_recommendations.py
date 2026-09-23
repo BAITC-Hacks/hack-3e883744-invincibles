@@ -181,6 +181,8 @@ class RecommendationTests(IsolatedAsyncioTestCase):
         self.assertEqual(len(context["candidates"]), 8)
         self.assertEqual(context["required_choice_count"], 3)
         self.assertTrue(context["must_include_one_of"])
+        self.assertEqual(service._schema([f"C{index}" for index in range(1, 9)])["properties"]["choices"]["minItems"], 3)
+        self.assertEqual(service._schema([f"C{index}" for index in range(1, 9)])["properties"]["choices"]["maxItems"], 3)
 
     async def test_q8_timeout_and_q16_injection(self):
         ctx, request = self.case("Q2")

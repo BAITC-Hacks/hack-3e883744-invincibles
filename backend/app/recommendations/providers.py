@@ -12,9 +12,10 @@ import httpx
 
 
 class ProviderError(Exception):
-    def __init__(self, reason: str):
+    def __init__(self, reason: str, detail: str | None = None):
         super().__init__(reason)
         self.reason = reason
+        self.detail = detail
 
 
 class RankingProvider(Protocol):
@@ -130,21 +131,21 @@ class OpenAIProvider:
             if response.status_code >= 400:
                 raise ProviderError("unavailable")
             if body.get("status") != "completed":
-                raise ProviderError("invalid_output")
+                raise ProviderError("invalid_output", "response_status")
             output = body.get("output")
             if not isinstance(output, list):
-                raise ProviderError("invalid_output")
+                raise ProviderError("invalid_output", "output_shape")
             contents = [content for item in output if isinstance(item, dict) and item.get("type") == "message"
                         for content in item.get("content", []) if isinstance(content, dict)]
             if any(content.get("type") == "refusal" for content in contents):
-                raise ProviderError("invalid_output")
+                raise ProviderError("invalid_output", "refusal")
             texts = [content.get("text") for content in contents if content.get("type") == "output_text"]
             if not texts or any(not isinstance(part, str) for part in texts):
-                raise ProviderError("invalid_output")
+                raise ProviderError("invalid_output", "output_text")
             try:
                 return json.loads("".join(texts))
             except ValueError as exc:
-                raise ProviderError("invalid_output") from exc
+                raise ProviderError("invalid_output", "invalid_json") from exc
         except httpx.TimeoutException as exc:
             raise ProviderError("timeout") from exc
         except httpx.HTTPError as exc:
