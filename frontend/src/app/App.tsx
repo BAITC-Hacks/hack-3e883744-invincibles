@@ -3,7 +3,7 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { api, ApiError, isAbort } from '../shared/api/client'
 import type { Auth } from '../shared/api/types'
 import { usePreferences } from '../shared/lib/preferences'
-import { ErrorState } from '../shared/ui'
+import { BrandMark, ErrorState } from '../shared/ui'
 import { AppShell } from './AppShell'
 import { LoginPage } from '../pages/LoginPage'
 import { ProfilePage } from '../pages/ProfilePage'
@@ -45,7 +45,7 @@ export default function App() {
   if (auth === undefined)
     return (
       <main className="sh-boot">
-        <span className="sh-brand-mark">ш</span>
+        <BrandMark label="Шагра" />
         {error ? (
           <ErrorState
             error={error}

@@ -261,13 +261,17 @@ fieldset {
   min-height: 48px;
 }
 .sh-brand-mark {
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--border-control);
-  border-radius: 8px;
-  font: 400 24px var(--font-number);
+  width: 40px;
+  height: 40px;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+  /* Remove the raster backdrop against each theme's app and panel surfaces. */
+  filter: grayscale(1) contrast(10);
+  mix-blend-mode: screen;
+}
+:root[data-theme='light'] .sh-brand-mark {
+  mix-blend-mode: multiply;
 }
 .sh-sidebar {
   position: fixed;

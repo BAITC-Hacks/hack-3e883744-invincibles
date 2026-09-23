@@ -3,7 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '../shared/api/client'
 import type { Auth } from '../shared/api/types'
 import { usePreferences } from '../shared/lib/preferences'
-import { Disclosure, ErrorState, Icon, PreferencesControls } from '../shared/ui'
+import {
+  BrandMark,
+  Disclosure,
+  ErrorState,
+  Icon,
+  PreferencesControls,
+} from '../shared/ui'
 export function LoginPage({ onLogin }: { onLogin: (auth: Auth) => void }) {
   const { t } = usePreferences()
   const navigate = useNavigate()
@@ -31,7 +37,7 @@ export function LoginPage({ onLogin }: { onLogin: (auth: Auth) => void }) {
     <div className="sh-login-page">
       <header className="sh-login-top">
         <span className="sh-brand">
-          <span className="sh-brand-mark">ш</span>Шагра
+          <BrandMark />Шагра
         </span>
         <PreferencesControls />
       </header>
