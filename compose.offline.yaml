@@ -1,0 +1,7 @@
+# Explicit offline demonstration. Never send requests to a paid model.
+services:
+  app:
+    environment:
+      AI_PROVIDER: openai
+      OPENAI_API_KEY: ""
+      AI_MAX_PAID_CALLS: "0"

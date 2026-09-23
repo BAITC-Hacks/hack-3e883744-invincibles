@@ -24,6 +24,7 @@ INSTRUCTIONS = (
     "по схеме, без новых идентификаторов. Не меняй навыки и не обещай повышение."
 )
 REASON_CODES = ("TARGET_GAP", "HISTORY_SUPPORT", "HISTORY_CAUTION", "HISTORY_UNKNOWN", "EXPLICIT_PREFERENCE")
+EVENT_TYPE_LABELS = {"course": "курсы", "workshop": "практикумы", "mentoring": "наставничество"}
 LOGGER = logging.getLogger(__name__)
 
 
@@ -151,21 +152,24 @@ def _evidence(ctx: object, candidate: object, target: str, codes: list[str]) -> 
     skill_name = _localized(matching_skill.name)
     required = requirements[change.skill_id]
     history = candidate.history_summary
-    history_text = (f"Для {event.type}: завершено {history.completed}, пропущено {history.skipped}, "
+    event_type = getattr(event.type, "value", event.type)
+    type_label = EVENT_TYPE_LABELS[event_type]
+    current_grade = getattr(ctx.employee.grade, "value", ctx.employee.grade)
+    history_text = (f"Формат «{type_label}»: завершено {history.completed}, пропущено {history.skipped}, "
                     f"отказов {history.declined}" if history.completed or history.skipped or history.declined
-                    else f"Истории участия в типе {event.type} нет")
+                    else f"Истории участия в формате «{type_label}» нет")
     evidence = [
-        Evidence(kind="GRADE_TARGET", text=f"Сейчас {ctx.employee.grade}; следующий грейд {target}",
+        Evidence(kind="GRADE_TARGET", text=f"Сейчас {current_grade}; следующий грейд {target}",
                  refs=["employee.grade", f"role.requirements.{target}"]),
         Evidence(kind="SKILL_GAP", text=(f"{skill_name}: {change.before} из {required}; после активности "
                                           f"{change.after}; останется {max(0, required-change.after)}"),
                  refs=[f"employee.skills.{change.skill_id}",
                        f"role.requirements.{target}.{change.skill_id}",
                        f"event.{event.event_id}.gains.{change.skill_id}"]),
-        Evidence(kind="HISTORY", text=history_text, refs=[f"history.type.{event.type}"]),
+        Evidence(kind="HISTORY", text=history_text, refs=[f"history.type.{event_type}"]),
     ]
     if "EXPLICIT_PREFERENCE" in codes:
-        evidence.append(Evidence(kind="PREFERENCE", text=f"Вы предпочли тип {event.type}",
+        evidence.append(Evidence(kind="PREFERENCE", text=f"Вы предпочли формат «{type_label}»",
                                  refs=["request.preferred_type"]))
     return evidence
 

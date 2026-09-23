@@ -26,7 +26,7 @@ def parse_employees(data: bytes) -> list[Employee]:
 def parse_history(data: bytes) -> list[HistoryEntry]:
     stream=io.StringIO(data.decode('utf-8-sig'),newline='')
     reader=csv.DictReader(stream,strict=True)
-    if reader.fieldnames != HEADER:
+    if reader.fieldnames is None or len(reader.fieldnames) != len(HEADER) or set(reader.fieldnames) != set(HEADER):
         raise KitParseError('header', 'INVALID_DATA', 'Неверный заголовок CSV.')
     rows=[]
     for index,row in enumerate(reader,start=2):
