@@ -1,0 +1,11 @@
+{
+  "timestamp_utc": "2026-09-23T09:31:28.706521+00:00",
+  "git_sha": "142f2ab38ff9ff32f01d422f30b4928ac7d83bbe",
+  "status": "blocked",
+  "reason": "OPENAI_API_KEY is absent on server; live AI unverified",
+  "provider": "openai",
+  "model": "gpt-4.1-mini-2025-04-14",
+  "prompt_version": "1",
+  "runs": [],
+  "acceptance_met": false
+}

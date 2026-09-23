@@ -1,0 +1,12 @@
+{
+  "timestamp_utc": "2026-09-23T09:31:39.041258+00:00",
+  "base_url": "http://localhost:8080",
+  "requested_samples": 30,
+  "environment": "Windows-11-10.0.26200-SP0",
+  "git_sha": "142f2ab38ff9ff32f01d422f30b4928ac7d83bbe",
+  "status": "blocked",
+  "reason": "HTTPStatusError",
+  "http_status": 404,
+  "failed_path": "/health",
+  "acceptance_met": false
+}
