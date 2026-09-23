@@ -1,0 +1,219 @@
+{
+  "status": "review, not accepted",
+  "screens": [
+    {
+      "view": "profile",
+      "width": 390,
+      "height": 844,
+      "filename": "profile-390x844.png"
+    },
+    {
+      "view": "profile",
+      "width": 1440,
+      "height": 900,
+      "filename": "profile-1440x900.png"
+    },
+    {
+      "view": "hr",
+      "width": 390,
+      "height": 844,
+      "filename": "hr-390x844.png"
+    },
+    {
+      "view": "hr",
+      "width": 1440,
+      "height": 900,
+      "filename": "hr-1440x900.png"
+    }
+  ],
+  "checks": [
+    {
+      "name": "Primary CTA at 390×844",
+      "top": 522,
+      "bottom": 566,
+      "navTop": 783
+    },
+    {
+      "name": "chromium: no horizontal overflow",
+      "widths": [
+        320,
+        390,
+        768,
+        1280,
+        1440
+      ],
+      "views": [
+        "profile",
+        "hr"
+      ]
+    },
+    {
+      "name": "firefox: no horizontal overflow",
+      "widths": [
+        320,
+        390,
+        768,
+        1280,
+        1440
+      ],
+      "views": [
+        "profile",
+        "hr"
+      ]
+    },
+    {
+      "name": "webkit: no horizontal overflow",
+      "widths": [
+        320,
+        390,
+        768,
+        1280,
+        1440
+      ],
+      "views": [
+        "profile",
+        "hr"
+      ]
+    },
+    {
+      "name": "Keyboard: skill selection, dialog focus trap, Escape, restored focus",
+      "passed": true
+    },
+    {
+      "name": "HR tabs and search restored from URL",
+      "passed": true
+    },
+    {
+      "name": "No page errors or failed assets",
+      "passed": true
+    }
+  ],
+  "contrast": [
+    {
+      "foreground": "text-primary",
+      "background": "bg-app",
+      "ratio": 15.27,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "text-primary",
+      "background": "bg-panel",
+      "ratio": 14.64,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "text-primary",
+      "background": "bg-raised",
+      "ratio": 13.52,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "text-secondary",
+      "background": "bg-app",
+      "ratio": 8.2,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "text-secondary",
+      "background": "bg-panel",
+      "ratio": 7.86,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "text-secondary",
+      "background": "bg-raised",
+      "ratio": 7.26,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "text-muted",
+      "background": "bg-app",
+      "ratio": 5.66,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "text-muted",
+      "background": "bg-panel",
+      "ratio": 5.43,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "text-muted",
+      "background": "bg-raised",
+      "ratio": 5.01,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "positive",
+      "background": "bg-app",
+      "ratio": 7.73,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "positive",
+      "background": "bg-panel",
+      "ratio": 7.41,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "positive",
+      "background": "bg-raised",
+      "ratio": 6.85,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "negative",
+      "background": "bg-app",
+      "ratio": 6.78,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "negative",
+      "background": "bg-panel",
+      "ratio": 6.5,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "negative",
+      "background": "bg-raised",
+      "ratio": 6,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "warning",
+      "background": "bg-app",
+      "ratio": 9.74,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "warning",
+      "background": "bg-panel",
+      "ratio": 9.33,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "warning",
+      "background": "bg-raised",
+      "ratio": 8.62,
+      "minimum": 4.5
+    },
+    {
+      "foreground": "border-control",
+      "background": "bg-panel",
+      "ratio": 3.49,
+      "minimum": 3
+    },
+    {
+      "foreground": "border-control",
+      "background": "bg-raised",
+      "ratio": 3.23,
+      "minimum": 3
+    },
+    {
+      "foreground": "text-on-accent",
+      "background": "accent",
+      "ratio": 13.18,
+      "minimum": 4.5
+    }
+  ]
+}
