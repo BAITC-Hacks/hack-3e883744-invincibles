@@ -11,6 +11,8 @@ import {
 import { usePreferences, type Language } from '../lib/preferences'
 import type { MessageKey } from '../lib/messages'
 
+export { BrandMark } from './BrandMark'
+
 const paths = {
   home: (
     <>

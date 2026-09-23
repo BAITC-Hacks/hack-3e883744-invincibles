@@ -9,7 +9,13 @@ import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation, useNavigationType } from 'react-router-dom'
 import type { Auth } from '../shared/api/types'
 import { usePreferences } from '../shared/lib/preferences'
-import { Dialog, ErrorState, Icon, PreferencesControls } from '../shared/ui'
+import {
+  BrandMark,
+  Dialog,
+  ErrorState,
+  Icon,
+  PreferencesControls,
+} from '../shared/ui'
 
 export function AppShell({
   auth,
@@ -82,7 +88,7 @@ export function AppShell({
         </a>
         <aside className="sh-sidebar">
           <Link className="sh-brand" to={auth.role === 'hr' ? '/hr' : '/me'}>
-            <span className="sh-brand-mark">ш</span>
+            <BrandMark />
             <span>Шагра</span>
           </Link>
           <nav aria-label={t('nav')}>{items}</nav>
@@ -106,7 +112,7 @@ export function AppShell({
               className="sh-mobile-brand sh-brand"
               to={auth.role === 'hr' ? '/hr' : '/me'}
             >
-              <span className="sh-brand-mark">ш</span>
+              <BrandMark />
               <span>Шагра</span>
             </Link>
             <span className="sh-topbar-title">
