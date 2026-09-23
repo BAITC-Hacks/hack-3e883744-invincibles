@@ -4,6 +4,7 @@
 
 - `npm --prefix frontend run build` — успешно; TypeScript и Vite, собран `frontend/dist`.
 - `npm --prefix frontend run test:e2e` — 24/24 успешно: Chromium, Firefox, WebKit; основной UI-сценарий с route mocks, HR/импорт, размеры 390/768/1280 px. Проверены отсутствие горизонтального переполнения у профиля, HR и импорта, закрытие примерки Escape, отсутствие ошибок JavaScript и консоли после входа в проверяемых сценариях.
+- После усиления мобильных проверок `npx playwright test tests/ui.spec.ts --grep 390px` — 6/6 успешно в тех же трёх браузерах: на ширине 390 px открыты примерка и подтверждение, в импорте выбраны оба файла, выполнены validate и commit, открыт путь к новому профилю.
 - `npm run test:e2e:live` из `frontend/` — 1/1 успешно в Chromium против обновлённого backend на `http://localhost:8080` с отдельной БД `runtime/a3-check-fresh.sqlite3`: вход сотрудника, рекомендации, примерка без изменения версии и истории, выполнение с приростом версии и записью истории, вход HR, validate/commit двух файлов, открытие нового профиля.
 - Отдельный запрос к живому endpoint после теста: `status=ready`, `source=deterministic_fallback`, `fallback_reason=unavailable`, `items=3`. `/health`: `model_status=unavailable`, `provider=openai`, `model=gpt-4.1-mini-2025-04-14`. Причина — отсутствие API-ключа в этой проверке.
 - Скриншоты: `profile-390.png`, `profile-1280.png`, `hr-390.png`, `import-390.png`. Они подтверждают внешний вид, а не заменяют проверки поведения.

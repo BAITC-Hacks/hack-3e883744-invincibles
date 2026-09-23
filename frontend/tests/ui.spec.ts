@@ -112,6 +112,13 @@ for (const width of [390, 768, 1280]) {
       mkdirSync(dir, { recursive: true })
       await page.screenshot({ path: resolve(dir, `profile-${width}.png`), fullPage: true })
     }
+    if (width === 390) {
+      await page.getByRole('button', { name: 'Примерить' }).click()
+      await expect(page.getByRole('dialog', { name: 'Примерка шага' })).toBeVisible()
+      expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1)
+      await page.getByRole('button', { name: 'Подтвердить выполнение' }).click()
+      await expect(page.getByRole('dialog', { name: 'Отметить выполнение?' })).toBeVisible()
+    }
   })
 }
 
@@ -135,6 +142,14 @@ for (const width of [390, 768, 1280]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1)
     if (browserName === 'chromium' && width === 390) {
       await page.screenshot({ path: resolve(process.cwd(), '../docs/validation/ui/import-390.png'), fullPage: true })
+    }
+    if (width === 390) {
+      await page.getByLabel('Профили сотрудников').setInputFiles({ name: 'employees.json', mimeType: 'application/json', buffer: Buffer.from('[{"employee_id":"E9999"}]') })
+      await page.getByLabel('История активностей').setInputFiles({ name: 'activity_history.csv', mimeType: 'text/csv', buffer: Buffer.from('history_id,employee_id,event_id,status,occurred_at\n') })
+      await page.getByRole('button', { name: 'Проверить файлы' }).click()
+      await expect(page.getByText('Файлы прошли проверку.')).toBeVisible()
+      await page.getByRole('button', { name: 'Подтвердить и применить' }).click()
+      await expect(page.getByRole('link', { name: 'Открыть профиль E9999' })).toBeVisible()
     }
     expect(errors).toEqual([])
   })
