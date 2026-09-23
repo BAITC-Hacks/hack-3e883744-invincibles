@@ -25,7 +25,8 @@ def git_sha() -> str | None:
 
 
 async def evaluate() -> dict:
-    from app import contracts
+    from app.contracts.domain import EmployeeContext
+    from app.contracts.recommendation import RecommendationRequest
     from app.recommendations import RecommendationService
     from app.recommendations.providers import provider_from_env
 
@@ -34,8 +35,8 @@ async def evaluate() -> dict:
     ranking = RecommendationService(provider=provider)
     runs = []
     for case in cases:
-        ctx = contracts.EmployeeContext.model_validate(case["context"])
-        request = contracts.RecommendationRequest.model_validate(case["request"])
+        ctx = EmployeeContext.model_validate(case["context"])
+        request = RecommendationRequest.model_validate(case["request"])
         started = time.perf_counter()
         result = await ranking.recommend(ctx, request)
         elapsed = time.perf_counter() - started

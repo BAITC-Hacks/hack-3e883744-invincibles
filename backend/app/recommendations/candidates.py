@@ -6,14 +6,19 @@ from collections.abc import Iterable
 
 
 def _core():
-    # Imported at call time so A1 can publish the shared core independently.
-    from app import core
+    # A1 keeps the five shared functions in these modules.
+    from types import SimpleNamespace
+    from app.core.progress import next_grade, preview_event
+    from app.core.eligibility import check_eligibility
+    from app.core.history import summarize_type_history
 
-    return core
+    return SimpleNamespace(next_grade=next_grade, preview_event=preview_event,
+                           check_eligibility=check_eligibility,
+                           summarize_type_history=summarize_type_history)
 
 
 def _contracts():
-    from app import contracts
+    from app.contracts import recommendation as contracts
 
     return contracts
 

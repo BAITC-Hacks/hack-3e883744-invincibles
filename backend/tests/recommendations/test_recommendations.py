@@ -217,6 +217,25 @@ class RecommendationTests(IsolatedAsyncioTestCase):
             await client.aclose()
 
 
+class CoreContractIntegrationTests(IsolatedAsyncioTestCase):
+    async def test_q1_q2_q3_with_a1_contracts_and_core(self):
+        from app.contracts.domain import EmployeeContext
+        from app.contracts.recommendation import RecommendationRequest
+
+        for case in json.loads(FIXTURES.read_text(encoding="utf-8")):
+            with self.subTest(case=case["id"]):
+                ctx = EmployeeContext.model_validate(case["context"])
+                request = RecommendationRequest.model_validate(case["request"])
+                built = candidates.build_candidates(ctx, request)
+                self.assertEqual([c.event.event_id for c in built], case["expected"]["eligible"])
+                reply = {"choices": [{"candidate": f"C{index}", "reason_codes": ["TARGET_GAP"]}
+                                     for index in range(1, min(3, len(built)) + 1)]}
+                result = await service.RecommendationService(FakeProvider(reply)).recommend(ctx, request)
+                self.assertEqual(result.status, "ready")
+                self.assertEqual(result.source, "llm")
+                self.assertEqual(result.items[0].event_id, case["expected"]["first_event_id"])
+
+
 class ProviderTests(IsolatedAsyncioTestCase):
     async def test_q19_http_errors_and_usage(self):
         import tempfile
