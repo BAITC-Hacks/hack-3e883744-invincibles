@@ -2,6 +2,7 @@ from app.contracts.domain import Employee, RoleDefinition, Event, EmployeeContex
 from app.core.progress import calculate_coverage, next_grade, preview_event
 from app.core.eligibility import check_eligibility
 from app.core.errors import DomainError
+from app.core.history import summarize_type_history
 from app.application.employees import profile
 import pytest
 
@@ -53,3 +54,26 @@ def test_target_met_state_and_unknown_event_skill():
     with pytest.raises(DomainError) as error:
         preview_event(ctx,altered)
     assert error.value.code=='INCOMPLETE_SKILLS'
+
+
+def test_type_history_counts_only_matching_event_type():
+    from app.contracts.domain import HistoryEntry
+    ctx,event=context()
+    history=[HistoryEntry(history_id='H1',employee_id='E0001',event_id='EV_BACKEND_01',status='skipped',occurred_at='2025-10-01T08:00:00Z'),HistoryEntry(history_id='H2',employee_id='E0001',event_id='EV_BACKEND_01',status='declined',occurred_at='2025-11-01T08:00:00Z')]
+    ctx=ctx.model_copy(update={'history':history})
+    summary=summarize_type_history(ctx,'course')
+    assert (summary.completed,summary.skipped,summary.declined)==(0,1,1)
+    assert summarize_type_history(ctx,'mentoring').skipped==0
+
+
+def test_completed_and_audience_rules_block_event():
+    from app.contracts.domain import HistoryEntry
+    ctx,event=context()
+    wrong_audience=event.model_copy(update={'audience':event.audience.model_copy(update={'grades':['Junior']})})
+    assert check_eligibility(ctx,wrong_audience).reason=='AUDIENCE_MISMATCH'
+    completed=HistoryEntry(history_id='H3',employee_id='E0001',event_id=event.event_id,status='completed',occurred_at='2025-10-01T08:00:00Z')
+    ctx=ctx.model_copy(update={'history':[completed]})
+    assert check_eligibility(ctx,event).reason=='ALREADY_COMPLETED'
+    with pytest.raises(DomainError) as error:
+        preview_event(ctx,event)
+    assert error.value.code=='INELIGIBLE_EVENT'
