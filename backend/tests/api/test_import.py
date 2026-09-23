@@ -89,3 +89,11 @@ def test_reimport_entire_seed_kit_is_noop(tmp_path):
     assert pending.summary.unchanged_history==1736
     result=service.commit('hr',pending.import_id,pending.base_dataset_version)
     assert result.applied is False and result.dataset_version==1
+
+
+def test_unknown_file_shape_reports_unsupported_schema(tmp_path):
+    repo,service=setup(tmp_path)
+    result=service.validate('hr',b'{"employees": []}',b'history_id,employee_id,event_id,status,occurred_at\n')
+    assert not result.valid
+    assert any(error.code=='UNSUPPORTED_KIT_SCHEMA' for error in result.errors)
+    assert repo.dataset_version()==1

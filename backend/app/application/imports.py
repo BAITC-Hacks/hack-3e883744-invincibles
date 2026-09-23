@@ -17,7 +17,7 @@ def detail(file,path,code,message): return ErrorDetail(file=file,path=path,code=
 def schema_error(file,exc):
     first=exc.errors()[0]
     path='.'.join(map(str,first['loc'])) or 'root'
-    code='UNSUPPORTED_KIT_SCHEMA' if first['type'] in ('extra_forbidden','missing') else 'INVALID_DATA'
+    code='UNSUPPORTED_KIT_SCHEMA' if first['type'] in ('extra_forbidden','missing','list_type') else 'INVALID_DATA'
     return detail(file,path,code,'Неверное значение или структура файла.')
 
 class ImportService:

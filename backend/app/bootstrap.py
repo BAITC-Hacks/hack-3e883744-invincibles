@@ -32,6 +32,8 @@ def create_app(database_path=None,kit_dir=None,secret_path=None,app_origin=None,
     app.state.app_origin=app_origin or os.getenv('APP_ORIGIN','http://localhost:8080')
     app.state.cookie_secure=(os.getenv('COOKIE_SECURE','false').lower()=='true' or app.state.app_origin.startswith('https://'))
     app.state.provider=os.getenv('AI_PROVIDER','openai')
+    if app.state.provider not in ('openai','ollama'):
+        raise ValueError('AI_PROVIDER must be openai or ollama')
     app.state.model=os.getenv('OPENAI_MODEL','gpt-4.1-mini-2025-04-14') if app.state.provider=='openai' else os.getenv('OLLAMA_MODEL','qwen2.5:1.5b')
     app.state.model_status='unavailable'
     app.state.recommendation_service=recommendation_service
