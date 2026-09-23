@@ -1,22 +1,43 @@
 <div align="center">
 
-# SHAGRA · ШАГРА
+<img src="frontend/public/brand/logo-light.png" alt="SHAGRA logo" width="92">
+
+# SHAGRA
 
 ### See the impact of your next career step
 
 [Русский](README.md) · [Қазақша](README.kk.md) · **English**
 
-React · TypeScript · FastAPI · SQLite · OpenAI / Ollama
-
-HackAlem AI · Halyk Bank track · Team Invincibles
+![HackAlem AI](https://img.shields.io/badge/HackAlem_AI-Halyk_Bank-0f766e?style=flat-square)
+![MVP](https://img.shields.io/badge/status-demo_ready-22c55e?style=flat-square)
+![Languages](https://img.shields.io/badge/UI-RU_%C2%B7_KZ_%C2%B7_EN-2563eb?style=flat-square)
+![AI](https://img.shields.io/badge/AI-OpenAI_%C2%B7_Ollama_%C2%B7_Fallback-7c3aed?style=flat-square)
 
 </div>
 
-SHAGRA helps employees choose a useful learning activity, **preview its calculated impact before completing it**, and compare alternatives. HR gets a skills-gap overview and a validated profile import workflow. This is a working hackathon MVP backed by a real API.
+> **SHAGRA turns an employee profile, next-grade requirements, and development history into a verifiable career-step plan.** Each activity's impact can be previewed and compared before completion.
 
-![Employee dashboard](docs/validation/ui/simple/live-profile-1440-dark.png)
+Employees see skill gaps and evidence-backed recommendations; HR gets a team overview and validated profile imports. A real API owns every calculation, while AI ranks options without replacing the underlying facts.
 
-[Quick start](#quick-start) · [Installation](#installation-by-platform) · [Data](#data-and-import) · [Architecture](#architecture) · [Testing](#testing) · [Documentation](docs/README.md)
+<div align="center">
+
+[🚀 Run](#quick-start) · [✨ Features](#features) · [🤖 AI modes](#jury-verification) · [🏗 Architecture](#architecture) · [📚 Documentation](docs/README.md)
+
+</div>
+
+## Product in action
+
+![Employee profile and career goal](docs/validation/ui/simple/live-profile-1440-dark.png)
+
+| Activity comparison | HR analytics |
+|---|---|
+| ![Compare activities](docs/validation/ui/simple/live-preview.png) | ![HR dashboard](docs/validation/ui/simple/live-hr-1440-dark.png) |
+
+## What makes it different
+
+| Context-aware guidance | Verifiable outcome | Three demo modes |
+|---|---|---|
+| Uses grade, concrete gaps, and employee history | Shows recommendation evidence and projected skill changes before confirmation | OpenAI API, local Ollama, or a ready-to-run fallback without a key |
 
 ## Features
 
@@ -29,10 +50,6 @@ SHAGRA helps employees choose a useful learning activity, **preview its calculat
 | Completion confirmation and history | File validation before a separate commit |
 
 **RU / KZ / EN**, light and dark themes, desktop and mobile navigation. Language and theme persist in the browser. Catalog translations depend on the available API fields; missing translations use another available language with a notice. Server evidence stays in its source language.
-
-| HR analytics | Mobile |
-|---|---|
-| ![HR dashboard](docs/validation/ui/simple/live-hr-1440-dark.png) | <img src="docs/validation/ui/simple/live-profile-390-dark.png" alt="Mobile profile" width="260"> |
 
 Screenshots show the working app using synthetic data. The repository contains no real bank employee records.
 
