@@ -33,7 +33,7 @@ async def measure(base_url: str, count: int) -> dict:
     origin = os.getenv("APP_ORIGIN", base_url.rstrip("/"))
     headers = {"Origin": origin}
     async with httpx.AsyncClient(base_url=base_url, timeout=15) as client:
-        health = await client.get("/health")
+        health = await client.get("/api/v1/health")
         health.raise_for_status()
         health_info = health.json()
         login = await client.post("/api/v1/auth/login", json={"username": "hr",
