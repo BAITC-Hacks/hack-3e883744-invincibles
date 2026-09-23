@@ -1,0 +1,264 @@
+{
+  "employee": {
+    "employee_id": "E0006",
+    "role_id": "BACKEND",
+    "grade": "Senior",
+    "tenure_months": 48,
+    "skills": {
+      "SK_PYTHON": 2,
+      "SK_SYSTEM_DESIGN": 2,
+      "SK_BACKEND_02": 2,
+      "SK_BACKEND_03": 2,
+      "SK_BACKEND_04": 2,
+      "SK_BACKEND_05": 2,
+      "SK_BACKEND_06": 2,
+      "SK_BACKEND_07": 2,
+      "SK_BACKEND_08": 2,
+      "SK_BACKEND_09": 2,
+      "SK_PUBLIC_SPEAKING": 1,
+      "SK_SOFT_01": 1,
+      "SK_SOFT_02": 1,
+      "SK_SOFT_03": 1,
+      "SK_SOFT_04": 1,
+      "SK_SOFT_05": 1,
+      "SK_SOFT_06": 1,
+      "SK_SOFT_07": 1,
+      "SK_SOFT_08": 1,
+      "SK_SOFT_09": 1
+    }
+  },
+  "employee_version": 1,
+  "dataset_version": 1,
+  "role_name": {
+    "en": "Backend Engineer",
+    "ru": "Backend-разработчик",
+    "kk": null
+  },
+  "target_grade": null,
+  "coverage": null,
+  "state": "no_next_grade",
+  "skill_rows": [
+    {
+      "skill_id": "SK_BACKEND_02",
+      "name": {
+        "en": "Backend Skill 2",
+        "ru": null,
+        "kk": null
+      },
+      "current": 2,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_BACKEND_03",
+      "name": {
+        "en": "Backend Skill 3",
+        "ru": null,
+        "kk": null
+      },
+      "current": 2,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_BACKEND_04",
+      "name": {
+        "en": "Backend Skill 4",
+        "ru": null,
+        "kk": null
+      },
+      "current": 2,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_BACKEND_05",
+      "name": {
+        "en": "Backend Skill 5",
+        "ru": null,
+        "kk": null
+      },
+      "current": 2,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_BACKEND_06",
+      "name": {
+        "en": "Backend Skill 6",
+        "ru": null,
+        "kk": null
+      },
+      "current": 2,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_BACKEND_07",
+      "name": {
+        "en": "Backend Skill 7",
+        "ru": null,
+        "kk": null
+      },
+      "current": 2,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_BACKEND_08",
+      "name": {
+        "en": "Backend Skill 8",
+        "ru": null,
+        "kk": null
+      },
+      "current": 2,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_BACKEND_09",
+      "name": {
+        "en": "Backend Skill 9",
+        "ru": null,
+        "kk": null
+      },
+      "current": 2,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_PUBLIC_SPEAKING",
+      "name": {
+        "en": "Public Speaking",
+        "ru": null,
+        "kk": null
+      },
+      "current": 1,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_PYTHON",
+      "name": {
+        "en": "Python",
+        "ru": null,
+        "kk": null
+      },
+      "current": 2,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SOFT_01",
+      "name": {
+        "en": "Soft Skill 1",
+        "ru": null,
+        "kk": null
+      },
+      "current": 1,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SOFT_02",
+      "name": {
+        "en": "Soft Skill 2",
+        "ru": null,
+        "kk": null
+      },
+      "current": 1,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SOFT_03",
+      "name": {
+        "en": "Soft Skill 3",
+        "ru": null,
+        "kk": null
+      },
+      "current": 1,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SOFT_04",
+      "name": {
+        "en": "Soft Skill 4",
+        "ru": null,
+        "kk": null
+      },
+      "current": 1,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SOFT_05",
+      "name": {
+        "en": "Soft Skill 5",
+        "ru": null,
+        "kk": null
+      },
+      "current": 1,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SOFT_06",
+      "name": {
+        "en": "Soft Skill 6",
+        "ru": null,
+        "kk": null
+      },
+      "current": 1,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SOFT_07",
+      "name": {
+        "en": "Soft Skill 7",
+        "ru": null,
+        "kk": null
+      },
+      "current": 1,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SOFT_08",
+      "name": {
+        "en": "Soft Skill 8",
+        "ru": null,
+        "kk": null
+      },
+      "current": 1,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SOFT_09",
+      "name": {
+        "en": "Soft Skill 9",
+        "ru": null,
+        "kk": null
+      },
+      "current": 1,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SYSTEM_DESIGN",
+      "name": {
+        "en": "System Design",
+        "ru": null,
+        "kk": null
+      },
+      "current": 2,
+      "target": null,
+      "gap": null
+    }
+  ],
+  "history": [],
+  "available_events": []
+}

@@ -1,0 +1,77 @@
+{
+  "employee_id": "E0001",
+  "employee_version": 1,
+  "dataset_version": 1,
+  "status": "ready",
+  "source": "fallback",
+  "cache_hit": false,
+  "fallback_reason": "provider_unavailable",
+  "no_step_reason": null,
+  "items": [
+    {
+      "event_id": "EV_BACKEND_01",
+      "title": {
+        "en": "Service Boundaries Workshop",
+        "ru": "Разбор границ сервисов",
+        "kk": null
+      },
+      "type": "course",
+      "rank": 1,
+      "preview": {
+        "event_id": "EV_BACKEND_01",
+        "employee_version": 1,
+        "dataset_version": 1,
+        "changes": [
+          {
+            "skill_id": "SK_PYTHON",
+            "before": 2,
+            "after": 3,
+            "delta": 1,
+            "target": 4,
+            "remaining_gap": 1
+          },
+          {
+            "skill_id": "SK_SYSTEM_DESIGN",
+            "before": 2,
+            "after": 3,
+            "delta": 1,
+            "target": 4,
+            "remaining_gap": 1
+          }
+        ],
+        "coverage_before": 42.9,
+        "coverage_after": 45.7,
+        "target_gain": 2
+      },
+      "evidence": [
+        {
+          "kind": "GRADE_TARGET",
+          "text": "Следующий грейд: Senior.",
+          "refs": [
+            "employee.grade",
+            "role.requirements.Senior.SK_PYTHON"
+          ]
+        },
+        {
+          "kind": "SKILL_GAP",
+          "text": "Python: 2 из 4; прирост 1.",
+          "refs": [
+            "role.requirements.Senior.SK_PYTHON",
+            "event.EV_BACKEND_01.gains.SK_PYTHON"
+          ]
+        },
+        {
+          "kind": "HISTORY",
+          "text": "Истории участия пока нет.",
+          "refs": [
+            "history.type.course"
+          ]
+        }
+      ],
+      "reason_codes": [
+        "TARGET_GAIN"
+      ],
+      "comparison_event_id": null
+    }
+  ]
+}

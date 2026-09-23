@@ -1,0 +1,40 @@
+{
+  "dataset_version": 1,
+  "employees_total": 200,
+  "skill_gaps": [
+    {
+      "skill_id": "SK_PYTHON",
+      "name": {
+        "en": "Python",
+        "ru": null,
+        "kk": null
+      },
+      "affected_count": 1,
+      "assessed_count": 1,
+      "affected_share": 1.0,
+      "mean_gap": 2.0
+    }
+  ],
+  "no_step": [
+    {
+      "employee_id": "E0006",
+      "role_id": "BACKEND",
+      "reason": "no_next_grade"
+    }
+  ],
+  "participation": [
+    {
+      "event_id": "EV_BACKEND_01",
+      "title": {
+        "en": "Service Boundaries Workshop",
+        "ru": "Разбор границ сервисов",
+        "kk": null
+      },
+      "completed": 0,
+      "skipped": 0,
+      "declined": 0,
+      "unique_participants": 0,
+      "completion_share": null
+    }
+  ]
+}
