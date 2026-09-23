@@ -77,3 +77,15 @@ def test_expired_pending_import_cannot_apply(tmp_path):
         service.commit('hr',pending.import_id,pending.base_dataset_version)
     assert error.value.code=='IMPORT_EXPIRED'
     assert repo.dataset_version()==1
+
+
+def test_reimport_entire_seed_kit_is_noop(tmp_path):
+    repo,service=setup(tmp_path)
+    pending=service.validate('hr',(KIT/'employees.json').read_bytes(),(KIT/'activity_history.csv').read_bytes())
+    assert pending.valid
+    assert pending.summary.new_employees==0
+    assert pending.summary.replaced_employees==0
+    assert pending.summary.new_history==0
+    assert pending.summary.unchanged_history==1736
+    result=service.commit('hr',pending.import_id,pending.base_dataset_version)
+    assert result.applied is False and result.dataset_version==1
