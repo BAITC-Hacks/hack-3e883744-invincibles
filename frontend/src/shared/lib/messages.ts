@@ -14,7 +14,6 @@ export const messages = {
   light: ['Светлая тема', 'Ашық тақырып', 'Light theme'],
   dark: ['Тёмная тема', 'Қараңғы тақырып', 'Dark theme'],
   settings: ['Настройки отображения', 'Көрсету баптаулары', 'Display settings'],
-  preferenceSaved: ['Сохранено: {value}', 'Сақталды: {value}', 'Saved: {value}'],
   nav: ['Основные разделы', 'Негізгі бөлімдер', 'Main sections'],
   close: ['Закрыть', 'Жабу', 'Close'],
   cancel: ['Отмена', 'Бас тарту', 'Cancel'],
