@@ -3,6 +3,7 @@ import {
   useId,
   useLayoutEffect,
   useRef,
+  useState,
   type ReactNode,
   type ButtonHTMLAttributes,
   type HTMLAttributes,
@@ -191,13 +192,48 @@ export function Stat({
   value,
   hint,
 }: StatProps) {
+  const { number } = usePreferences()
   return (
     <div className="sh-stat">
       <span className="sh-muted">{label}</span>
-      <strong className="sh-number">{value}</strong>
+      <strong className="sh-number">
+        {typeof value === 'number' ? (
+          <AnimatedNumber value={value} format={(current) => number(current ?? 0)} />
+        ) : value}
+      </strong>
       {hint && <small className="sh-muted">{hint}</small>}
     </div>
   )
+}
+export function AnimatedNumber({
+  value,
+  format,
+}: {
+  value: number | null
+  format: (value: number | null) => string
+}) {
+  const [current, setCurrent] = useState(value === null ? null : 0)
+  useEffect(() => {
+    if (value === null) {
+      setCurrent(null)
+      return
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setCurrent(value)
+      return
+    }
+    let frame = 0
+    const started = performance.now()
+    const tick = (now: number) => {
+      const progress = Math.min((now - started) / 700, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCurrent(value * eased)
+      if (progress < 1) frame = requestAnimationFrame(tick)
+    }
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
+  }, [value])
+  return <span aria-label={format(value)}>{format(current)}</span>
 }
 export function Progress({
   value,

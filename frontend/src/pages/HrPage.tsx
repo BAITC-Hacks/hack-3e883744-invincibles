@@ -5,6 +5,7 @@ import type { EmployeeList, HrOverview } from '../shared/api/types'
 import { usePreferences, reasonKey } from '../shared/lib/preferences'
 import type { MessageKey } from '../shared/lib/messages'
 import {
+  AnimatedNumber,
   CatalogNote,
   Disclosure,
   EmptyState,
@@ -263,7 +264,7 @@ export function HrPage() {
                   <div className="sh-gap-chart-heading">
                     <strong>{label(row.name)}</strong>
                     <span className="sh-number">
-                      {share(row.affected_share)}
+                      <AnimatedNumber value={row.affected_share} format={share} />
                     </span>
                   </div>
                   <div className="sh-chart-bar" aria-hidden="true">

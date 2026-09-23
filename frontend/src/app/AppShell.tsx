@@ -159,7 +159,9 @@ export function AppShell({
             </div>
           )}
           <main id="main-content" className="sh-main" tabIndex={-1}>
-            {children}
+            <div className="sh-page-transition" key={location.pathname}>
+              {children}
+            </div>
           </main>
         </div>
         <nav className="sh-bottomnav" aria-label={t('nav')}>

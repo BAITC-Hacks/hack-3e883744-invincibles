@@ -366,6 +366,9 @@ fieldset {
   margin: 0 auto;
   min-width: 0;
 }
+.sh-page-transition {
+  animation: sh-page-in 0.3s ease-out both;
+}
 .sh-preferences {
   display: flex;
   flex-wrap: wrap;
@@ -468,6 +471,8 @@ fieldset {
   display: block;
   height: 100%;
   background: var(--accent);
+  transform-origin: left center;
+  animation: sh-fill 0.75s cubic-bezier(0.2, 0.75, 0.25, 1) both;
 }
 .sh-summary-pair {
   display: flex;
@@ -783,6 +788,8 @@ fieldset {
   height: 8px;
   top: 0;
   left: 0;
+  transform-origin: left center;
+  animation: sh-fill 0.75s cubic-bezier(0.2, 0.75, 0.25, 1) both;
 }
 .sh-level-target {
   background: var(--border-control);
@@ -1072,6 +1079,8 @@ fieldset {
   display: block;
   height: 6px;
   background: var(--accent);
+  transform-origin: left center;
+  animation: sh-fill 0.75s cubic-bezier(0.2, 0.75, 0.25, 1) both;
 }
 .sh-report > summary {
   list-style: none;
@@ -1407,6 +1416,14 @@ tbody tr:hover {
 @keyframes sh-dialog-in {
   from { opacity: 0; transform: translateX(18px); }
   to { opacity: 1; transform: translateX(0); }
+}
+@keyframes sh-page-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes sh-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
   .sh-sidebar {

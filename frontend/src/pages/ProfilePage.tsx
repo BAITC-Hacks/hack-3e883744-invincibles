@@ -13,6 +13,7 @@ import type {
 import { usePreferences, reasonKey } from '../shared/lib/preferences'
 import type { MessageKey } from '../shared/lib/messages'
 import {
+  AnimatedNumber,
   CatalogNote,
   Disclosure,
   EmptyState,
@@ -273,7 +274,9 @@ export function ProfilePage({ auth }: { auth: Auth }) {
                       ? t('coverageHint', { grade: profile.target_grade })
                       : t('noTarget')}
                   </p>
-                  <strong className="sh-number sh-coverage-number">{percent(profile.coverage)}</strong>
+                  <strong className="sh-number sh-coverage-number">
+                    <AnimatedNumber value={profile.coverage} format={percent} />
+                  </strong>
                 </div>
                 <Stat label={t('deficits')} value={profile.skill_rows.filter(row => row.gap !== null && row.gap > 0).length} />
                 <Stat label={t('completedCount')} value={profile.history.filter(row => row.status === 'completed').length} />

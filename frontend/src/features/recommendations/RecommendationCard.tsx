@@ -4,7 +4,7 @@ import type {
   SkillRow,
 } from '../../shared/api/types'
 import { usePreferences, reasonKey } from '../../shared/lib/preferences'
-import { Disclosure, Icon, Panel } from '../../shared/ui'
+import { AnimatedNumber, Disclosure, Icon, Panel } from '../../shared/ui'
 
 export function RecommendationCard({
   item,
@@ -45,12 +45,12 @@ export function RecommendationCard({
       <div className="sh-effect">
         <div>
           <span className="sh-muted">{t('current')}</span>
-          <strong className="sh-number">{percent(before)}</strong>
+          <strong className="sh-number"><AnimatedNumber value={before} format={percent} /></strong>
         </div>
         <Icon name="arrow" />
         <div>
           <span className="sh-muted">{t('after')}</span>
-          <strong className="sh-number">{percent(after)}</strong>
+          <strong className="sh-number"><AnimatedNumber value={after} format={percent} /></strong>
         </div>
         {before !== null && after !== null && (
           <span className="sh-delta">
