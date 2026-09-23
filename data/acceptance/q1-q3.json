@@ -1,0 +1,56 @@
+[
+  {
+    "id": "Q1",
+    "context": {
+      "employee": {"employee_id": "Q1_EMP", "role_id": "BACKEND", "grade": "Middle", "tenure_months": 24, "skills": {"SK_DESIGN": 2, "SK_SPEAK": 0}},
+      "employee_version": 1, "dataset_version": 1,
+      "role": {"role_id": "BACKEND", "name": {"en": "Backend Engineer"}, "grade_order": ["Junior", "Middle", "Senior"], "requirements": {"Junior": {"SK_DESIGN": 1, "SK_SPEAK": 1}, "Middle": {"SK_DESIGN": 2, "SK_SPEAK": 1}, "Senior": {"SK_DESIGN": 4, "SK_SPEAK": 1}}},
+      "skills_catalog": [{"skill_id": "SK_DESIGN", "name": {"en": "System Design"}, "kind": "hard"}, {"skill_id": "SK_SPEAK", "name": {"en": "Public Speaking"}, "kind": "soft"}],
+      "events": [
+        {"event_id": "Q1_MENTOR", "title": {"en": "Architecture mentoring"}, "description": "Practice system design with a mentor.", "type": "mentoring", "audience": {"role_ids": ["BACKEND"], "grades": ["Middle"]}, "gains": [{"skill_id": "SK_DESIGN", "gain": 1, "max_level": 4}]},
+        {"event_id": "Q1_COURSE", "title": {"en": "Speaking course"}, "description": "Practice presentation skills.", "type": "course", "audience": {"role_ids": ["BACKEND"], "grades": ["Middle"]}, "gains": [{"skill_id": "SK_SPEAK", "gain": 1, "max_level": 1}]},
+        {"event_id": "Q1_MENTOR_OLD1", "title": {"en": "Earlier mentoring one"}, "description": "Earlier event.", "type": "mentoring", "audience": {"role_ids": ["BACKEND"], "grades": ["Middle"]}, "gains": [{"skill_id": "SK_DESIGN", "gain": 1, "max_level": 4}]},
+        {"event_id": "Q1_MENTOR_OLD2", "title": {"en": "Earlier mentoring two"}, "description": "Earlier event.", "type": "mentoring", "audience": {"role_ids": ["BACKEND"], "grades": ["Middle"]}, "gains": [{"skill_id": "SK_DESIGN", "gain": 1, "max_level": 4}]}
+      ],
+      "history": [
+        {"history_id": "Q1_H1", "employee_id": "Q1_EMP", "event_id": "Q1_MENTOR_OLD1", "status": "completed", "occurred_at": "2026-01-01T00:00:00Z"},
+        {"history_id": "Q1_H2", "employee_id": "Q1_EMP", "event_id": "Q1_MENTOR_OLD2", "status": "completed", "occurred_at": "2026-02-01T00:00:00Z"},
+        {"history_id": "Q1_H3", "employee_id": "Q1_EMP", "event_id": "Q1_COURSE", "status": "skipped", "occurred_at": "2026-03-01T00:00:00Z"},
+        {"history_id": "Q1_H4", "employee_id": "Q1_EMP", "event_id": "Q1_COURSE", "status": "skipped", "occurred_at": "2026-04-01T00:00:00Z"},
+        {"history_id": "Q1_H5", "employee_id": "Q1_EMP", "event_id": "Q1_COURSE", "status": "skipped", "occurred_at": "2026-05-01T00:00:00Z"}
+      ]
+    },
+    "request": {"employee_version": 1, "dataset_version": 1, "excluded_event_ids": [], "preferred_type": null},
+    "expected": {"first_event_id": "Q1_MENTOR", "eligible": ["Q1_MENTOR", "Q1_COURSE"], "evidence_kinds": ["GRADE_TARGET", "SKILL_GAP", "HISTORY"]}
+  },
+  {
+    "id": "Q2",
+    "context": {
+      "employee": {"employee_id": "Q2_EMP", "role_id": "BACKEND", "grade": "Middle", "tenure_months": 24, "skills": {"SK_DESIGN": 3}},
+      "employee_version": 1, "dataset_version": 1,
+      "role": {"role_id": "BACKEND", "name": {"en": "Backend Engineer"}, "grade_order": ["Junior", "Middle", "Senior"], "requirements": {"Junior": {"SK_DESIGN": 1}, "Middle": {"SK_DESIGN": 3}, "Senior": {"SK_DESIGN": 4}}},
+      "skills_catalog": [{"skill_id": "SK_DESIGN", "name": {"en": "System Design"}, "kind": "hard"}],
+      "events": [
+        {"event_id": "Q2_CAPPED", "title": {"en": "Capped course"}, "description": "Cannot grow beyond level three.", "type": "course", "audience": {"role_ids": ["BACKEND"], "grades": ["Middle"]}, "gains": [{"skill_id": "SK_DESIGN", "gain": 1, "max_level": 3}]},
+        {"event_id": "Q2_USEFUL", "title": {"en": "Architecture workshop"}, "description": "Develop design skill.", "type": "workshop", "audience": {"role_ids": ["BACKEND"], "grades": ["Middle"]}, "gains": [{"skill_id": "SK_DESIGN", "gain": 1, "max_level": 4}]}
+      ], "history": []
+    },
+    "request": {"employee_version": 1, "dataset_version": 1, "excluded_event_ids": [], "preferred_type": null},
+    "expected": {"first_event_id": "Q2_USEFUL", "eligible": ["Q2_USEFUL"], "evidence_kinds": ["GRADE_TARGET", "SKILL_GAP", "HISTORY"]}
+  },
+  {
+    "id": "Q3",
+    "context": {
+      "employee": {"employee_id": "Q3_EMP", "role_id": "BACKEND", "grade": "Middle", "tenure_months": 24, "skills": {"SK_DESIGN": 3}},
+      "employee_version": 1, "dataset_version": 1,
+      "role": {"role_id": "BACKEND", "name": {"en": "Backend Engineer"}, "grade_order": ["Junior", "Middle", "Senior"], "requirements": {"Junior": {"SK_DESIGN": 1}, "Middle": {"SK_DESIGN": 3}, "Senior": {"SK_DESIGN": 4}}},
+      "skills_catalog": [{"skill_id": "SK_DESIGN", "name": {"en": "System Design"}, "kind": "hard"}],
+      "events": [
+        {"event_id": "Q3_COURSE", "title": {"en": "Architecture course"}, "description": "Practice architecture.", "type": "course", "audience": {"role_ids": ["BACKEND"], "grades": ["Middle"]}, "gains": [{"skill_id": "SK_DESIGN", "gain": 1, "max_level": 4}]},
+        {"event_id": "Q3_MENTOR", "title": {"en": "Architecture mentoring"}, "description": "Practice architecture with a mentor.", "type": "mentoring", "audience": {"role_ids": ["BACKEND"], "grades": ["Middle"]}, "gains": [{"skill_id": "SK_DESIGN", "gain": 1, "max_level": 4}]}
+      ], "history": []
+    },
+    "request": {"employee_version": 1, "dataset_version": 1, "excluded_event_ids": [], "preferred_type": "mentoring"},
+    "expected": {"first_event_id": "Q3_MENTOR", "eligible": ["Q3_MENTOR", "Q3_COURSE"], "evidence_kinds": ["GRADE_TARGET", "SKILL_GAP", "HISTORY"]}
+  }
+]
