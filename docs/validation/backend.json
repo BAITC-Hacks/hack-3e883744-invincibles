@@ -1,16 +1,47 @@
 {
-  "created_at_utc": "2026-09-23T09:24:37Z",
-  "code_sha": "abab2f4b5454",
+  "created_at_utc": "2026-09-23T09:27:00Z",
+  "code_sha": "5095c77",
   "python": "3.12",
   "test_command": ".venv/bin/python -m pytest backend/tests -q",
-  "test_result": {"passed": 24, "failed": 0, "warning": "Starlette TestClient anyio deprecation"},
+  "test_result": {
+    "passed": 26,
+    "failed": 0,
+    "warning": "Starlette TestClient anyio deprecation"
+  },
   "kit_command": ".venv/bin/python tools/validate_kit.py data/synthetic",
-  "kit_result": {"employees": 200, "events": 40, "skills": 60, "history": 1736, "month_bins": 24, "useful_profiles": 168, "eligible_profiles": 169, "useful_share": 0.9941},
+  "kit_result": {
+    "employees": 200,
+    "events": 40,
+    "skills": 60,
+    "history": 1736,
+    "month_bins": 24,
+    "useful_profiles": 168,
+    "eligible_profiles": 169,
+    "useful_share": 0.9941
+  },
   "determinism": "Two fresh generator runs and the checked-in kit were byte-identical for all four data files and manifest.json.",
   "examples": "12 JSON examples generated from the seeded kit and validated with their Pydantic models.",
   "openapi_paths": 12,
-  "fresh_runtime_smoke": {"login": 200, "foreign_profile": 403, "preview_mutated_db": false, "completion": 201, "retry": 200, "after_process_restart_employee_version": 2, "after_process_restart_dataset_version": 2, "after_process_restart_python_level": 3},
+  "fresh_runtime_smoke": {
+    "login": 200,
+    "foreign_profile": 403,
+    "preview_mutated_db": false,
+    "completion": 201,
+    "retry": 200,
+    "after_process_restart_employee_version": 2,
+    "after_process_restart_dataset_version": 2,
+    "after_process_restart_python_level": 3
+  },
   "lockfile_install": "Fresh Python 3.12 venv installed backend/requirements.lock successfully.",
-  "local_testclient_30_requests": {"profile_p50_ms": 3.2, "profile_p95_ms": 4.5, "hr_p50_ms": 77.2, "hr_p95_ms": 90.1},
-  "unverified": ["Docker Compose build/restart: Docker and Podman are unavailable, sudo is unavailable.", "A2 live RecommendationService/provider integration: backend/app/recommendations is not present in this checkout.", "A3 frontend build: frontend is not present in this checkout."]
+  "local_testclient_30_requests": {
+    "profile_p50_ms": 3.2,
+    "profile_p95_ms": 4.5,
+    "hr_p50_ms": 77.2,
+    "hr_p95_ms": 90.1
+  },
+  "unverified": [
+    "Docker Compose build/restart: Docker and Podman are unavailable, sudo is unavailable.",
+    "A2 live RecommendationService/provider integration: backend/app/recommendations is not present in this checkout.",
+    "A3 frontend build: frontend is not present in this checkout."
+  ]
 }
