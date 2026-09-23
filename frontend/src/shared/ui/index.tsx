@@ -56,6 +56,7 @@ const paths = {
     </>
   ),
   moon: <path d="M20 14A8 8 0 0 1 10 4a8 8 0 1 0 10 10Z" />,
+  menu: <path d="M4 6h16M4 12h16M4 18h16" />,
   search: (
     <>
       <circle cx="10.5" cy="10.5" r="7" />
