@@ -89,6 +89,64 @@ def test_recommendation_rejects_result_after_concurrent_change(tmp_path):
         assert repo.get_context('E0001').employee_version==2
 
 
+def test_production_recommendations_use_honest_fallback_without_key(tmp_path,monkeypatch):
+    monkeypatch.setenv('AI_PROVIDER','openai')
+    monkeypatch.delenv('OPENAI_API_KEY',raising=False)
+    with client(tmp_path) as c:
+        health=c.get('/api/v1/health').json()
+        assert health['model_status']=='unavailable'
+        assert c.post('/api/v1/auth/login',json={'username':'employee','password':'demo-employee'},headers=ORIGIN).status_code==200
+        result=c.post('/api/v1/employees/E0001/recommendations',json={'employee_version':1,'dataset_version':1},headers=ORIGIN)
+        assert result.status_code==200
+        body=result.json()
+        assert body['status']=='ready'
+        assert body['source']=='deterministic_fallback'
+        assert body['fallback_reason']=='unavailable'
+        assert 1<=len(body['items'])<=3
+        assert c.get('/api/v1/health').json()['model_status']=='unavailable'
+
+
+def test_model_probe_sets_ready_and_health_does_not_call_provider(tmp_path):
+    import threading
+    from app.recommendations import RecommendationService
+    called=threading.Event()
+    class ProbeProvider:
+        provider_id='ollama'
+        model='probe-model'
+        calls=0
+        async def rank(self,payload,schema,timeout_seconds):
+            self.calls+=1
+            assert schema['required']==['ready']
+            called.set()
+            return {'ready':True}
+    provider=ProbeProvider()
+    app=create_app(database_path=tmp_path/'db.sqlite3',kit_dir=KIT,secret_path=tmp_path/'secret',app_origin='http://localhost:8080',recommendation_service=RecommendationService(provider=provider))
+    with TestClient(app) as c:
+        assert called.wait(1)
+        assert c.get('/api/v1/health').json()['model_status']=='ready'
+        assert c.get('/api/v1/health').json()['model']=='probe-model'
+        assert provider.calls==1
+
+
+def test_invalid_model_probe_stays_unavailable(tmp_path):
+    import threading
+    from app.recommendations import RecommendationService
+    called=threading.Event()
+    class InvalidProvider:
+        provider_id='ollama'
+        model='invalid-model'
+        async def rank(self,payload,schema,timeout_seconds):
+            called.set()
+            return {'ready':False}
+    app=create_app(database_path=tmp_path/'db.sqlite3',kit_dir=KIT,secret_path=tmp_path/'secret',app_origin='http://localhost:8080',recommendation_service=RecommendationService(provider=InvalidProvider()))
+    with TestClient(app) as c:
+        assert called.wait(1)
+        # The probe task may finish just after the provider signals its call.
+        for _ in range(20):
+            if c.get('/api/v1/health').json()['model_status']=='unavailable':break
+        assert c.get('/api/v1/health').json()['model_status']=='unavailable'
+
+
 def test_import_commit_rejects_changed_dataset_version(tmp_path):
     import json
     with client(tmp_path) as c:
