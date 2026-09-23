@@ -1,11 +1,59 @@
 {
-  "timestamp_utc": "2026-09-23T09:31:28.706521+00:00",
-  "git_sha": "142f2ab38ff9ff32f01d422f30b4928ac7d83bbe",
-  "status": "blocked",
-  "reason": "OPENAI_API_KEY is absent on server; live AI unverified",
+  "timestamp_utc": "2026-09-23T09:54:22.947912+00:00",
+  "git_sha": "b159fcb3e0bcbb2feb00d765997a4916393ad916",
+  "status": "evaluated",
   "provider": "openai",
   "model": "gpt-4.1-mini-2025-04-14",
-  "prompt_version": "1",
-  "runs": [],
-  "acceptance_met": false
+  "prompt_version": "2",
+  "runs": [
+    {
+      "case": "Q1",
+      "source": "llm",
+      "selected_event_ids": [
+        "Q1_MENTOR",
+        "Q1_COURSE"
+      ],
+      "duration_seconds": 1.8145,
+      "fallback_reason": null,
+      "expected_first": "Q1_MENTOR",
+      "expected_first_met": true,
+      "evidence_complete": true,
+      "llm_valid_under_10s": true
+    },
+    {
+      "case": "Q2",
+      "source": "llm",
+      "selected_event_ids": [
+        "Q2_USEFUL"
+      ],
+      "duration_seconds": 1.7494,
+      "fallback_reason": null,
+      "expected_first": "Q2_USEFUL",
+      "expected_first_met": true,
+      "evidence_complete": true,
+      "llm_valid_under_10s": true
+    },
+    {
+      "case": "Q3",
+      "source": "llm",
+      "selected_event_ids": [
+        "Q3_MENTOR",
+        "Q3_COURSE"
+      ],
+      "duration_seconds": 1.4283,
+      "fallback_reason": null,
+      "expected_first": "Q3_MENTOR",
+      "expected_first_met": true,
+      "evidence_complete": true,
+      "llm_valid_under_10s": true
+    }
+  ],
+  "acceptance_met": true,
+  "usage_ledger": {
+    "attempts": 104,
+    "input_tokens": 108100,
+    "known_cost_usd": 0.05415039999999997,
+    "output_tokens": 6819,
+    "unknown_usage_attempts": 1
+  }
 }

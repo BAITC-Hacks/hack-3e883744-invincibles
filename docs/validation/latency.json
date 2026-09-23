@@ -1,12 +1,43 @@
 {
-  "timestamp_utc": "2026-09-23T09:31:39.041258+00:00",
-  "base_url": "http://localhost:8080",
+  "timestamp_utc": "2026-09-23T09:54:53.403239+00:00",
+  "base_url": "http://localhost:8081",
   "requested_samples": 30,
   "environment": "Windows-11-10.0.26200-SP0",
-  "git_sha": "142f2ab38ff9ff32f01d422f30b4928ac7d83bbe",
-  "status": "blocked",
-  "reason": "HTTPStatusError",
-  "http_status": 404,
-  "failed_path": "/health",
-  "acceptance_met": false
+  "git_sha": "b159fcb3e0bcbb2feb00d765997a4916393ad916",
+  "health": {
+    "provider": "openai",
+    "model": "gpt-4.1-mini-2025-04-14",
+    "model_status": "ready"
+  },
+  "series": {
+    "cache_miss": {
+      "count": 30,
+      "p50_seconds": 1.3912,
+      "p95_seconds": 2.3126,
+      "max_seconds": 3.0467,
+      "llm_success_count": 29,
+      "fallback_count": 1,
+      "cache_hit_count": 0,
+      "empty_count": 0,
+      "fallback_reasons": {
+        "invalid_output": 1
+      }
+    },
+    "cache_hit": {
+      "count": 30,
+      "p50_seconds": 0.0112,
+      "p95_seconds": 0.0124,
+      "max_seconds": 0.0128,
+      "llm_success_count": 29,
+      "fallback_count": 1,
+      "cache_hit_count": 30,
+      "empty_count": 0,
+      "fallback_reasons": {
+        "invalid_output": 1
+      }
+    }
+  },
+  "measurement_valid": true,
+  "acceptance_met": true,
+  "status": "measured"
 }

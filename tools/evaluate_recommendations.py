@@ -68,7 +68,7 @@ def main() -> int:
     if os.getenv("AI_PROVIDER", "openai") == "openai" and not os.getenv("OPENAI_API_KEY"):
         report.update(status="blocked", reason="OPENAI_API_KEY is absent on server; live AI unverified",
                       provider="openai", model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini-2025-04-14"),
-                      prompt_version="1", runs=[], acceptance_met=False)
+                      prompt_version="2", runs=[], acceptance_met=False)
         exit_code = 2
     else:
         try:

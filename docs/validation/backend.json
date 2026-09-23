@@ -1,10 +1,10 @@
 {
-  "created_at_utc": "2026-09-23T09:43:30Z",
-  "code_sha": "a233607",
+  "created_at_utc": "2026-09-23T09:59:06Z",
+  "code_sha": "fbc77df",
   "python": "3.12",
   "test_command": ".venv/bin/python -m pytest backend/tests -q",
   "test_result": {
-    "passed": 41,
+    "passed": 42,
     "failed": 0,
     "warning": "Starlette TestClient anyio deprecation"
   },
@@ -45,10 +45,32 @@
     "startup_probe": "Fake provider returns schema-valid readiness once; OpenAI MockTransport probe reserves exactly one paid attempt; health GET performs no provider call",
     "stale_result": "HTTP 409 when state changes during recommendation"
   },
+  "a3_frontend_build": {
+    "npm_ci": "passed; 49 packages installed, zero reported vulnerabilities",
+    "npm_run_build": "passed; TypeScript and Vite produced frontend/dist"
+  },
+  "docker_compose_smoke": {
+    "project": "shagra-a1-check",
+    "port": 18080,
+    "openai_key": "overridden empty for this check; no paid AI attempt",
+    "image_build": "passed with pinned Node 22 and Python 3.12 images; repeated after A2 prompt update",
+    "fresh_volume": "created",
+    "html": 200,
+    "health": 200,
+    "unauthenticated_profile": 401,
+    "login": 200,
+    "preview_mutated_profile": false,
+    "recommendation_source": "deterministic_fallback",
+    "completion": 201,
+    "retry": 200,
+    "after_container_restart_employee_version": 2,
+    "after_container_restart_dataset_version": 2,
+    "retry_after_restart": 200,
+    "second_gain_after_retry": false,
+    "cleanup": "compose down without -v; isolated verification volume retained"
+  },
   "unverified": [
-    "Docker Compose build/restart: Docker and Podman are unavailable, sudo is unavailable.",
-    "Live OpenAI/Ollama model response and AI acceptance: no OpenAI key or running Ollama in A1 environment.",
-    "A2 benchmark requires /api/v1/health in place of its current /health path.",
-    "A3 frontend build: frontend is not present in this checkout."
+    "Live OpenAI/Ollama model response: not exercised in the A1 container check; A2 reports separate live OpenAI acceptance in docs/validation/ai.json and latency.json.",
+    "A3 live browser E2E and handoff documents are not complete in this checkout."
   ]
 }
