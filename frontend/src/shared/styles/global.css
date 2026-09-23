@@ -362,8 +362,11 @@ fieldset {
   background: var(--bg-panel);
 }
 .sh-languages button {
+  width: 44px;
   min-width: 44px;
   min-height: 44px;
+  flex: 0 0 44px;
+  box-sizing: border-box;
   border: 0;
   background: none;
   font-size: 14px;
@@ -377,7 +380,11 @@ fieldset {
 }
 .sh-theme-button {
   min-height: 48px;
-  min-width: 48px;
+  width: 168px;
+  min-width: 168px;
+  flex: 0 0 168px;
+  justify-content: center;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1757,6 +1764,11 @@ tbody tr:hover {
   .sh-login-top .sh-theme-button span {
     display: none;
   }
+  .sh-login-top .sh-theme-button {
+    width: 48px;
+    min-width: 48px;
+    flex-basis: 48px;
+  }
   .sh-login-main {
     margin: 24px 16px;
     max-width: none;
@@ -1771,6 +1783,11 @@ tbody tr:hover {
 @media (max-width: 359px) {
   .sh-theme-button span {
     display: none;
+  }
+  .sh-theme-button {
+    width: 48px;
+    min-width: 48px;
+    flex-basis: 48px;
   }
   .sh-effect {
     gap: 8px;
