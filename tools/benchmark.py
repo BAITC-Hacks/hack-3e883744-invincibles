@@ -110,7 +110,12 @@ def main() -> int:
         measurements = asyncio.run(measure(args.base_url, args.count))
         report.update(measurements)
         miss = report["series"]["cache_miss"]
-        report["acceptance_met"] = (miss["llm_success_count"] >= 0.9 * args.count
+        hit = report["series"]["cache_hit"]
+        report["measurement_valid"] = (miss["cache_hit_count"] == 0
+                                       and hit["cache_hit_count"] == args.count
+                                       and miss["empty_count"] == 0)
+        report["acceptance_met"] = (report["measurement_valid"]
+                                    and miss["llm_success_count"] >= 0.9 * args.count
                                     and miss["p95_seconds"] is not None and miss["p95_seconds"] < 10)
         report["status"] = "measured"
         exit_code = 0 if report["acceptance_met"] else 1
