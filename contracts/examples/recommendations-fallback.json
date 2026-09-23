@@ -11,7 +11,7 @@
     {
       "event_id": "EV_BACKEND_01",
       "title": {
-        "en": "Service Boundaries Workshop",
+        "en": "Service Boundaries Review",
         "ru": "Разбор границ сервисов",
         "kk": null
       },
@@ -71,7 +71,7 @@
       "reason_codes": [
         "TARGET_GAIN"
       ],
-      "comparison_event_id": null
+      "comparison_event_id": "EV_BACKEND_02"
     }
   ]
 }

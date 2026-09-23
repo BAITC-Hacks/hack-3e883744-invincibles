@@ -5,26 +5,26 @@
     "grade": "Senior",
     "tenure_months": 48,
     "skills": {
-      "SK_PYTHON": 2,
-      "SK_SYSTEM_DESIGN": 2,
-      "SK_BACKEND_02": 2,
-      "SK_BACKEND_03": 2,
-      "SK_BACKEND_04": 2,
-      "SK_BACKEND_05": 2,
-      "SK_BACKEND_06": 2,
-      "SK_BACKEND_07": 2,
-      "SK_BACKEND_08": 2,
-      "SK_BACKEND_09": 2,
-      "SK_PUBLIC_SPEAKING": 1,
-      "SK_SOFT_01": 1,
-      "SK_SOFT_02": 1,
-      "SK_SOFT_03": 1,
-      "SK_SOFT_04": 1,
-      "SK_SOFT_05": 1,
-      "SK_SOFT_06": 1,
-      "SK_SOFT_07": 1,
-      "SK_SOFT_08": 1,
-      "SK_SOFT_09": 1
+      "SK_BACKEND_02": 3,
+      "SK_BACKEND_03": 3,
+      "SK_BACKEND_04": 3,
+      "SK_BACKEND_05": 3,
+      "SK_BACKEND_06": 3,
+      "SK_BACKEND_07": 3,
+      "SK_BACKEND_08": 3,
+      "SK_BACKEND_09": 3,
+      "SK_PUBLIC_SPEAKING": 2,
+      "SK_PYTHON": 3,
+      "SK_SOFT_01": 2,
+      "SK_SOFT_02": 2,
+      "SK_SOFT_03": 2,
+      "SK_SOFT_04": 2,
+      "SK_SOFT_05": 2,
+      "SK_SOFT_06": 2,
+      "SK_SOFT_07": 2,
+      "SK_SOFT_08": 2,
+      "SK_SOFT_09": 2,
+      "SK_SYSTEM_DESIGN": 3
     }
   },
   "employee_version": 1,
@@ -41,88 +41,88 @@
     {
       "skill_id": "SK_BACKEND_02",
       "name": {
-        "en": "Backend Skill 2",
-        "ru": null,
+        "en": "API Design",
+        "ru": "Проектирование API",
         "kk": null
       },
-      "current": 2,
+      "current": 3,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_BACKEND_03",
       "name": {
-        "en": "Backend Skill 3",
-        "ru": null,
+        "en": "Databases",
+        "ru": "Базы данных",
         "kk": null
       },
-      "current": 2,
+      "current": 3,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_BACKEND_04",
       "name": {
-        "en": "Backend Skill 4",
-        "ru": null,
+        "en": "Service Reliability",
+        "ru": "Надёжность сервисов",
         "kk": null
       },
-      "current": 2,
+      "current": 3,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_BACKEND_05",
       "name": {
-        "en": "Backend Skill 5",
-        "ru": null,
+        "en": "Code Review",
+        "ru": "Ревью кода",
         "kk": null
       },
-      "current": 2,
+      "current": 3,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_BACKEND_06",
       "name": {
-        "en": "Backend Skill 6",
-        "ru": null,
+        "en": "Testing",
+        "ru": "Тестирование",
         "kk": null
       },
-      "current": 2,
+      "current": 3,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_BACKEND_07",
       "name": {
-        "en": "Backend Skill 7",
-        "ru": null,
+        "en": "Security",
+        "ru": "Безопасность",
         "kk": null
       },
-      "current": 2,
+      "current": 3,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_BACKEND_08",
       "name": {
-        "en": "Backend Skill 8",
-        "ru": null,
+        "en": "Observability",
+        "ru": "Наблюдаемость",
         "kk": null
       },
-      "current": 2,
+      "current": 3,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_BACKEND_09",
       "name": {
-        "en": "Backend Skill 9",
-        "ru": null,
+        "en": "Distributed Systems",
+        "ru": "Распределённые системы",
         "kk": null
       },
-      "current": 2,
+      "current": 3,
       "target": null,
       "gap": null
     },
@@ -130,10 +130,10 @@
       "skill_id": "SK_PUBLIC_SPEAKING",
       "name": {
         "en": "Public Speaking",
-        "ru": null,
+        "ru": "Публичные выступления",
         "kk": null
       },
-      "current": 1,
+      "current": 2,
       "target": null,
       "gap": null
     },
@@ -141,7 +141,18 @@
       "skill_id": "SK_PYTHON",
       "name": {
         "en": "Python",
-        "ru": null,
+        "ru": "Python",
+        "kk": null
+      },
+      "current": 3,
+      "target": null,
+      "gap": null
+    },
+    {
+      "skill_id": "SK_SOFT_01",
+      "name": {
+        "en": "Feedback",
+        "ru": "Обратная связь",
         "kk": null
       },
       "current": 2,
@@ -149,101 +160,90 @@
       "gap": null
     },
     {
-      "skill_id": "SK_SOFT_01",
-      "name": {
-        "en": "Soft Skill 1",
-        "ru": null,
-        "kk": null
-      },
-      "current": 1,
-      "target": null,
-      "gap": null
-    },
-    {
       "skill_id": "SK_SOFT_02",
       "name": {
-        "en": "Soft Skill 2",
-        "ru": null,
+        "en": "Collaboration",
+        "ru": "Сотрудничество",
         "kk": null
       },
-      "current": 1,
+      "current": 2,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_SOFT_03",
       "name": {
-        "en": "Soft Skill 3",
-        "ru": null,
+        "en": "Time Management",
+        "ru": "Управление временем",
         "kk": null
       },
-      "current": 1,
+      "current": 2,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_SOFT_04",
       "name": {
-        "en": "Soft Skill 4",
-        "ru": null,
+        "en": "Empathy",
+        "ru": "Эмпатия",
         "kk": null
       },
-      "current": 1,
+      "current": 2,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_SOFT_05",
       "name": {
-        "en": "Soft Skill 5",
-        "ru": null,
+        "en": "Critical Thinking",
+        "ru": "Критическое мышление",
         "kk": null
       },
-      "current": 1,
+      "current": 2,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_SOFT_06",
       "name": {
-        "en": "Soft Skill 6",
-        "ru": null,
+        "en": "Writing",
+        "ru": "Деловое письмо",
         "kk": null
       },
-      "current": 1,
+      "current": 2,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_SOFT_07",
       "name": {
-        "en": "Soft Skill 7",
-        "ru": null,
+        "en": "Facilitation",
+        "ru": "Фасилитация",
         "kk": null
       },
-      "current": 1,
+      "current": 2,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_SOFT_08",
       "name": {
-        "en": "Soft Skill 8",
-        "ru": null,
+        "en": "Adaptability",
+        "ru": "Адаптивность",
         "kk": null
       },
-      "current": 1,
+      "current": 2,
       "target": null,
       "gap": null
     },
     {
       "skill_id": "SK_SOFT_09",
       "name": {
-        "en": "Soft Skill 9",
-        "ru": null,
+        "en": "Mentoring",
+        "ru": "Наставничество",
         "kk": null
       },
-      "current": 1,
+      "current": 2,
       "target": null,
       "gap": null
     },
@@ -251,14 +251,175 @@
       "skill_id": "SK_SYSTEM_DESIGN",
       "name": {
         "en": "System Design",
-        "ru": null,
+        "ru": "Проектирование систем",
         "kk": null
       },
-      "current": 2,
+      "current": 3,
       "target": null,
       "gap": null
     }
   ],
   "history": [],
-  "available_events": []
+  "available_events": [
+    {
+      "event_id": "EV_BACKEND_01",
+      "title": {
+        "en": "Service Boundaries Review",
+        "ru": "Разбор границ сервисов",
+        "kk": null
+      },
+      "type": "course",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_BACKEND_02",
+      "title": {
+        "en": "API Contract Workshop",
+        "ru": "Практикум API-контрактов",
+        "kk": null
+      },
+      "type": "workshop",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_BACKEND_03",
+      "title": {
+        "en": "Reliability Incident Lab",
+        "ru": "Разбор надёжности",
+        "kk": null
+      },
+      "type": "mentoring",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_BACKEND_04",
+      "title": {
+        "en": "Security Testing Lab",
+        "ru": "Практикум безопасности",
+        "kk": null
+      },
+      "type": "course",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_BACKEND_05",
+      "title": {
+        "en": "Observability Design",
+        "ru": "Проектирование наблюдаемости",
+        "kk": null
+      },
+      "type": "workshop",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_BACKEND_06",
+      "title": {
+        "en": "System Design Mentoring",
+        "ru": "Наставничество по проектированию систем",
+        "kk": null
+      },
+      "type": "mentoring",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_SOFT_00",
+      "title": {
+        "en": "Public Speaking Practice",
+        "ru": "Практика публичных выступлений",
+        "kk": null
+      },
+      "type": "course",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_SOFT_01",
+      "title": {
+        "en": "Feedback Conversation",
+        "ru": "Разговор об обратной связи",
+        "kk": null
+      },
+      "type": "workshop",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_SOFT_02",
+      "title": {
+        "en": "Collaboration Lab",
+        "ru": "Практикум сотрудничества",
+        "kk": null
+      },
+      "type": "mentoring",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_SOFT_03",
+      "title": {
+        "en": "Time Planning",
+        "ru": "Планирование времени",
+        "kk": null
+      },
+      "type": "course",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_SOFT_04",
+      "title": {
+        "en": "Empathy Workshop",
+        "ru": "Практикум эмпатии",
+        "kk": null
+      },
+      "type": "workshop",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_SOFT_05",
+      "title": {
+        "en": "Critical Thinking Lab",
+        "ru": "Практикум критического мышления",
+        "kk": null
+      },
+      "type": "mentoring",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_SOFT_06",
+      "title": {
+        "en": "Business Writing",
+        "ru": "Деловое письмо",
+        "kk": null
+      },
+      "type": "course",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_SOFT_07",
+      "title": {
+        "en": "Facilitation Practice",
+        "ru": "Практика фасилитации",
+        "kk": null
+      },
+      "type": "workshop",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_SOFT_08",
+      "title": {
+        "en": "Adaptability Workshop",
+        "ru": "Практикум адаптивности",
+        "kk": null
+      },
+      "type": "mentoring",
+      "target_gain": 0
+    },
+    {
+      "event_id": "EV_SOFT_09",
+      "title": {
+        "en": "Mentoring Practice",
+        "ru": "Практика наставничества",
+        "kk": null
+      },
+      "type": "course",
+      "target_gain": 0
+    }
+  ]
 }

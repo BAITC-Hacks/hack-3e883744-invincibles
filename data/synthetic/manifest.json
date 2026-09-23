@@ -1,0 +1,17 @@
+{
+  "as_of": "2026-09-23",
+  "counts": {
+    "employees": 200,
+    "events": 40,
+    "skills": 60
+  },
+  "provenance": "team_generated_synthetic",
+  "schema_version": "shagra-kit/1",
+  "seed": 20260923,
+  "sha256": {
+    "activity_history.csv": "91c1ba450dfd44716d16540bd7c96ba384644324b11f0aadee735d64a2a082f7",
+    "employees.json": "d42707dea19c3e37fda9a5069e2e5ca2e049d8d55f2262c828abd03ad3d146d3",
+    "events.json": "6f60c6a8e43271677d9b597ecf1b04b70c05d203f8bbcd7dada011d07f83c6cd",
+    "skills.json": "9cc8a18739d6cb48950e8991a32c09ee816a8710fe6766342c9ef55a8fb2eca2"
+  }
+}

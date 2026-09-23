@@ -1,0 +1,13 @@
+PRAGMA foreign_keys=ON;
+CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY,value TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS employees(id TEXT PRIMARY KEY,payload_json TEXT NOT NULL,version INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS events(id TEXT PRIMARY KEY,payload_json TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS roles(id TEXT PRIMARY KEY,payload_json TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS skills(id TEXT PRIMARY KEY,payload_json TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS history(id TEXT PRIMARY KEY,employee_id TEXT NOT NULL REFERENCES employees(id),event_id TEXT NOT NULL REFERENCES events(id),status TEXT NOT NULL CHECK(status IN ('completed','skipped','declined')),occurred_at TEXT NOT NULL,actor_role TEXT);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_one_completion ON history(employee_id,event_id) WHERE status='completed';
+CREATE INDEX IF NOT EXISTS idx_history_employee_date ON history(employee_id,occurred_at);
+CREATE TABLE IF NOT EXISTS completions(idempotency_key TEXT PRIMARY KEY,actor_id TEXT NOT NULL,request_fingerprint TEXT NOT NULL,response_json TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS imports(id TEXT PRIMARY KEY,actor_id TEXT NOT NULL,status TEXT NOT NULL,base_dataset_version INTEGER NOT NULL,payload_json TEXT NOT NULL,expires_at TEXT NOT NULL,result_json TEXT);
+CREATE TABLE IF NOT EXISTS sessions(id TEXT PRIMARY KEY,role TEXT NOT NULL,employee_id TEXT,expires_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS users(username TEXT PRIMARY KEY,password_hash TEXT NOT NULL,role TEXT NOT NULL,employee_id TEXT);

@@ -1,0 +1,952 @@
+{
+  "roles": [
+    {
+      "grade_order": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "name": {
+        "en": "Backend Engineer",
+        "kk": null,
+        "ru": "Backend-разработчик"
+      },
+      "requirements": {
+        "Junior": {
+          "SK_BACKEND_02": 1,
+          "SK_BACKEND_03": 1,
+          "SK_BACKEND_04": 1,
+          "SK_BACKEND_05": 1,
+          "SK_BACKEND_06": 1,
+          "SK_BACKEND_07": 1,
+          "SK_BACKEND_08": 1,
+          "SK_BACKEND_09": 1,
+          "SK_PUBLIC_SPEAKING": 1,
+          "SK_PYTHON": 1,
+          "SK_SOFT_01": 1,
+          "SK_SOFT_02": 1,
+          "SK_SOFT_03": 1,
+          "SK_SOFT_04": 1,
+          "SK_SOFT_05": 1,
+          "SK_SOFT_06": 1,
+          "SK_SOFT_07": 1,
+          "SK_SOFT_08": 1,
+          "SK_SOFT_09": 1,
+          "SK_SYSTEM_DESIGN": 1
+        },
+        "Middle": {
+          "SK_BACKEND_02": 3,
+          "SK_BACKEND_03": 3,
+          "SK_BACKEND_04": 3,
+          "SK_BACKEND_05": 3,
+          "SK_BACKEND_06": 3,
+          "SK_BACKEND_07": 3,
+          "SK_BACKEND_08": 3,
+          "SK_BACKEND_09": 3,
+          "SK_PUBLIC_SPEAKING": 2,
+          "SK_PYTHON": 3,
+          "SK_SOFT_01": 2,
+          "SK_SOFT_02": 2,
+          "SK_SOFT_03": 2,
+          "SK_SOFT_04": 2,
+          "SK_SOFT_05": 2,
+          "SK_SOFT_06": 2,
+          "SK_SOFT_07": 2,
+          "SK_SOFT_08": 2,
+          "SK_SOFT_09": 2,
+          "SK_SYSTEM_DESIGN": 3
+        },
+        "Senior": {
+          "SK_BACKEND_02": 4,
+          "SK_BACKEND_03": 4,
+          "SK_BACKEND_04": 4,
+          "SK_BACKEND_05": 4,
+          "SK_BACKEND_06": 4,
+          "SK_BACKEND_07": 4,
+          "SK_BACKEND_08": 4,
+          "SK_BACKEND_09": 4,
+          "SK_PUBLIC_SPEAKING": 3,
+          "SK_PYTHON": 4,
+          "SK_SOFT_01": 3,
+          "SK_SOFT_02": 3,
+          "SK_SOFT_03": 3,
+          "SK_SOFT_04": 3,
+          "SK_SOFT_05": 3,
+          "SK_SOFT_06": 3,
+          "SK_SOFT_07": 3,
+          "SK_SOFT_08": 3,
+          "SK_SOFT_09": 3,
+          "SK_SYSTEM_DESIGN": 4
+        }
+      },
+      "role_id": "BACKEND"
+    },
+    {
+      "grade_order": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "name": {
+        "en": "Data Analyst",
+        "kk": null,
+        "ru": "Аналитик данных"
+      },
+      "requirements": {
+        "Junior": {
+          "SK_DATA_ANALYST_00": 1,
+          "SK_DATA_ANALYST_01": 1,
+          "SK_DATA_ANALYST_02": 1,
+          "SK_DATA_ANALYST_03": 1,
+          "SK_DATA_ANALYST_04": 1,
+          "SK_DATA_ANALYST_05": 1,
+          "SK_DATA_ANALYST_06": 1,
+          "SK_DATA_ANALYST_07": 1,
+          "SK_DATA_ANALYST_08": 1,
+          "SK_DATA_ANALYST_09": 1,
+          "SK_PUBLIC_SPEAKING": 1,
+          "SK_SOFT_01": 1,
+          "SK_SOFT_02": 1,
+          "SK_SOFT_03": 1,
+          "SK_SOFT_04": 1,
+          "SK_SOFT_05": 1,
+          "SK_SOFT_06": 1,
+          "SK_SOFT_07": 1,
+          "SK_SOFT_08": 1,
+          "SK_SOFT_09": 1
+        },
+        "Middle": {
+          "SK_DATA_ANALYST_00": 3,
+          "SK_DATA_ANALYST_01": 3,
+          "SK_DATA_ANALYST_02": 3,
+          "SK_DATA_ANALYST_03": 3,
+          "SK_DATA_ANALYST_04": 3,
+          "SK_DATA_ANALYST_05": 3,
+          "SK_DATA_ANALYST_06": 3,
+          "SK_DATA_ANALYST_07": 3,
+          "SK_DATA_ANALYST_08": 3,
+          "SK_DATA_ANALYST_09": 3,
+          "SK_PUBLIC_SPEAKING": 2,
+          "SK_SOFT_01": 2,
+          "SK_SOFT_02": 2,
+          "SK_SOFT_03": 2,
+          "SK_SOFT_04": 2,
+          "SK_SOFT_05": 2,
+          "SK_SOFT_06": 2,
+          "SK_SOFT_07": 2,
+          "SK_SOFT_08": 2,
+          "SK_SOFT_09": 2
+        },
+        "Senior": {
+          "SK_DATA_ANALYST_00": 4,
+          "SK_DATA_ANALYST_01": 4,
+          "SK_DATA_ANALYST_02": 4,
+          "SK_DATA_ANALYST_03": 4,
+          "SK_DATA_ANALYST_04": 4,
+          "SK_DATA_ANALYST_05": 4,
+          "SK_DATA_ANALYST_06": 4,
+          "SK_DATA_ANALYST_07": 4,
+          "SK_DATA_ANALYST_08": 4,
+          "SK_DATA_ANALYST_09": 4,
+          "SK_PUBLIC_SPEAKING": 3,
+          "SK_SOFT_01": 3,
+          "SK_SOFT_02": 3,
+          "SK_SOFT_03": 3,
+          "SK_SOFT_04": 3,
+          "SK_SOFT_05": 3,
+          "SK_SOFT_06": 3,
+          "SK_SOFT_07": 3,
+          "SK_SOFT_08": 3,
+          "SK_SOFT_09": 3
+        }
+      },
+      "role_id": "DATA_ANALYST"
+    },
+    {
+      "grade_order": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "name": {
+        "en": "QA Engineer",
+        "kk": null,
+        "ru": "Инженер по тестированию"
+      },
+      "requirements": {
+        "Junior": {
+          "SK_PUBLIC_SPEAKING": 1,
+          "SK_QA_00": 1,
+          "SK_QA_01": 1,
+          "SK_QA_02": 1,
+          "SK_QA_03": 1,
+          "SK_QA_04": 1,
+          "SK_QA_05": 1,
+          "SK_QA_06": 1,
+          "SK_QA_07": 1,
+          "SK_QA_08": 1,
+          "SK_QA_09": 1,
+          "SK_SOFT_01": 1,
+          "SK_SOFT_02": 1,
+          "SK_SOFT_03": 1,
+          "SK_SOFT_04": 1,
+          "SK_SOFT_05": 1,
+          "SK_SOFT_06": 1,
+          "SK_SOFT_07": 1,
+          "SK_SOFT_08": 1,
+          "SK_SOFT_09": 1
+        },
+        "Middle": {
+          "SK_PUBLIC_SPEAKING": 2,
+          "SK_QA_00": 3,
+          "SK_QA_01": 3,
+          "SK_QA_02": 3,
+          "SK_QA_03": 3,
+          "SK_QA_04": 3,
+          "SK_QA_05": 3,
+          "SK_QA_06": 3,
+          "SK_QA_07": 3,
+          "SK_QA_08": 3,
+          "SK_QA_09": 3,
+          "SK_SOFT_01": 2,
+          "SK_SOFT_02": 2,
+          "SK_SOFT_03": 2,
+          "SK_SOFT_04": 2,
+          "SK_SOFT_05": 2,
+          "SK_SOFT_06": 2,
+          "SK_SOFT_07": 2,
+          "SK_SOFT_08": 2,
+          "SK_SOFT_09": 2
+        },
+        "Senior": {
+          "SK_PUBLIC_SPEAKING": 3,
+          "SK_QA_00": 4,
+          "SK_QA_01": 4,
+          "SK_QA_02": 4,
+          "SK_QA_03": 4,
+          "SK_QA_04": 4,
+          "SK_QA_05": 4,
+          "SK_QA_06": 4,
+          "SK_QA_07": 4,
+          "SK_QA_08": 4,
+          "SK_QA_09": 4,
+          "SK_SOFT_01": 3,
+          "SK_SOFT_02": 3,
+          "SK_SOFT_03": 3,
+          "SK_SOFT_04": 3,
+          "SK_SOFT_05": 3,
+          "SK_SOFT_06": 3,
+          "SK_SOFT_07": 3,
+          "SK_SOFT_08": 3,
+          "SK_SOFT_09": 3
+        }
+      },
+      "role_id": "QA"
+    },
+    {
+      "grade_order": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "name": {
+        "en": "Product Manager",
+        "kk": null,
+        "ru": "Менеджер продукта"
+      },
+      "requirements": {
+        "Junior": {
+          "SK_PRODUCT_00": 1,
+          "SK_PRODUCT_01": 1,
+          "SK_PRODUCT_02": 1,
+          "SK_PRODUCT_03": 1,
+          "SK_PRODUCT_04": 1,
+          "SK_PRODUCT_05": 1,
+          "SK_PRODUCT_06": 1,
+          "SK_PRODUCT_07": 1,
+          "SK_PRODUCT_08": 1,
+          "SK_PRODUCT_09": 1,
+          "SK_PUBLIC_SPEAKING": 1,
+          "SK_SOFT_01": 1,
+          "SK_SOFT_02": 1,
+          "SK_SOFT_03": 1,
+          "SK_SOFT_04": 1,
+          "SK_SOFT_05": 1,
+          "SK_SOFT_06": 1,
+          "SK_SOFT_07": 1,
+          "SK_SOFT_08": 1,
+          "SK_SOFT_09": 1
+        },
+        "Middle": {
+          "SK_PRODUCT_00": 3,
+          "SK_PRODUCT_01": 3,
+          "SK_PRODUCT_02": 3,
+          "SK_PRODUCT_03": 3,
+          "SK_PRODUCT_04": 3,
+          "SK_PRODUCT_05": 3,
+          "SK_PRODUCT_06": 3,
+          "SK_PRODUCT_07": 3,
+          "SK_PRODUCT_08": 3,
+          "SK_PRODUCT_09": 3,
+          "SK_PUBLIC_SPEAKING": 2,
+          "SK_SOFT_01": 2,
+          "SK_SOFT_02": 2,
+          "SK_SOFT_03": 2,
+          "SK_SOFT_04": 2,
+          "SK_SOFT_05": 2,
+          "SK_SOFT_06": 2,
+          "SK_SOFT_07": 2,
+          "SK_SOFT_08": 2,
+          "SK_SOFT_09": 2
+        },
+        "Senior": {
+          "SK_PRODUCT_00": 4,
+          "SK_PRODUCT_01": 4,
+          "SK_PRODUCT_02": 4,
+          "SK_PRODUCT_03": 4,
+          "SK_PRODUCT_04": 4,
+          "SK_PRODUCT_05": 4,
+          "SK_PRODUCT_06": 4,
+          "SK_PRODUCT_07": 4,
+          "SK_PRODUCT_08": 4,
+          "SK_PRODUCT_09": 4,
+          "SK_PUBLIC_SPEAKING": 3,
+          "SK_SOFT_01": 3,
+          "SK_SOFT_02": 3,
+          "SK_SOFT_03": 3,
+          "SK_SOFT_04": 3,
+          "SK_SOFT_05": 3,
+          "SK_SOFT_06": 3,
+          "SK_SOFT_07": 3,
+          "SK_SOFT_08": 3,
+          "SK_SOFT_09": 3
+        }
+      },
+      "role_id": "PRODUCT"
+    },
+    {
+      "grade_order": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "name": {
+        "en": "Customer Support",
+        "kk": null,
+        "ru": "Специалист поддержки"
+      },
+      "requirements": {
+        "Junior": {
+          "SK_CUSTOMER_SUPPORT_00": 1,
+          "SK_CUSTOMER_SUPPORT_01": 1,
+          "SK_CUSTOMER_SUPPORT_02": 1,
+          "SK_CUSTOMER_SUPPORT_03": 1,
+          "SK_CUSTOMER_SUPPORT_04": 1,
+          "SK_CUSTOMER_SUPPORT_05": 1,
+          "SK_CUSTOMER_SUPPORT_06": 1,
+          "SK_CUSTOMER_SUPPORT_07": 1,
+          "SK_CUSTOMER_SUPPORT_08": 1,
+          "SK_CUSTOMER_SUPPORT_09": 1,
+          "SK_PUBLIC_SPEAKING": 1,
+          "SK_SOFT_01": 1,
+          "SK_SOFT_02": 1,
+          "SK_SOFT_03": 1,
+          "SK_SOFT_04": 1,
+          "SK_SOFT_05": 1,
+          "SK_SOFT_06": 1,
+          "SK_SOFT_07": 1,
+          "SK_SOFT_08": 1,
+          "SK_SOFT_09": 1
+        },
+        "Middle": {
+          "SK_CUSTOMER_SUPPORT_00": 3,
+          "SK_CUSTOMER_SUPPORT_01": 3,
+          "SK_CUSTOMER_SUPPORT_02": 3,
+          "SK_CUSTOMER_SUPPORT_03": 3,
+          "SK_CUSTOMER_SUPPORT_04": 3,
+          "SK_CUSTOMER_SUPPORT_05": 3,
+          "SK_CUSTOMER_SUPPORT_06": 3,
+          "SK_CUSTOMER_SUPPORT_07": 3,
+          "SK_CUSTOMER_SUPPORT_08": 3,
+          "SK_CUSTOMER_SUPPORT_09": 3,
+          "SK_PUBLIC_SPEAKING": 2,
+          "SK_SOFT_01": 2,
+          "SK_SOFT_02": 2,
+          "SK_SOFT_03": 2,
+          "SK_SOFT_04": 2,
+          "SK_SOFT_05": 2,
+          "SK_SOFT_06": 2,
+          "SK_SOFT_07": 2,
+          "SK_SOFT_08": 2,
+          "SK_SOFT_09": 2
+        },
+        "Senior": {
+          "SK_CUSTOMER_SUPPORT_00": 4,
+          "SK_CUSTOMER_SUPPORT_01": 4,
+          "SK_CUSTOMER_SUPPORT_02": 4,
+          "SK_CUSTOMER_SUPPORT_03": 4,
+          "SK_CUSTOMER_SUPPORT_04": 4,
+          "SK_CUSTOMER_SUPPORT_05": 4,
+          "SK_CUSTOMER_SUPPORT_06": 4,
+          "SK_CUSTOMER_SUPPORT_07": 4,
+          "SK_CUSTOMER_SUPPORT_08": 4,
+          "SK_CUSTOMER_SUPPORT_09": 4,
+          "SK_PUBLIC_SPEAKING": 3,
+          "SK_SOFT_01": 3,
+          "SK_SOFT_02": 3,
+          "SK_SOFT_03": 3,
+          "SK_SOFT_04": 3,
+          "SK_SOFT_05": 3,
+          "SK_SOFT_06": 3,
+          "SK_SOFT_07": 3,
+          "SK_SOFT_08": 3,
+          "SK_SOFT_09": 3
+        }
+      },
+      "role_id": "CUSTOMER_SUPPORT"
+    }
+  ],
+  "schema_version": "shagra-kit/1",
+  "skills": [
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Python",
+        "kk": null,
+        "ru": "Python"
+      },
+      "skill_id": "SK_PYTHON"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "System Design",
+        "kk": null,
+        "ru": "Проектирование систем"
+      },
+      "skill_id": "SK_SYSTEM_DESIGN"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "API Design",
+        "kk": null,
+        "ru": "Проектирование API"
+      },
+      "skill_id": "SK_BACKEND_02"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Databases",
+        "kk": null,
+        "ru": "Базы данных"
+      },
+      "skill_id": "SK_BACKEND_03"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Service Reliability",
+        "kk": null,
+        "ru": "Надёжность сервисов"
+      },
+      "skill_id": "SK_BACKEND_04"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Code Review",
+        "kk": null,
+        "ru": "Ревью кода"
+      },
+      "skill_id": "SK_BACKEND_05"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Testing",
+        "kk": null,
+        "ru": "Тестирование"
+      },
+      "skill_id": "SK_BACKEND_06"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Security",
+        "kk": null,
+        "ru": "Безопасность"
+      },
+      "skill_id": "SK_BACKEND_07"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Observability",
+        "kk": null,
+        "ru": "Наблюдаемость"
+      },
+      "skill_id": "SK_BACKEND_08"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Distributed Systems",
+        "kk": null,
+        "ru": "Распределённые системы"
+      },
+      "skill_id": "SK_BACKEND_09"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "SQL",
+        "kk": null,
+        "ru": "SQL"
+      },
+      "skill_id": "SK_DATA_ANALYST_00"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Data Modeling",
+        "kk": null,
+        "ru": "Моделирование данных"
+      },
+      "skill_id": "SK_DATA_ANALYST_01"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Dashboard Design",
+        "kk": null,
+        "ru": "Проектирование дашбордов"
+      },
+      "skill_id": "SK_DATA_ANALYST_02"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Statistics",
+        "kk": null,
+        "ru": "Статистика"
+      },
+      "skill_id": "SK_DATA_ANALYST_03"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Data Quality",
+        "kk": null,
+        "ru": "Качество данных"
+      },
+      "skill_id": "SK_DATA_ANALYST_04"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Python Analysis",
+        "kk": null,
+        "ru": "Анализ на Python"
+      },
+      "skill_id": "SK_DATA_ANALYST_05"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Experiment Design",
+        "kk": null,
+        "ru": "Дизайн экспериментов"
+      },
+      "skill_id": "SK_DATA_ANALYST_06"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Data Visualization",
+        "kk": null,
+        "ru": "Визуализация данных"
+      },
+      "skill_id": "SK_DATA_ANALYST_07"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Metric Design",
+        "kk": null,
+        "ru": "Проектирование метрик"
+      },
+      "skill_id": "SK_DATA_ANALYST_08"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Forecasting",
+        "kk": null,
+        "ru": "Прогнозирование"
+      },
+      "skill_id": "SK_DATA_ANALYST_09"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Test Design",
+        "kk": null,
+        "ru": "Тест-дизайн"
+      },
+      "skill_id": "SK_QA_00"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "API Testing",
+        "kk": null,
+        "ru": "Тестирование API"
+      },
+      "skill_id": "SK_QA_01"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Automation",
+        "kk": null,
+        "ru": "Автоматизация"
+      },
+      "skill_id": "SK_QA_02"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Exploratory Testing",
+        "kk": null,
+        "ru": "Исследовательское тестирование"
+      },
+      "skill_id": "SK_QA_03"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Performance Testing",
+        "kk": null,
+        "ru": "Нагрузочное тестирование"
+      },
+      "skill_id": "SK_QA_04"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Bug Analysis",
+        "kk": null,
+        "ru": "Анализ дефектов"
+      },
+      "skill_id": "SK_QA_05"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Mobile Testing",
+        "kk": null,
+        "ru": "Мобильное тестирование"
+      },
+      "skill_id": "SK_QA_06"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Security Testing",
+        "kk": null,
+        "ru": "Тестирование безопасности"
+      },
+      "skill_id": "SK_QA_07"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Regression Planning",
+        "kk": null,
+        "ru": "Планирование регрессии"
+      },
+      "skill_id": "SK_QA_08"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Test Data",
+        "kk": null,
+        "ru": "Тестовые данные"
+      },
+      "skill_id": "SK_QA_09"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Product Discovery",
+        "kk": null,
+        "ru": "Исследование продукта"
+      },
+      "skill_id": "SK_PRODUCT_00"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Roadmapping",
+        "kk": null,
+        "ru": "Дорожная карта"
+      },
+      "skill_id": "SK_PRODUCT_01"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "User Research",
+        "kk": null,
+        "ru": "Исследование пользователей"
+      },
+      "skill_id": "SK_PRODUCT_02"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Prioritization",
+        "kk": null,
+        "ru": "Приоритизация"
+      },
+      "skill_id": "SK_PRODUCT_03"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Metrics",
+        "kk": null,
+        "ru": "Продуктовые метрики"
+      },
+      "skill_id": "SK_PRODUCT_04"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Experimentation",
+        "kk": null,
+        "ru": "Эксперименты"
+      },
+      "skill_id": "SK_PRODUCT_05"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Requirements",
+        "kk": null,
+        "ru": "Требования"
+      },
+      "skill_id": "SK_PRODUCT_06"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Journey Mapping",
+        "kk": null,
+        "ru": "Карта пути клиента"
+      },
+      "skill_id": "SK_PRODUCT_07"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Pricing Research",
+        "kk": null,
+        "ru": "Исследование ценности"
+      },
+      "skill_id": "SK_PRODUCT_08"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Stakeholder Alignment",
+        "kk": null,
+        "ru": "Согласование интересов"
+      },
+      "skill_id": "SK_PRODUCT_09"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Case Resolution",
+        "kk": null,
+        "ru": "Решение обращений"
+      },
+      "skill_id": "SK_CUSTOMER_SUPPORT_00"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Product Knowledge",
+        "kk": null,
+        "ru": "Знание продукта"
+      },
+      "skill_id": "SK_CUSTOMER_SUPPORT_01"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Service Recovery",
+        "kk": null,
+        "ru": "Восстановление сервиса"
+      },
+      "skill_id": "SK_CUSTOMER_SUPPORT_02"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Knowledge Base",
+        "kk": null,
+        "ru": "База знаний"
+      },
+      "skill_id": "SK_CUSTOMER_SUPPORT_03"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Quality Assurance",
+        "kk": null,
+        "ru": "Контроль качества"
+      },
+      "skill_id": "SK_CUSTOMER_SUPPORT_04"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Escalation",
+        "kk": null,
+        "ru": "Эскалация"
+      },
+      "skill_id": "SK_CUSTOMER_SUPPORT_05"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Complaint Analysis",
+        "kk": null,
+        "ru": "Анализ жалоб"
+      },
+      "skill_id": "SK_CUSTOMER_SUPPORT_06"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Channel Operations",
+        "kk": null,
+        "ru": "Работа с каналами"
+      },
+      "skill_id": "SK_CUSTOMER_SUPPORT_07"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Accessibility",
+        "kk": null,
+        "ru": "Доступность сервиса"
+      },
+      "skill_id": "SK_CUSTOMER_SUPPORT_08"
+    },
+    {
+      "kind": "hard",
+      "name": {
+        "en": "Process Improvement",
+        "kk": null,
+        "ru": "Улучшение процессов"
+      },
+      "skill_id": "SK_CUSTOMER_SUPPORT_09"
+    },
+    {
+      "kind": "soft",
+      "name": {
+        "en": "Public Speaking",
+        "kk": null,
+        "ru": "Публичные выступления"
+      },
+      "skill_id": "SK_PUBLIC_SPEAKING"
+    },
+    {
+      "kind": "soft",
+      "name": {
+        "en": "Feedback",
+        "kk": null,
+        "ru": "Обратная связь"
+      },
+      "skill_id": "SK_SOFT_01"
+    },
+    {
+      "kind": "soft",
+      "name": {
+        "en": "Collaboration",
+        "kk": null,
+        "ru": "Сотрудничество"
+      },
+      "skill_id": "SK_SOFT_02"
+    },
+    {
+      "kind": "soft",
+      "name": {
+        "en": "Time Management",
+        "kk": null,
+        "ru": "Управление временем"
+      },
+      "skill_id": "SK_SOFT_03"
+    },
+    {
+      "kind": "soft",
+      "name": {
+        "en": "Empathy",
+        "kk": null,
+        "ru": "Эмпатия"
+      },
+      "skill_id": "SK_SOFT_04"
+    },
+    {
+      "kind": "soft",
+      "name": {
+        "en": "Critical Thinking",
+        "kk": null,
+        "ru": "Критическое мышление"
+      },
+      "skill_id": "SK_SOFT_05"
+    },
+    {
+      "kind": "soft",
+      "name": {
+        "en": "Writing",
+        "kk": null,
+        "ru": "Деловое письмо"
+      },
+      "skill_id": "SK_SOFT_06"
+    },
+    {
+      "kind": "soft",
+      "name": {
+        "en": "Facilitation",
+        "kk": null,
+        "ru": "Фасилитация"
+      },
+      "skill_id": "SK_SOFT_07"
+    },
+    {
+      "kind": "soft",
+      "name": {
+        "en": "Adaptability",
+        "kk": null,
+        "ru": "Адаптивность"
+      },
+      "skill_id": "SK_SOFT_08"
+    },
+    {
+      "kind": "soft",
+      "name": {
+        "en": "Mentoring",
+        "kk": null,
+        "ru": "Наставничество"
+      },
+      "skill_id": "SK_SOFT_09"
+    }
+  ]
+}
