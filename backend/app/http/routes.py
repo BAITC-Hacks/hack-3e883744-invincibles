@@ -129,7 +129,8 @@ async def import_validate(request:Request,employees_file:UploadFile=File(...),hi
     employees=await employees_file.read(5*1024*1024+1)
     history=await history_file.read(5*1024*1024+1)
     result=await run_in_threadpool(ImportService(request.app.state.repo).validate,person['actor_id'],employees,history)
-    if not result.valid:return JSONResponse(status_code=413 if any(e.code=='FILE_TOO_LARGE' for e in result.errors) else 422,content=result.model_dump(mode='json'))
+    if any(e.code=='FILE_TOO_LARGE' for e in result.errors):fail('FILE_TOO_LARGE','Файл превышает допустимый размер.')
+    if not result.valid:return JSONResponse(status_code=422,content=result.model_dump(mode='json'))
     return result
 
 @router.post('/imports/{import_id}/commit',response_model=ImportCommit)

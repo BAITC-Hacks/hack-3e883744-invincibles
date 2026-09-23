@@ -1,16 +1,24 @@
 """Two-step employee/history import. Imported snapshots are authoritative."""
+import csv
 import json
 from collections import Counter
 from datetime import datetime,timezone
 from pydantic import ValidationError
 from backend.app.contracts.api import ImportValidation,ImportSummary,ErrorDetail,ImportCommit
-from backend.app.data.kit_v1 import parse_employees,parse_history
+from backend.app.data.kit_v1 import parse_employees,parse_history,KitParseError
 from backend.app.data.repository import Repository,RepoError
 
 MAX_FILE=5*1024*1024
 
 
 def detail(file,path,code,message): return ErrorDetail(file=file,path=path,code=code,message=message)
+
+
+def schema_error(file,exc):
+    first=exc.errors()[0]
+    path='.'.join(map(str,first['loc'])) or 'root'
+    code='UNSUPPORTED_KIT_SCHEMA' if first['type'] in ('extra_forbidden','missing') else 'INVALID_DATA'
+    return detail(file,path,code,'Неверное значение или структура файла.')
 
 class ImportService:
     def __init__(self,repository:Repository): self.repository=repository
@@ -23,12 +31,15 @@ class ImportService:
             errors.append(detail(None,'files','FILE_TOO_LARGE','Файл превышает допустимый размер.'))
             return ImportValidation(import_id=None,valid=False,base_dataset_version=base,expires_at=None,summary=zero,errors=errors)
         try: employees=parse_employees(employees_file)
-        except (ValidationError,ValueError,UnicodeError) as exc:
-            errors.append(detail('employees.json','root','INVALID_DATA',str(exc)[:300]));employees=[]
+        except ValidationError as exc:
+            errors.append(schema_error('employees.json',exc));employees=[]
+        except (ValueError,UnicodeError):
+            errors.append(detail('employees.json','root','INVALID_DATA','Неверный JSON.'));employees=[]
         try: history=parse_history(history_file)
-        except (ValidationError,ValueError,UnicodeError) as exc:
-            code='INVALID_DATE' if 'occurred_at' in str(exc) or 'datetime' in str(exc) else 'INVALID_DATA'
-            errors.append(detail('activity_history.csv','root',code,str(exc)[:300]));history=[]
+        except KitParseError as exc:
+            errors.append(detail('activity_history.csv',exc.path,exc.code,str(exc)));history=[]
+        except (ValidationError,ValueError,UnicodeError,csv.Error):
+            errors.append(detail('activity_history.csv','root','INVALID_DATA','Неверный CSV.'));history=[]
         if len(employees)>1000:errors.append(detail('employees.json','root','INVALID_DATA','Не более 1000 сотрудников.'))
         if len(history)>50000:errors.append(detail('activity_history.csv','root','INVALID_DATA','Не более 50000 строк.'))
         existing_map={e.employee_id:e for e in existing}

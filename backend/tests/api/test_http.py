@@ -62,3 +62,37 @@ def test_import_invalid_last_line_has_no_partial_write(tmp_path):
         assert result.status_code==422 and result.json()['valid'] is False
         assert c.get('/api/v1/employees/E_NEW_BAD').status_code==404
         assert c.get('/api/v1/health').json()['dataset_version']==1
+
+
+def test_recommendation_rejects_result_after_concurrent_change(tmp_path):
+    import asyncio
+    from backend.app.contracts.api import EventActionRequest
+    from backend.app.contracts.recommendation import RecommendationResult
+    from backend.app.data.repository import Repository
+    repo=Repository(tmp_path/'db.sqlite3')
+    class MutatingRecommendationService:
+        async def recommend(self,ctx,request):
+            mutation=EventActionRequest(event_id='EV_BACKEND_01',employee_version=ctx.employee_version,dataset_version=ctx.dataset_version)
+            await asyncio.to_thread(repo.complete,'employee','employee','E0001',mutation,'mutating-key')
+            return RecommendationResult(employee_id='E0001',employee_version=1,dataset_version=1,status='no_eligible_events',source=None,cache_hit=False,fallback_reason=None,no_step_reason='no_catalog_coverage',items=[])
+    app=create_app(database_path=tmp_path/'db.sqlite3',kit_dir=KIT,secret_path=tmp_path/'secret',app_origin='http://localhost:8080',recommendation_service=MutatingRecommendationService())
+    with TestClient(app) as c:
+        c.post('/api/v1/auth/login',json={'username':'employee','password':'demo-employee'},headers=ORIGIN)
+        result=c.post('/api/v1/employees/E0001/recommendations',json={'employee_version':1,'dataset_version':1},headers=ORIGIN)
+        assert result.status_code==409 and result.json()['error']['code']=='STALE_CONTEXT'
+        assert repo.get_context('E0001').employee_version==2
+
+
+def test_import_commit_rejects_changed_dataset_version(tmp_path):
+    import json
+    with client(tmp_path) as c:
+        c.post('/api/v1/auth/login',json={'username':'hr','password':'demo-hr'},headers=ORIGIN)
+        profile=json.loads((KIT/'employees.json').read_text())[0]
+        profile['employee_id']='E_STALE_IMPORT'
+        files={'employees_file':('employees.json',json.dumps([profile]).encode(),'application/json'),'history_file':('activity_history.csv',b'history_id,employee_id,event_id,status,occurred_at\n','text/csv')}
+        valid=c.post('/api/v1/imports/validate',files=files,headers=ORIGIN).json()
+        complete=c.post('/api/v1/employees/E0001/completions',json={'event_id':'EV_BACKEND_01','employee_version':1,'dataset_version':1},headers={**ORIGIN,'Idempotency-Key':'hr-change'})
+        assert complete.status_code==201
+        result=c.post(f"/api/v1/imports/{valid['import_id']}/commit",json={'base_dataset_version':1},headers=ORIGIN)
+        assert result.status_code==409 and result.json()['error']['code']=='IMPORT_CONFLICT'
+        assert c.get('/api/v1/employees/E_STALE_IMPORT').status_code==404

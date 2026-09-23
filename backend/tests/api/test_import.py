@@ -17,6 +17,8 @@ def test_invalid_final_csv_row_is_atomic(tmp_path):
     result=service.validate('hr',json.dumps(employees).encode(),csv)
     assert result.valid is False
     assert result.import_id is None
+    assert result.errors[0].code=='INVALID_DATE'
+    assert result.errors[0].path=='row[3].occurred_at'
     assert repo.dataset_version()==before
     assert all(h.history_id!='H_NEW' for h in repo.get_context('E0001').history)
 

@@ -12,6 +12,13 @@ HISTORY = TypeAdapter(list[HistoryEntry])
 HEADER = ['history_id','employee_id','event_id','status','occurred_at']
 
 
+class KitParseError(ValueError):
+    def __init__(self, path: str, code: str, message: str):
+        self.path = path
+        self.code = code
+        super().__init__(message)
+
+
 def parse_employees(data: bytes) -> list[Employee]:
     return EMPLOYEES.validate_json(data)
 
@@ -20,13 +27,16 @@ def parse_history(data: bytes) -> list[HistoryEntry]:
     stream=io.StringIO(data.decode('utf-8-sig'),newline='')
     reader=csv.DictReader(stream,strict=True)
     if reader.fieldnames != HEADER:
-        raise ValueError('activity_history.csv header mismatch')
+        raise KitParseError('header', 'INVALID_DATA', 'Неверный заголовок CSV.')
     rows=[]
     for index,row in enumerate(reader,start=2):
         if None in row or any(row[col] is None for col in HEADER):
-            raise ValueError(f'Invalid CSV row {index}')
+            raise KitParseError(f'row[{index}]', 'INVALID_DATA', 'Неверное число полей CSV.')
         try: rows.append(HistoryEntry.model_validate(row))
-        except Exception as exc: raise ValueError(f'Invalid CSV row {index}: {exc}') from exc
+        except Exception as exc:
+            field = exc.errors()[0]['loc'][0] if hasattr(exc, 'errors') else 'root'
+            code = 'INVALID_DATE' if field == 'occurred_at' else 'INVALID_DATA'
+            raise KitParseError(f'row[{index}].{field}', code, 'Неверное значение в CSV.') from exc
     return rows
 
 
