@@ -415,6 +415,8 @@ fieldset {
 }
 .sh-mobile-brand,
 .sh-topbar .sh-mobile-account,
+.sh-mobile-menu-button,
+.sh-mobile-menu-layer,
 .sh-bottomnav {
   display: none;
 }
@@ -1448,7 +1450,7 @@ tbody tr:hover {
 }
 @media (max-width: 767px) {
   html {
-    scroll-padding-top: 136px;
+    scroll-padding-top: 80px;
   }
   body {
     font-size: 16px;
@@ -1469,7 +1471,7 @@ tbody tr:hover {
   .sh-topbar {
     padding: 8px 16px;
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     gap: 8px 12px;
   }
   .sh-mobile-brand {
@@ -1479,15 +1481,51 @@ tbody tr:hover {
   }
   .sh-topbar .sh-mobile-account {
     display: inline-flex;
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .sh-mobile-menu-button {
+    display: inline-flex;
     grid-column: 2;
     grid-row: 1;
+  }
+  .sh-login-top > .sh-preferences {
+    display: none;
+  }
+  .sh-login-top .sh-mobile-menu-button {
+    display: inline-flex;
   }
   .sh-topbar-title {
     display: none;
   }
   .sh-topbar .sh-preferences {
-    grid-column: 1 / -1;
-    grid-row: 2;
+    display: none;
+  }
+  .sh-mobile-menu-layer {
+    position: fixed;
+    z-index: 5;
+    inset: 61px 0 0;
+    display: block;
+    background: color-mix(in srgb, #000 36%, transparent);
+    animation: sh-fade 0.18s ease-out both;
+  }
+  .sh-mobile-menu {
+    margin-left: auto;
+    width: min(360px, calc(100% - 24px));
+    padding: 20px;
+    border: 1px solid var(--border-subtle);
+    border-top: 0;
+    border-radius: 0 0 0 14px;
+    background: var(--bg-panel);
+    box-shadow: 0 18px 48px color-mix(in srgb, #000 28%, transparent);
+    animation: sh-dialog-in 0.22s ease-out both;
+  }
+  .sh-mobile-menu > strong {
+    display: block;
+    margin-bottom: 16px;
+  }
+  .sh-mobile-menu .sh-preferences {
+    display: flex;
     justify-content: space-between;
   }
   .sh-theme-button {

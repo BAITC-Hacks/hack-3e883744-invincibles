@@ -17,6 +17,7 @@ export function LoginPage({ onLogin }: { onLogin: (auth: Auth) => void }) {
     [password, setPassword] = useState('')
   const [busy, setBusy] = useState(false),
     [error, setError] = useState<unknown>(null)
+  const [mobileMenu, setMobileMenu] = useState(false)
   async function submit(event: FormEvent) {
     event.preventDefault()
     if (busy) return
@@ -40,7 +41,30 @@ export function LoginPage({ onLogin }: { onLogin: (auth: Auth) => void }) {
           <BrandMark />Шагра
         </span>
         <PreferencesControls />
+        <button
+          className="sh-icon-button sh-mobile-menu-button"
+          type="button"
+          aria-label={t('settings')}
+          aria-expanded={mobileMenu}
+          aria-controls="login-mobile-settings"
+          onClick={() => setMobileMenu((open) => !open)}
+        >
+          <Icon name={mobileMenu ? 'close' : 'menu'} />
+        </button>
       </header>
+      {mobileMenu && (
+        <div className="sh-mobile-menu-layer" onClick={() => setMobileMenu(false)}>
+          <section
+            id="login-mobile-settings"
+            className="sh-mobile-menu"
+            aria-label={t('settings')}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <strong>{t('settings')}</strong>
+            <PreferencesControls />
+          </section>
+        </div>
+      )}
       <main className="sh-login-main">
         <div className="sh-login-intro">
           <h1>{t('loginTitle')}</h1>

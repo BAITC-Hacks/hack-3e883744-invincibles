@@ -28,12 +28,14 @@ export function AppShell({
 }) {
   const { t } = usePreferences()
   const [account, setAccount] = useState(false)
+  const [mobileMenu, setMobileMenu] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<unknown>(null)
   const location = useLocation()
   const navigation = useNavigationType()
   const positions = useRef(new Map<string, number>())
   const key = location.pathname + location.search
+  useEffect(() => setMobileMenu(false), [location.pathname])
   useLayoutEffect(() => {
     window.scrollTo(
       0,
@@ -120,6 +122,16 @@ export function AppShell({
             </span>
             <PreferencesControls />
             <button
+              className="sh-icon-button sh-mobile-menu-button"
+              type="button"
+              aria-label={t('settings')}
+              aria-expanded={mobileMenu}
+              aria-controls="mobile-settings-menu"
+              onClick={() => setMobileMenu((open) => !open)}
+            >
+              <Icon name={mobileMenu ? 'close' : 'menu'} />
+            </button>
+            <button
               className="sh-icon-button sh-mobile-account"
               aria-label={t('account')}
               onClick={(event) => {
@@ -130,6 +142,22 @@ export function AppShell({
               <Icon name="user" />
             </button>
           </header>
+          {mobileMenu && (
+            <div
+              className="sh-mobile-menu-layer"
+              onClick={() => setMobileMenu(false)}
+            >
+              <section
+                id="mobile-settings-menu"
+                className="sh-mobile-menu"
+                aria-label={t('settings')}
+                onClick={(event) => event.stopPropagation()}
+              >
+                <strong>{t('settings')}</strong>
+                <PreferencesControls />
+              </section>
+            </div>
+          )}
           <main id="main-content" className="sh-main" tabIndex={-1}>
             {children}
           </main>
