@@ -69,7 +69,7 @@
         }
       ],
       "reason_codes": [
-        "TARGET_GAIN"
+        "TARGET_GAP"
       ],
       "comparison_event_id": "EV_BACKEND_02"
     }

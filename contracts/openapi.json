@@ -1566,7 +1566,7 @@
                 "type": "string",
                 "enum": [
                   "llm",
-                  "fallback"
+                  "deterministic_fallback"
                 ]
               },
               {
@@ -1582,7 +1582,16 @@
           "fallback_reason": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "enum": [
+                  "timeout",
+                  "unavailable",
+                  "invalid_output",
+                  "busy",
+                  "context_too_large",
+                  "rate_limited",
+                  "call_limit"
+                ]
               },
               {
                 "type": "null"

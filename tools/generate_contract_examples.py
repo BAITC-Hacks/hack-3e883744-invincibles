@@ -31,10 +31,10 @@ with TemporaryDirectory() as temp:
         {'kind':'GRADE_TARGET','text':'Следующий грейд: Senior.','refs':['employee.grade','role.requirements.Senior.SK_PYTHON']},
         {'kind':'SKILL_GAP','text':'Python: 2 из 4; прирост 1.','refs':['role.requirements.Senior.SK_PYTHON','event.EV_BACKEND_01.gains.SK_PYTHON']},
         {'kind':'HISTORY','text':'Истории участия пока нет.','refs':['history.type.course']}],
-        'reason_codes':['TARGET_GAIN'],'comparison_event_id':'EV_BACKEND_02'}
+        'reason_codes':['TARGET_GAP'],'comparison_event_id':'EV_BACKEND_02'}
     common={'employee_id':'E0001','employee_version':1,'dataset_version':1,'status':'ready','cache_hit':False,'no_step_reason':None,'items':[item]}
     examples['recommendations-llm']=(RecommendationResult,RecommendationResult(**common,source='llm',fallback_reason=None))
-    examples['recommendations-fallback']=(RecommendationResult,RecommendationResult(**common,source='fallback',fallback_reason='provider_unavailable'))
+    examples['recommendations-fallback']=(RecommendationResult,RecommendationResult(**common,source='deterministic_fallback',fallback_reason='unavailable'))
     summary={'new_employees':1,'replaced_employees':0,'new_history':0,'unchanged_history':0}
     examples['import-valid']=(ImportValidation,ImportValidation(import_id='IMP_DEMO_01',valid=True,base_dataset_version=1,expires_at='2026-09-23T09:15:00Z',summary=summary,errors=[]))
     examples['import-invalid']=(ImportValidation,ImportValidation(import_id=None,valid=False,base_dataset_version=1,expires_at=None,summary={'new_employees':0,'replaced_employees':0,'new_history':0,'unchanged_history':0},errors=[{'file':'activity_history.csv','path':'row[3].occurred_at','code':'INVALID_DATE','message':'Неверная дата.'}]))

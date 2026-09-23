@@ -3,9 +3,9 @@
   "employee_version": 1,
   "dataset_version": 1,
   "status": "ready",
-  "source": "fallback",
+  "source": "deterministic_fallback",
   "cache_hit": false,
-  "fallback_reason": "provider_unavailable",
+  "fallback_reason": "unavailable",
   "no_step_reason": null,
   "items": [
     {
@@ -69,7 +69,7 @@
         }
       ],
       "reason_codes": [
-        "TARGET_GAIN"
+        "TARGET_GAP"
       ],
       "comparison_event_id": "EV_BACKEND_02"
     }

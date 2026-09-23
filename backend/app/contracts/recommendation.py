@@ -74,9 +74,8 @@ class RecommendationResult(StrictModel):
     employee_version: AnnotatedVersion
     dataset_version: AnnotatedVersion
     status: Literal['ready', 'no_next_grade', 'target_met', 'incomplete_skills', 'no_eligible_events', 'all_candidates_excluded']
-    source: Literal['llm', 'fallback'] | None
+    source: Literal['llm', 'deterministic_fallback'] | None
     cache_hit: bool
-    fallback_reason: str | None
+    fallback_reason: Literal['timeout', 'unavailable', 'invalid_output', 'busy', 'context_too_large', 'rate_limited', 'call_limit'] | None
     no_step_reason: Literal['no_catalog_coverage', 'all_useful_completed', 'audience_or_missing_skills'] | None
     items: list[RecommendationItem]
-
