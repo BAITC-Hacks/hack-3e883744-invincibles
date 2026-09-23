@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from app.data.repository import Repository
+from app.data.repository import Repository,RepoError
 from app.application.imports import ImportService
 
 KIT=Path('data/synthetic')
@@ -41,3 +41,39 @@ def test_repeat_import_is_noop_and_snapshot_is_authoritative(tmp_path):
     assert noop.applied is False
     assert repo.dataset_version()==commit.dataset_version
     assert repo.get_context('E0001').employee.skills['SK_PYTHON']==4
+
+
+def test_completed_for_existing_employee_requires_snapshot(tmp_path):
+    repo,service=setup(tmp_path)
+    csv=b'history_id,employee_id,event_id,status,occurred_at\nH_NEEDS_SNAPSHOT,E0001,EV_SOFT_00,completed,2025-01-01T08:00:00Z\n'
+    result=service.validate('hr',b'[]',csv)
+    assert not result.valid
+    assert any(error.code=='SNAPSHOT_REQUIRED' for error in result.errors)
+    assert repo.dataset_version()==1
+    assert all(h.history_id!='H_NEEDS_SNAPSHOT' for h in repo.get_context('E0001').history)
+
+
+def test_unknown_role_is_rejected_without_mutation(tmp_path):
+    repo,service=setup(tmp_path)
+    employee=json.loads((KIT/'employees.json').read_text())[0]
+    employee['employee_id']='E_UNKNOWN_ROLE'
+    employee['role_id']='ALIEN'
+    result=service.validate('hr',json.dumps([employee]).encode(),b'history_id,employee_id,event_id,status,occurred_at\n')
+    assert not result.valid
+    assert any(error.code=='UNKNOWN_ROLE' for error in result.errors)
+    assert repo.dataset_version()==1
+
+
+def test_expired_pending_import_cannot_apply(tmp_path):
+    import pytest
+    repo,service=setup(tmp_path)
+    employee=json.loads((KIT/'employees.json').read_text())[0]
+    employee['employee_id']='E_EXPIRED'
+    pending=service.validate('hr',json.dumps([employee]).encode(),b'history_id,employee_id,event_id,status,occurred_at\n')
+    assert pending.valid
+    with repo.connection() as conn:
+        conn.execute('UPDATE imports SET expires_at=? WHERE id=?',('2020-01-01T00:00:00Z',pending.import_id))
+    with pytest.raises(RepoError) as error:
+        service.commit('hr',pending.import_id,pending.base_dataset_version)
+    assert error.value.code=='IMPORT_EXPIRED'
+    assert repo.dataset_version()==1

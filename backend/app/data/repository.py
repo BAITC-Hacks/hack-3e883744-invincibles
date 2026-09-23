@@ -186,6 +186,7 @@ class Repository:
         with self.connection() as conn:
             conn.execute('BEGIN IMMEDIATE')
             try:
+                conn.execute('DELETE FROM imports WHERE status=? AND expires_at<? AND id<>?',('validated',iso(utc_now()),import_id))
                 row=conn.execute('SELECT * FROM imports WHERE id=?',(import_id,)).fetchone()
                 if row is None: raise RepoError('NOT_FOUND','Импорт не найден.')
                 if row['actor_id']!=actor_id: raise RepoError('FORBIDDEN','Импорт принадлежит другому пользователю.')

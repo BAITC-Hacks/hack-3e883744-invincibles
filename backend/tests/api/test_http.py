@@ -98,3 +98,20 @@ def test_import_commit_rejects_changed_dataset_version(tmp_path):
         result=c.post(f"/api/v1/imports/{valid['import_id']}/commit",json={'base_dataset_version':1},headers=ORIGIN)
         assert result.status_code==409 and result.json()['error']['code']=='IMPORT_CONFLICT'
         assert c.get('/api/v1/employees/E_STALE_IMPORT').status_code==404
+
+
+def test_imported_missing_skill_is_unknown_in_profile(tmp_path):
+    import json
+    with client(tmp_path) as c:
+        c.post('/api/v1/auth/login',json={'username':'hr','password':'demo-hr'},headers=ORIGIN)
+        employee=json.loads((KIT/'employees.json').read_text())[0]
+        employee['employee_id']='E_INCOMPLETE'
+        employee['skills'].pop('SK_PYTHON')
+        files={'employees_file':('employees.json',json.dumps([employee]).encode(),'application/json'),'history_file':('activity_history.csv',b'history_id,employee_id,event_id,status,occurred_at\n','text/csv')}
+        pending=c.post('/api/v1/imports/validate',files=files,headers=ORIGIN).json()
+        assert pending['valid']
+        assert c.post(f"/api/v1/imports/{pending['import_id']}/commit",json={'base_dataset_version':1},headers=ORIGIN).status_code==200
+        result=c.get('/api/v1/employees/E_INCOMPLETE').json()
+        assert result['state']=='incomplete_skills' and result['coverage'] is None
+        python=next(row for row in result['skill_rows'] if row['skill_id']=='SK_PYTHON')
+        assert python['current'] is None and python['gap'] is None

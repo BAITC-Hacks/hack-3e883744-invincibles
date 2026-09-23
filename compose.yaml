@@ -32,6 +32,8 @@ services:
   ollama:
     image: ollama/ollama:0.11.6@sha256:1868fd51253099b8f48b89b981e5d8ba23e4db161a501b86e29593071c1c069b
     profiles: ["local-ai"]
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
     volumes:
       - ollama-models:/root/.ollama
 
