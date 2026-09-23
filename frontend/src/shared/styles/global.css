@@ -177,6 +177,14 @@ fieldset {
 .sh-secondary {
   background: var(--bg-panel);
 }
+.sh-ghost {
+  background: transparent;
+  border-color: transparent;
+}
+.sh-danger {
+  color: var(--negative);
+  border-color: var(--negative);
+}
 .sh-secondary:hover,
 .sh-icon-button:hover,
 .sh-text-button:hover {

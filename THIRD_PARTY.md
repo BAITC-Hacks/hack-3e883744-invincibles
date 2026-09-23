@@ -6,6 +6,7 @@
 |---|---:|---|---|
 | React, React DOM | 19.3.0 | MIT | Интерфейс |
 | React Router DOM | 7.18.4 | MIT | Маршруты |
+| lucide-react | 1.47.0 | ISC, производные Feather — MIT | Библиотека иконок из общего UI-слоя |
 | Vite | 7.3.6 | MIT | Сборка |
 | Tailwind CSS, @tailwindcss/vite | 4.3.3 | MIT | Стили |
 | TypeScript | 5.9.3 | Apache-2.0 | Проверка типов |

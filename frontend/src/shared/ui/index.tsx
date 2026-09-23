@@ -4,6 +4,8 @@ import {
   useLayoutEffect,
   useRef,
   type ReactNode,
+  type ButtonHTMLAttributes,
+  type InputHTMLAttributes,
 } from 'react'
 import { usePreferences, type Language } from '../lib/preferences'
 import type { MessageKey } from '../lib/messages'
@@ -360,4 +362,78 @@ export function CatalogNote() {
 export function Reason({ reason }: { reason: MessageKey }) {
   const { t } = usePreferences()
   return <p className="sh-muted">{t(reason)}</p>
+}
+
+// Keep the shared Button and Field APIs from the parallel UI foundation.
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
+  busy?: boolean
+}
+export function Button({
+  variant = 'secondary',
+  busy = false,
+  disabled,
+  className = '',
+  children,
+  ...rest
+}: ButtonProps) {
+  const style =
+    variant === 'primary'
+      ? 'sh-primary'
+      : variant === 'ghost'
+        ? 'sh-ghost'
+        : variant === 'danger'
+          ? 'sh-danger'
+          : 'sh-secondary'
+  return (
+    <button
+      {...rest}
+      className={`sh-button ${style} ${className}`}
+      disabled={disabled || busy}
+      aria-busy={busy || undefined}
+    >
+      {children}
+    </button>
+  )
+}
+export type FieldProps = InputHTMLAttributes<HTMLInputElement> & {
+  label: string
+  hint?: string
+  error?: string
+}
+export function Field({
+  label,
+  hint,
+  error,
+  id,
+  className = '',
+  ...rest
+}: FieldProps) {
+  const generatedId = useId()
+  const inputId = id || generatedId
+  return (
+    <div className={`sh-field ${className}`}>
+      <label htmlFor={inputId}>{label}</label>
+      <input
+        {...rest}
+        id={inputId}
+        aria-invalid={Boolean(error) || undefined}
+        aria-describedby={
+          [hint && `${inputId}-hint`, error && `${inputId}-error`]
+            .filter(Boolean)
+            .join(' ') || undefined
+        }
+      />
+      {hint && (
+        <small id={`${inputId}-hint`} className="sh-muted">
+          {hint}
+        </small>
+      )}
+      {error && (
+        <small id={`${inputId}-error`} role="alert">
+          {error}
+        </small>
+      )}
+    </div>
+  )
 }

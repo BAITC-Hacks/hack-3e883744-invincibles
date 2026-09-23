@@ -138,6 +138,12 @@ export function HrPage() {
       ),
     },
   ]
+  if (overview?.no_step.some((row) => row.role_name))
+    noStepColumns.splice(1, 0, {
+      key: 'role',
+      label: t('role'),
+      value: (row) => (row.role_name ? label(row.role_name) : t('noData')),
+    })
   const participationColumns: Column<HrOverview['participation'][number]>[] = [
     { key: 'activity', label: t('activity'), value: (row) => label(row.title) },
     { key: 'completed', label: t('completed'), value: (row) => row.completed },
@@ -199,7 +205,10 @@ export function HrPage() {
                   state={{ from: location.pathname + location.search }}
                 >
                   <strong>{row.employee_id}</strong>
-                  <span>{row.grade}</span>
+                  <span>
+                    {row.role_name ? `${label(row.role_name)} · ` : ''}
+                    {row.grade}
+                  </span>
                   <Icon name="chevron" />
                 </Link>
               ))

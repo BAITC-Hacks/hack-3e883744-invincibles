@@ -106,7 +106,12 @@ export type HrOverview = {
     affected_share: number | null
     mean_gap: number | null
   }[]
-  no_step: { employee_id: string; role_id: string; reason: string }[]
+  no_step: {
+    employee_id: string
+    role_id: string
+    role_name?: LocalizedText
+    reason: string
+  }[]
   participation: {
     event_id: string
     title: LocalizedText
@@ -118,7 +123,12 @@ export type HrOverview = {
   }[]
 }
 export type EmployeeList = {
-  items: { employee_id: string; role_id: string; grade: string }[]
+  items: {
+    employee_id: string
+    role_id: string
+    role_name?: LocalizedText
+    grade: string
+  }[]
   total: number
 }
 export type ImportSummary = {
