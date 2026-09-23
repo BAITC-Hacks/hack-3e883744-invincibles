@@ -1,9 +1,9 @@
 """Cross-file validation for the team's canonical kit."""
 from collections import Counter
 from datetime import date
-from backend.app.contracts.domain import EmployeeContext
-from backend.app.core.progress import next_grade, preview_event, target_requirements
-from backend.app.core.eligibility import check_eligibility
+from app.contracts.domain import EmployeeContext
+from app.core.progress import next_grade, preview_event, target_requirements
+from app.core.eligibility import check_eligibility
 
 
 def validate_references(employees,events,catalog,history):

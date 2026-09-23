@@ -8,8 +8,8 @@ import random
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from backend.app.contracts.domain import Employee, Event, HistoryEntry, RoleDefinition, SkillDefinition, SkillsCatalog
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'backend'))
+from app.contracts.domain import Employee, Event, HistoryEntry, RoleDefinition, SkillDefinition, SkillsCatalog
 
 SEED = 20260923
 AS_OF = date(2026, 9, 23)
@@ -123,4 +123,11 @@ def write(output:Path):
     print(json.dumps(manifest,ensure_ascii=False))
 
 if __name__=='__main__':
-    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,default=Path('data/synthetic'));args=parser.parse_args();write(args.output)
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--seed',type=int,default=SEED)
+    parser.add_argument('--as-of',default=AS_OF.isoformat())
+    parser.add_argument('--output',type=Path,default=Path('data/synthetic'))
+    args=parser.parse_args()
+    if args.seed!=SEED or args.as_of!=AS_OF.isoformat():
+        parser.error('SHAGRA-KIT v1 is frozen to seed=20260923 and as-of=2026-09-23')
+    write(args.output)

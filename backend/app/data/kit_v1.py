@@ -4,7 +4,7 @@ import io
 import json
 from pathlib import Path
 from pydantic import TypeAdapter
-from backend.app.contracts.domain import Employee, Event, HistoryEntry, SkillsCatalog
+from app.contracts.domain import Employee, Event, HistoryEntry, SkillsCatalog
 
 EMPLOYEES = TypeAdapter(list[Employee])
 EVENTS = TypeAdapter(list[Event])

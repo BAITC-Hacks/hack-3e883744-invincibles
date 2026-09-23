@@ -1,7 +1,7 @@
 """Pure grade, coverage and event effect calculations."""
 from decimal import Decimal, ROUND_HALF_UP
-from backend.app.contracts.domain import Employee, EmployeeContext, Event, RoleDefinition
-from backend.app.contracts.recommendation import Preview, SkillChange
+from app.contracts.domain import Employee, EmployeeContext, Event, RoleDefinition
+from app.contracts.recommendation import Preview, SkillChange
 from .errors import DomainError
 
 

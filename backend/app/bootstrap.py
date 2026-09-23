@@ -5,9 +5,9 @@ from fastapi import FastAPI,Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse,FileResponse
 from itsdangerous import URLSafeSerializer
-from backend.app.data.repository import Repository,RepoError
-from backend.app.core.errors import DomainError
-from backend.app.http.routes import router
+from app.data.repository import Repository,RepoError
+from app.core.errors import DomainError
+from app.http.routes import router
 
 STATUS={'INVALID_REQUEST':400,'UNAUTHENTICATED':401,'FORBIDDEN':403,'NOT_FOUND':404,'STALE_CONTEXT':409,'IDEMPOTENCY_CONFLICT':409,'ALREADY_COMPLETED':409,'IMPORT_CONFLICT':409,'IMPORT_EXPIRED':410,'FILE_TOO_LARGE':413,'INVALID_DATA':422,'UNSUPPORTED_KIT_SCHEMA':422,'INELIGIBLE_EVENT':422,'INCOMPLETE_SKILLS':422}
 
@@ -30,7 +30,7 @@ def create_app(database_path=None,kit_dir=None,secret_path=None,app_origin=None,
     app.state.repo=repo
     app.state.signer=URLSafeSerializer(secret(secret_path),salt='shagra-session-v1')
     app.state.app_origin=app_origin or os.getenv('APP_ORIGIN','http://localhost:8080')
-    app.state.cookie_secure=os.getenv('COOKIE_SECURE','false').lower()=='true'
+    app.state.cookie_secure=(os.getenv('COOKIE_SECURE','false').lower()=='true' or app.state.app_origin.startswith('https://'))
     app.state.provider=os.getenv('AI_PROVIDER','openai')
     app.state.model=os.getenv('OPENAI_MODEL','gpt-4.1-mini-2025-04-14') if app.state.provider=='openai' else os.getenv('OLLAMA_MODEL','qwen2.5:1.5b')
     app.state.model_status='unavailable'

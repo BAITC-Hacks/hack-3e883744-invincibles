@@ -1,5 +1,5 @@
-from backend.app.contracts.domain import EmployeeContext, Event
-from backend.app.contracts.recommendation import Eligibility
+from app.contracts.domain import EmployeeContext, Event
+from app.contracts.recommendation import Eligibility
 
 
 def check_eligibility(ctx: EmployeeContext, event: Event) -> Eligibility:

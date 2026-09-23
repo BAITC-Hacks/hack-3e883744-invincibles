@@ -7,9 +7,9 @@ import sys
 from collections import Counter
 from datetime import date
 from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from backend.app.data.kit_v1 import load_kit
-from backend.app.data.validation import validate_references,candidate_share
+sys.path.insert(0,str(Path(__file__).resolve().parents[1] / 'backend'))
+from app.data.kit_v1 import load_kit
+from app.data.validation import validate_references,candidate_share
 
 
 def validate(directory:Path):
@@ -56,4 +56,8 @@ def validate(directory:Path):
     print(json.dumps({'employees':len(employees),'events':len(events),'skills':len(catalog.skills),'history':len(history),'month_bins':len(month_bins),'useful':useful,'eligible_profiles':total,'share':round(share,4)},ensure_ascii=False))
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--directory',type=Path,default=Path('data/synthetic'));args=p.parse_args();validate(args.directory)
+    p=argparse.ArgumentParser()
+    p.add_argument('directory',nargs='?',type=Path,default=Path('data/synthetic'))
+    p.add_argument('--directory',dest='directory_option',type=Path)
+    args=p.parse_args()
+    validate(args.directory_option or args.directory)

@@ -4,9 +4,9 @@ import json
 from collections import Counter
 from datetime import datetime,timezone
 from pydantic import ValidationError
-from backend.app.contracts.api import ImportValidation,ImportSummary,ErrorDetail,ImportCommit
-from backend.app.data.kit_v1 import parse_employees,parse_history,KitParseError
-from backend.app.data.repository import Repository,RepoError
+from app.contracts.api import ImportValidation,ImportSummary,ErrorDetail,ImportCommit
+from app.data.kit_v1 import parse_employees,parse_history,KitParseError
+from app.data.repository import Repository,RepoError
 
 MAX_FILE=5*1024*1024
 

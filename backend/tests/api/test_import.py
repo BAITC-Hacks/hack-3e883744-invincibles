@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
-from backend.app.data.repository import Repository
-from backend.app.application.imports import ImportService
+from app.data.repository import Repository
+from app.application.imports import ImportService
 
 KIT=Path('data/synthetic')
 
@@ -33,6 +33,7 @@ def test_repeat_import_is_noop_and_snapshot_is_authoritative(tmp_path):
     commit=service.commit('hr',first.import_id,first.base_dataset_version)
     assert commit.applied
     assert repo.get_context('E0001').employee.skills['SK_PYTHON']==4
+    assert repo.get_context('E0001').employee.skills['SK_PUBLIC_SPEAKING']==1
     assert service.commit('hr',first.import_id,first.base_dataset_version).applied is False
     again=service.validate('hr',data,csv)
     assert again.valid

@@ -1,6 +1,6 @@
 from pathlib import Path
 from fastapi.testclient import TestClient
-from backend.app.bootstrap import create_app
+from app.bootstrap import create_app
 
 KIT=Path('data/synthetic')
 ORIGIN={'Origin':'http://localhost:8080'}
@@ -34,6 +34,8 @@ def test_hr_two_step_import_and_stale_commit(tmp_path):
     import json
     with client(tmp_path) as c:
         c.post('/api/v1/auth/login',json={'username':'hr','password':'demo-hr'},headers=ORIGIN)
+        assert c.get('/api/v1/employees?q=e0001').json()['total']==0
+        assert c.get('/api/v1/employees?q=E0001').json()['total']==1
         profile=json.loads((KIT/'employees.json').read_text())[0]
         profile['employee_id']='E_NEW_01'
         files={'employees_file':('employees.json',json.dumps([profile]).encode(),'application/json'),'history_file':('activity_history.csv',b'history_id,employee_id,event_id,status,occurred_at\n','text/csv')}
@@ -66,9 +68,9 @@ def test_import_invalid_last_line_has_no_partial_write(tmp_path):
 
 def test_recommendation_rejects_result_after_concurrent_change(tmp_path):
     import asyncio
-    from backend.app.contracts.api import EventActionRequest
-    from backend.app.contracts.recommendation import RecommendationResult
-    from backend.app.data.repository import Repository
+    from app.contracts.api import EventActionRequest
+    from app.contracts.recommendation import RecommendationResult
+    from app.data.repository import Repository
     repo=Repository(tmp_path/'db.sqlite3')
     class MutatingRecommendationService:
         async def recommend(self,ctx,request):

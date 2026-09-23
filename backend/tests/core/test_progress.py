@@ -1,6 +1,9 @@
-from backend.app.contracts.domain import Employee, RoleDefinition, Event, EmployeeContext, SkillDefinition
-from backend.app.core.progress import calculate_coverage, next_grade, preview_event
-from backend.app.core.eligibility import check_eligibility
+from app.contracts.domain import Employee, RoleDefinition, Event, EmployeeContext, SkillDefinition
+from app.core.progress import calculate_coverage, next_grade, preview_event
+from app.core.eligibility import check_eligibility
+from app.core.errors import DomainError
+from app.application.employees import profile
+import pytest
 
 
 def context(level=2, max_level=4, grade='Middle', known=True):
@@ -39,3 +42,14 @@ def test_no_next_grade():
     assert next_grade(ctx.role,ctx.employee.grade) is None
     assert calculate_coverage(ctx.employee,ctx.role) is None
     assert preview_event(ctx,event).changes[0].target is None
+
+
+def test_target_met_state_and_unknown_event_skill():
+    ctx,event=context(level=4)
+    assert profile(ctx).state=='target_met'
+    assert calculate_coverage(ctx.employee,ctx.role)==100.0
+    altered=event.model_copy(update={'gains':[event.gains[0].model_copy(update={'skill_id':'SK_UNKNOWN'})]})
+    assert check_eligibility(ctx,altered).reason=='INCOMPLETE_SKILLS'
+    with pytest.raises(DomainError) as error:
+        preview_event(ctx,altered)
+    assert error.value.code=='INCOMPLETE_SKILLS'

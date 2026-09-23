@@ -8,10 +8,10 @@ from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from uuid import uuid4
-from backend.app.contracts.domain import Employee, Event, HistoryEntry, RoleDefinition, SkillDefinition, EmployeeContext
-from backend.app.contracts.api import EventActionRequest, CompletionResponse
-from backend.app.core.progress import preview_event
-from backend.app.core.errors import DomainError
+from app.contracts.domain import Employee, Event, HistoryEntry, RoleDefinition, SkillDefinition, EmployeeContext
+from app.contracts.api import EventActionRequest, CompletionResponse
+from app.core.progress import preview_event
+from app.core.errors import DomainError
 from .kit_v1 import load_kit
 from .validation import validate_references
 
@@ -102,9 +102,8 @@ class Repository:
 
     def list_employees(self,q='',limit=50,offset=0):
         with self.connection() as conn:
-            predicate='%'+q+'%'
-            total=conn.execute('SELECT count(*) FROM employees WHERE id LIKE ?',(predicate,)).fetchone()[0]
-            rows=conn.execute('SELECT payload_json FROM employees WHERE id LIKE ? ORDER BY id LIMIT ? OFFSET ?',(predicate,limit,offset)).fetchall()
+            total=conn.execute('SELECT count(*) FROM employees WHERE instr(id, ?) > 0',(q,)).fetchone()[0]
+            rows=conn.execute('SELECT payload_json FROM employees WHERE instr(id, ?) > 0 ORDER BY id LIMIT ? OFFSET ?',(q,limit,offset)).fetchall()
             return [Employee.model_validate_json(r[0]) for r in rows],total
 
     def snapshot(self):

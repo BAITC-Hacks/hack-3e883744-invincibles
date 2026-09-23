@@ -2,13 +2,13 @@
 import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from backend.app.contracts.api import (ProfileResponse,EventActionRequest,CompletionResponse,HrOverview,ImportValidation,ImportCommit,ErrorResponse)
-from backend.app.contracts.recommendation import Preview,RecommendationResult
-from backend.app.data.repository import Repository
-from backend.app.application.employees import profile
-from backend.app.application.hr import overview
-from backend.app.core.progress import preview_event
+sys.path.insert(0,str(Path(__file__).resolve().parents[1] / 'backend'))
+from app.contracts.api import (ProfileResponse,EventActionRequest,CompletionResponse,HrOverview,ImportValidation,ImportCommit,ErrorResponse)
+from app.contracts.recommendation import Preview,RecommendationResult
+from app.data.repository import Repository
+from app.application.employees import profile
+from app.application.hr import overview
+from app.core.progress import preview_event
 
 OUT=Path('contracts/examples');OUT.mkdir(parents=True,exist_ok=True)
 with TemporaryDirectory() as temp:

@@ -7,13 +7,13 @@ from fastapi import APIRouter, Depends, File, Header, Request, Response, UploadF
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import JSONResponse
 from itsdangerous import BadSignature
-from backend.app.contracts.api import (LoginRequest,AuthResponse,HealthResponse,EmployeeList,EmployeeListItem,EventActionRequest,ImportCommitRequest,ImportValidation,ImportCommit,ProfileResponse,CompletionResponse,HrOverview)
-from backend.app.contracts.recommendation import RecommendationRequest,RecommendationResult,Preview
-from backend.app.core.progress import preview_event
-from backend.app.application.employees import profile
-from backend.app.application.hr import overview
-from backend.app.application.imports import ImportService
-from backend.app.data.repository import RepoError
+from app.contracts.api import (LoginRequest,AuthResponse,HealthResponse,EmployeeList,EmployeeListItem,EventActionRequest,ImportCommitRequest,ImportValidation,ImportCommit,ProfileResponse,CompletionResponse,HrOverview)
+from app.contracts.recommendation import RecommendationRequest,RecommendationResult,Preview
+from app.core.progress import preview_event
+from app.application.employees import profile
+from app.application.hr import overview
+from app.application.imports import ImportService
+from app.data.repository import RepoError
 
 router=APIRouter(prefix='/api/v1')
 

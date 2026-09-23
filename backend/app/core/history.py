@@ -1,5 +1,5 @@
-from backend.app.contracts.domain import EmployeeContext
-from backend.app.contracts.recommendation import HistorySummary
+from app.contracts.domain import EmployeeContext
+from app.contracts.recommendation import HistorySummary
 
 
 def summarize_type_history(ctx: EmployeeContext, event_type: str) -> HistorySummary:

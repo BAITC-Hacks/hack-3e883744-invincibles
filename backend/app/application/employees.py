@@ -1,8 +1,8 @@
 """Employee-facing read models assembled from one repository context."""
-from backend.app.contracts.api import ProfileResponse, SkillRow, ProfileHistoryRow, AvailableEvent
-from backend.app.contracts.domain import EmployeeContext
-from backend.app.core.progress import next_grade, calculate_coverage, preview_event
-from backend.app.core.eligibility import check_eligibility
+from app.contracts.api import ProfileResponse, SkillRow, ProfileHistoryRow, AvailableEvent
+from app.contracts.domain import EmployeeContext
+from app.core.progress import next_grade, calculate_coverage, preview_event
+from app.core.eligibility import check_eligibility
 
 
 def profile(ctx:EmployeeContext)->ProfileResponse:
