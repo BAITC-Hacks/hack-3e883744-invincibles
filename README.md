@@ -1,65 +1,235 @@
-# ШАГРА
+<div align="center">
 
-**ШАГРА — примерка следующего карьерного шага.** Сотрудник видит требования следующего грейда, рекомендации из каталога, проверяемые основания и расчёт «сейчас → после». HR видит три аналитических среза и может проверить и применить импорт профилей и истории. В проекте используются синтетические данные; формат официального набора организаторов пока не проверен.
+# ШАГРА · SHAGRA
 
-Интерфейс поддерживает **RU / KZ / EN** и светлую/тёмную тему. Переключатели находятся в шапке, в том числе на входе; выбор сохраняется в браузере. В обзоре сотрудника показаны готовность навыков и один рекомендуемый шаг. Все навыки и история вынесены в отдельные разделы, обоснования и альтернативы раскрываются по запросу. На телефоне основные разделы доступны через нижнее меню. HR сначала видит сводку и пять приоритетных дефицитов; таблицы с поиском и страницами находятся в «Подробных данных».
+### Следующий карьерный шаг — с понятным результатом
 
-Кнопка KZ включает казахский интерфейс (`lang=kk`). Названия из каталога берутся из языковых полей API; при отсутствии перевода показывается доступное название с пометкой. Текст обоснования сервера сохраняется на языке источника. Пользовательские данные не переводятся случайной заменой строк.
+**Русский** · [Қазақша](README.kk.md) · [English](README.en.md)
 
-## Запуск
+React · TypeScript · FastAPI · SQLite · OpenAI / Ollama
 
-Нужны Docker с Compose и доступ к сети при первой сборке. Из корня репозитория:
+HackAlem AI · Halyk Bank track · команда Invincibles
+
+</div>
+
+ШАГРА помогает сотруднику выбрать полезную активность, увидеть её расчётный эффект **до выполнения** и сравнить варианты. HR получает сводку дефицитов навыков и импорт профилей. Это рабочий хакатонный MVP с настоящим API.
+
+![Рабочий интерфейс сотрудника](docs/validation/ui/simple/live-profile-1440-dark.png)
+
+[Запуск](#быстрый-старт) · [Установка](#установка-на-разных-системах) · [Данные](#данные-и-импорт) · [Архитектура](#архитектура) · [Проверки](#проверки) · [Документация](docs/README.md)
+
+## Возможности
+
+| Сотрудник | HR |
+|---|---|
+| Текущий и целевой грейд, покрытие требований | Сводка развития команды |
+| Карта навыков и конкретные разрывы | Приоритетные дефициты с понятными знаменателями |
+| Персональные рекомендации из каталога | Поиск сотрудника по ID |
+| Примерка и сравнение двух активностей | Таблицы участия, фильтры, пагинация |
+| Подтверждение выполнения и история | Проверка файлов перед отдельным применением |
+
+**RU / KZ / EN**, светлая и тёмная темы, desktop и мобильное меню. Язык и тема сохраняются в браузере. Переводы названий зависят от каталога: при отсутствии перевода показывается доступный язык с пояснением. Обоснования сервера остаются на языке источника.
+
+| HR-аналитика | На телефоне |
+|---|---|
+| ![HR](docs/validation/ui/simple/live-hr-1440-dark.png) | <img src="docs/validation/ui/simple/live-profile-390-dark.png" alt="Мобильный профиль" width="260"> |
+
+Скриншоты рабочего приложения получены на синтетических данных. Реальных данных сотрудников банка в репозитории нет.
+
+## Быстрый старт
+
+Нужны **Git и Docker Compose v2**. Python и Node.js на хосте не требуются. Первая сборка скачивает зависимости.
 
 ```bash
-docker compose up --build
+git clone https://github.com/BAITC-Hacks/hack-3e883744-invincibles.git
+cd hack-3e883744-invincibles
 ```
 
-Откройте http://localhost:8080. Демо-входы: `employee / demo-employee` (профиль E0001) и `hr / demo-hr`. Пароли предназначены только для локальной демонстрации и меняются через `DEMO_EMPLOYEE_PASSWORD` и `DEMO_HR_PASSWORD`. Compose хранит SQLite и секрет сессий в отдельном named volume, поэтому обычный перезапуск не сбрасывает изменения.
+Создайте `.env` из [.env.example](.env.example), если файла ещё нет.
 
-Для основного OpenAI-режима задайте серверный `OPENAI_API_KEY` в `.env` по образцу `.env.example`. Ключ не должен иметь префикс `VITE_` и не попадает в браузер. Запросы к модели идут только через backend. `AI_PROVIDER=ollama docker compose --profile local-ai up --build` включает локальную опцию; первый запуск загружает модель и требует дополнительного времени/места. Проверьте условия использования данных перед отправкой их внешнему API. `store=false` не является обещанием полного отсутствия журналов провайдера.
+Linux/macOS:
 
-**Проверенный режим (23.09.2026):** A2-сервис подключён. Без `OPENAI_API_KEY` живой backend вернул `status=ready`, `source=deterministic_fallback`, `fallback_reason=unavailable` и три карточки; полный браузерный сценарий до выполнения и HR-импорта прошёл. Реальный вызов OpenAI с ключом на этой машине не проверен. Интерфейс различает `source=llm` и резервный расчёт; режим конкретного запуска проверяйте по ответу API и метке карточки.
+```bash
+test -f .env || cp .env.example .env
+```
 
-## Как устроено
-
-React + TypeScript + Vite + Tailwind CSS 4 находятся в `frontend/`. FastAPI обслуживает `/api/v1` и собранный `frontend/dist` на одном origin. SQLite хранит профили, историю, версии, идемпотентные выполнения, импорты и сессии. Браузер использует HttpOnly cookie с `credentials: include`; сервер задаёт роль и проверяет доступ. Preview только читает данные, подтверждение выполнения отправляет `Idempotency-Key` и версии профиля/набора. При сетевом повторе интерфейс сохраняет тот же ключ и тело запроса.
-
-Основной путь сотрудника: вход → `/me` → требования и разрывы → «Примерить» → сравнение двух альтернатив от одной версии → «Выполнено» → обновлённый профиль и история. «Другой вариант» исключает событие только в текущем просмотре. HR: вход → `/hr` → поиск по ID и `/employees/:id` → `/hr/import`.
-
-## Импорт
-
-HR загружает одновременно `employees.json` и `activity_history.csv` в формате собственного синтетического кита `data/synthetic/`. «Проверить файлы» не записывает данные. Ответ показывает ошибки с файлом, путём поля и кодом, числа новых/заменяемых профилей и записей истории. Затем отдельная кнопка применяет импорт. Совпавший `employee_id` **полностью заменяет snapshot** сотрудника, включая уровни навыков; история объединяется по `history_id`. Повтор идентичного импорта не должен удваивать историю или прирост навыков. Проверка действует 15 минут; при конфликте версии или истечении срока повторите её. После успешного импорта новый профиль открывается без пересборки.
-
-## Разработка и проверки
-
-Проверенные на Windows команды:
+Windows PowerShell:
 
 ```powershell
+if (!(Test-Path .env)) { Copy-Item .env.example .env }
+```
+
+Для AI заполните `OPENAI_API_KEY` в `.env`. Без ключа работает подбор по правилам, явно обозначенный в интерфейсе. Ключ нельзя помещать в Git или `VITE_*`.
+
+```bash
+docker compose up -d --build app
+docker compose ps
+```
+
+Откройте **[localhost:8080](http://localhost:8080)**. [Проверка сервера](http://localhost:8080/api/v1/health) · [Swagger UI](http://localhost:8080/docs).
+
+| Роль | Логин | Пароль |
+|---|---|---|
+| Сотрудник, E0001 | `employee` | `demo-employee` |
+| HR | `hr` | `demo-hr` |
+
+Это демонстрационные учётные записи. Пароли задаются через `DEMO_EMPLOYEE_PASSWORD` и `DEMO_HR_PASSWORD`.
+
+## Установка на разных системах
+
+| Система | Подготовка |
+|---|---|
+| Windows | Установите [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) с WSL 2 и Linux containers, запустите его. Команды выполняйте в PowerShell. |
+| macOS | Установите [Docker Desktop](https://docs.docker.com/desktop/setup/install/mac-install/) под Apple silicon или Intel, запустите его. Используйте Terminal. |
+| Linux | Установите Docker Engine и Compose plugin: [Ubuntu](https://docs.docker.com/engine/install/ubuntu/) или инструкция своего дистрибутива. Проверьте `docker info` и `docker compose version`. |
+
+При `permission denied` для Docker socket на Linux используйте `sudo docker compose …` либо настройте доступ по правилам своей системы. Актуальные требования к ОС и оборудованию — по официальным ссылкам выше.
+
+### Без Docker: Linux / macOS
+
+Нужны **Python 3.12** и **Node.js 22 LTS (22.19 или новее в ветке 22)**. Node.js 24 также использовался при проверке. Из корня проекта:
+
+```bash
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r backend/requirements.lock
+npm --prefix frontend ci
+npm --prefix frontend run build
+export DATABASE_PATH="$PWD/runtime/shagra.sqlite3"
+export SESSION_SECRET_PATH="$PWD/runtime/session-secret"
+export AI_USAGE_PATH="$PWD/runtime/ai-usage.json"
+export KIT_PATH="$PWD/data/synthetic"
+export FRONTEND_DIST="$PWD/frontend/dist"
+export APP_ORIGIN=http://localhost:8080
+export AI_PROVIDER=openai
+# Для AI задайте OPENAI_API_KEY в окружении терминала.
+.venv/bin/python -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8080
+```
+
+### Без Docker: Windows PowerShell
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r backend/requirements.lock
+npm --prefix frontend ci
+npm --prefix frontend run build
+$env:DATABASE_PATH = "$PWD/runtime/shagra.sqlite3"
+$env:SESSION_SECRET_PATH = "$PWD/runtime/session-secret"
+$env:AI_USAGE_PATH = "$PWD/runtime/ai-usage.json"
+$env:KIT_PATH = "$PWD/data/synthetic"
+$env:FRONTEND_DIST = "$PWD/frontend/dist"
+$env:APP_ORIGIN = 'http://localhost:8080'
+$env:AI_PROVIDER = 'openai'
+# Для AI задайте OPENAI_API_KEY в окружении терминала.
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8080
+```
+
+**Прямой запуск uvicorn автоматически не читает `.env`.** Передайте настройки через окружение. Пустой ключ включает fallback. `runtime/` создаётся приложением. Локальный запуск и Compose используют разные хранилища БД.
+
+## Конфигурация и AI
+
+| Переменная | По умолчанию | Назначение |
+|---|---|---|
+| `APP_PORT` | `8080` | Порт Compose на компьютере |
+| `APP_ORIGIN` | `http://localhost:8080` | Точный адрес страницы для POST-запросов |
+| `AI_PROVIDER` | `openai` | `openai` или `ollama` |
+| `OPENAI_API_KEY` | пусто | Серверный ключ; без него работает fallback |
+| `OPENAI_MODEL` | `gpt-4.1-mini-2025-04-14` | Модель ранжирования |
+| `AI_MAX_PAID_CALLS` | `2000` | Лимит попыток API, не долларовый бюджет |
+| `LLM_TIMEOUT_SECONDS` | `8` | Время ожидания модели |
+| `OLLAMA_MODEL` | `qwen2.5:1.5b` | Локальная модель |
+| `COOKIE_SECURE` | `false` | Для локального HTTP; HTTPS требует secure cookies |
+
+Другой порт требует изменить **оба** значения, например `APP_PORT=8081` и `APP_ORIGIN=http://localhost:8081`. `localhost` и `127.0.0.1` — разные origin.
+
+Для Ollama задайте в `.env` `AI_PROVIDER=ollama` и `OLLAMA_BASE_URL=http://ollama:11434`:
+
+```bash
+docker compose --profile local-ai up -d --build
+docker compose logs -f model-init
+```
+
+Первый запуск скачивает модель и требует дополнительных ресурсов. До её готовности допустим fallback. AI ранжирует допустимые варианты; эффект, допуск и запись результата определяются серверными правилами. [Подробнее об AI](docs/AI.md).
+
+## Данные и импорт
+
+**200 сотрудников · 40 активностей · 60 навыков · 1736 записей истории за 24 месяца.** Это воспроизводимый синтетический кит команды: seed `20260923`, версия `shagra-kit/1`.
+
+| Файл в `data/synthetic/` | Содержание |
+|---|---|
+| `employees.json` | Текущие профили и уровни навыков |
+| `events.json` | Активности, аудитория, эффект |
+| `skills.json` | Навыки, роли, требования грейдов |
+| `activity_history.csv` | История участия |
+| `manifest.json` | Происхождение и контрольные суммы |
+
+HR загружает **employees.json + activity_history.csv**, до 5 MiB каждый. Проверка и применение разделены. Совпавший ID полностью заменяет профиль, включая навыки; история объединяется по ID записи. Проверка действует 15 минут. Неизвестный навык не считается нулевым; импорт истории не начисляет эффект повторно. [Схема кита](data/synthetic/README.md) · [Правила импорта](docs/DATA.md).
+
+## Архитектура
+
+```mermaid
+flowchart LR
+  UI[React · RU / KK / EN] --> API[FastAPI /api/v1]
+  API --> Rules[Допуск · разрывы · примерка]
+  API --> DB[(SQLite)]
+  API --> Rank[Ранжирование]
+  Rank --> Model[OpenAI / Ollama]
+  Rank --> Fallback[Подбор по правилам]
+```
+
+Frontend и API обслуживаются с одного origin. HttpOnly cookie хранит сессию; версии защищают от устаревших операций; Idempotency-Key предотвращает повторное начисление. В контейнере один worker, БД и секрет сессий сохраняются в volume.
+
+```text
+backend/app/       API, правила, рекомендации, SQLite
+frontend/src/      app → pages → features / entities → shared
+contracts/         OpenAPI и примеры
+data/             синтетический кит и AI-сценарии
+tools/            проверки данных, схемы, AI-оценка
+docs/             документация, дизайн, результаты проверок
+```
+
+## Проверки
+
+После установки зависимостей; на Windows замените `.venv/bin/python` на `.\.venv\Scripts\python.exe`:
+
+```bash
+.venv/bin/python -m pytest -q
+.venv/bin/python tools/validate_kit.py
+.venv/bin/python -m pip check
+npm --prefix frontend run build
 cd frontend
-npm install
-npm run build
 npx playwright install chromium firefox webkit
 npm run test:e2e
 ```
 
-Сборка использует lock-файл; для воспроизводимой установки применяйте `npm ci`. Изолированные тесты UI используют Playwright route interception и не подменяют API в production-сборке. Набор проверяет Chromium, Firefox и WebKit на 320, 390, 768, 1280 и 1440 px, языки, обе темы, сохранение настроек, клавиатуру, контраст и масштабирование. Дополнительный тест с живым backend: `npm run test:e2e:live`; по умолчанию приложение ожидается на `http://localhost:8080`, другой origin задаётся через `LIVE_BASE_URL`. Он проходит вход, примерку без мутации, выполнение, обновление профиля, HR-импорт и открытие нового профиля. Результаты и новые снимки — в [docs/validation/ui/simple](docs/validation/ui/simple/README.md).
+На Linux могут понадобиться [системные зависимости Playwright](https://playwright.dev/docs/browsers), устанавливаемые через `npx playwright install --with-deps`. Live-тест **изменяет данные**: только отдельная тестовая БД и правильный `LIVE_BASE_URL`. [Как запускать и что проверено](docs/TESTING.md).
 
-Для локального запуска backend без Docker нужны Python-зависимости из `backend/requirements.lock`, подготовленный `data/synthetic/` и собранный `frontend/dist`. Пример для PowerShell из корня репозитория:
+На ревизии `3eb7a86`: 42 backend-теста, 21 Chromium-сценарий и 1 live-сценарий прошли на финальном прогоне. Первый параллельный UI-прогон дал один таймаут входа, не повторившийся отдельно и последовательно. Реальные Q1–Q3 OpenAI прошли в предыдущем аудите. Docker daemon в среде проверки недоступен по правам; это не проверка контейнера или всех ОС.
 
-```powershell
-python -m venv .venv
-.venv\Scripts\python.exe -m pip install -r backend\requirements.lock
-.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8080
+## Обновление и помощь
+
+```bash
+git pull --ff-only
+docker compose up -d --build app
+docker compose logs --tail=100 app
 ```
 
-При запуске через Vite используйте `npm run dev` в `frontend/` и установите серверный `APP_ORIGIN=http://localhost:5173` для POST-запросов через proxy. Без этого сервер отклонит изменение данных из другого origin. В отдельной локальной проверке использовались Python 3.13 и отдельная тестовая БД; контейнер закрепляет Python 3.12.
+Остановка: `docker compose stop`. Пересборка сохраняет volume. **Не используйте `docker compose down -v`, если нужны текущие данные.**
 
-## Ограничения и устранение ошибок
+| Симптом | Решение |
+|---|---|
+| Недопустимый источник запроса | Открыть точный APP_ORIGIN; после изменения `.env` пересоздать контейнер |
+| Старый дизайн | Пересобрать image, обновить страницу Ctrl+Shift+R / Cmd+Shift+R |
+| «По правилам» | Проверить ключ, провайдера и model_status в health |
+| STALE_CONTEXT / IMPORT_CONFLICT / IMPORT_EXPIRED | Обновить профиль или повторить проверку файлов |
+| Docker недоступен | Запустить Docker Desktop/daemon, проверить `docker info` и права |
 
-- `Резервный расчёт`: AI недоступен или его ответ не прошёл проверку; сервер всё равно строит карточки по правилам каталога. Для проверки реального AI нужен серверный ключ и `source=llm` в ответе.
-- `STALE_CONTEXT`: профиль или набор данных изменился; интерфейс перечитывает профиль. Повторите примерку и подтвердите новое состояние самостоятельно.
-- `IMPORT_CONFLICT` или `IMPORT_EXPIRED`: выполните проверку обоих файлов заново. Ошибки файлов не применяют частичные изменения.
-- Пустой список шагов может означать последний грейд, покрытые требования, неполные навыки или отсутствие полезных событий. Интерфейс показывает причину от API, не подставляя неизвестные навыки нулём.
-- Текущий Compose-запуск в этой Windows-среде не проверен: команда `docker` здесь отсутствует. Проверенный локальный запуск и полный E2E в fallback-режиме описаны выше. Схема официального кита и качество реального AI-ранжирования ещё не подтверждены.
+Для Vite-разработки backend запускается на 8080 с `APP_ORIGIN=http://localhost:5173`; затем `npm --prefix frontend run dev` и именно `http://localhost:5173`. Для обычного билда верните origin 8080.
 
-Точные API-схемы и примеры: `contracts/README.md`, `contracts/examples/`. Сценарий защиты: `docs/DEMO.md`. Зависимости и лицензии: `THIRD_PARTY.md`.
+## Документация и границы MVP
+
+- [Навигатор](docs/README.md) · [Демо за 3 минуты](docs/DEMO.md).
+- [API и ошибки](contracts/README.md) · [OpenAPI](contracts/openapi.json).
+- [Архитектура](docs/ARCHITECTURE.md) · [Данные](docs/DATA.md) · [AI](docs/AI.md) · [Проверки](docs/TESTING.md).
+- [Компоненты, лицензии и источники](THIRD_PARTY.md). Общая лицензия проекта пока не объявлена.
+
+Это локальный демонстрационный MVP. Покрытие навыков не является решением о повышении; совместимость с официальным китом организаторов не подтверждена. В части серверных объяснений остаются enum-имена; HR API не везде содержит названия ролей. Макеты в `docs/validation/ui/redesign` и `start-design.sh` — исторический предпросмотр, для рабочего приложения они не нужны. `.env`, runtime-БД и зависимости не включаются в Git.

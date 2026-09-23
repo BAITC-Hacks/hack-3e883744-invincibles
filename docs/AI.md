@@ -2,7 +2,7 @@
 
 ## Роль модели
 
-Сервис получает готовый `EmployeeContext` от A1 и никогда не читает БД или не меняет профиль. Он импортирует контракты A1 из `app.contracts.recommendation` и функции A1 из `app.core.progress`, `app.core.eligibility`, `app.core.history`. `build_candidates(ctx, request)` использует эти функции для допуска, примерки, цели и истории. `RecommendationService.recommend(ctx, request)` возвращает `RecommendationResult` из общего контракта. A1 проверяет версии snapshot до и после вызова и возвращает HTTP 409 при изменении.
+Сервис получает готовый `EmployeeContext` из слоя приложения и никогда не читает БД или не меняет профиль. Он импортирует общие контракты из `app.contracts.recommendation` и доменные функции из `app.core.progress`, `app.core.eligibility`, `app.core.history`. `build_candidates(ctx, request)` использует эти функции для допуска, примерки, цели и истории. `RecommendationService.recommend(ctx, request)` возвращает `RecommendationResult` из общего контракта. HTTP-слой проверяет версии snapshot до и после вызова и возвращает HTTP 409 при изменении.
 
 Для допустимых полезных активностей `G = target_gain/gap_total`, `H = (completed+1)/(completed+skipped+declined+2)`, `P = 1` при явно выбранном типе. Базовый балл `0.80G+0.15H+0.05P`. `H` — сглаженная инженерная эвристика, не вероятность участия. Кандидаты сортируются по баллу, `target_gain`, `event_id`; в shortlist не больше восьми, и событие с максимальным `target_gain` сохраняется. Модель выбирает порядок и reason codes только среди aliases `C1`–`C8`. Она не вычисляет уровни навыков, проценты, причины поведения или шанс повышения.
 
@@ -24,18 +24,20 @@
 
 ## Воспроизведение
 
-После установки зависимостей и задания серверного `OPENAI_API_KEY` из корня проекта:
+После установки зависимостей, задания серверного `OPENAI_API_KEY` и доступного для записи `AI_USAGE_PATH` из корня проекта (прямой Python не читает `.env`):
 
 ```bash
-python -m pytest backend/tests/recommendations -q
-python tools/evaluate_recommendations.py --live --output docs/validation/ai.json
-python tools/benchmark.py --base-url http://localhost:8080 --output docs/validation/latency.json
+.venv/bin/python -m pytest backend/tests/recommendations -q
+.venv/bin/python tools/evaluate_recommendations.py --live --output runtime/validation/ai.json
+.venv/bin/python tools/benchmark.py --base-url http://localhost:8080 --output runtime/validation/latency.json
 ```
+
+На Windows замените `.venv/bin/python` на `.\.venv\Scripts\python.exe`. Для benchmark сервер должен быть уже запущен; ключ и `AI_USAGE_PATH` нужны его процессу.
 
 `evaluate_recommendations.py` использует реальные контракты, core и выбранный provider. Для OpenAI ключ задаётся только в окружении backend; скрипт не просит и не печатает его. Он пишет выбранные синтетические ID, источник, длительность, полноту evidence и накопленный usage. `benchmark.py` входит как HR с `DEMO_HR_PASSWORD`, передаёт `Origin`, выбирает 30 разных активных профилей с полезными событиями и отдельно повторяет их для cache hits. Отчёт содержит p50/p95/max, число LLM-ответов, fallback и их причины. Синтетические ID профилей в отчёт задержки не попадают.
 
 ## Интеграция
 
-A1: интеграция `RecommendationService` в bootstrap и startup probe выполнены в коммите `a233607`; версии context проверяются до/после `recommend`. Health расположен по `/api/v1/health` и сам платных запросов не делает. Сервисный конструктор принимает `provider`, `model`, `prompt_version`, а без них берёт `AI_PROVIDER` и параметры моделей из env. Для устойчивости при нескольких worker-процессах нужен отдельный межпроцессный lock лимитера; текущий MVP рассчитывает на один backend-процесс.
+Backend: интеграция `RecommendationService` в bootstrap и startup probe выполнены в коммите `a233607`; версии context проверяются до/после `recommend`. Health расположен по `/api/v1/health` и сам платных запросов не делает. Сервисный конструктор принимает `provider`, `model`, `prompt_version`, а без них берёт `AI_PROVIDER` и параметры моделей из env. Для устойчивости при нескольких worker-процессах нужен отдельный межпроцессный lock лимитера; текущий MVP рассчитывает на один backend-процесс.
 
-A3: пользовательские значения `status`: `ready`, `no_next_grade`, `target_met`, `incomplete_skills`, `no_eligible_events`, `all_candidates_excluded`. Для `ready` показывать `source=llm` как AI-результат, `source=deterministic_fallback` как резервный расчёт с `fallback_reason`: `timeout`, `unavailable`, `invalid_output`, `busy`, `context_too_large`, `rate_limited`, `call_limit`. `cache_hit` указывает повторный результат. Каждый item уже содержит preview, три обязательных evidence с `refs` и `comparison_event_id`; UI не должен пересчитывать рейтинг или интерпретировать пропуски. Для `THIRD_PARTY.md`: OpenAI API — внешний сервис с тарификацией по токенам; Ollama и локальная модель используются только в опциональном режиме, сведения о версии и лицензии нужно подтвердить при финальной сборке.
+Frontend: пользовательские значения `status`: `ready`, `no_next_grade`, `target_met`, `incomplete_skills`, `no_eligible_events`, `all_candidates_excluded`. Для `ready` показывать `source=llm` как AI-результат, `source=deterministic_fallback` как резервный расчёт с `fallback_reason`: `timeout`, `unavailable`, `invalid_output`, `busy`, `context_too_large`, `rate_limited`, `call_limit`. `cache_hit` указывает повторный результат. Каждый item уже содержит preview, три обязательных evidence с `refs` и `comparison_event_id`; UI не должен пересчитывать рейтинг или интерпретировать пропуски. Для `THIRD_PARTY.md`: OpenAI API — внешний сервис с тарификацией по токенам; Ollama и локальная модель используются только в опциональном режиме, сведения о версии и лицензии нужно подтвердить при финальной сборке.
