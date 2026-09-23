@@ -33,10 +33,10 @@ export type RecommendationResult = {
 export type HrOverview = {
   dataset_version: number; employees_total: number
   skill_gaps: { skill_id: string; name: LocalizedText; affected_count: number; assessed_count: number; affected_share: number | null; mean_gap: number | null }[]
-  no_step: { employee_id: string; role_id: string; reason: string }[]
+  no_step: { employee_id: string; role_id: string; role_name: LocalizedText; reason: string }[]
   participation: { event_id: string; title: LocalizedText; completed: number; skipped: number; declined: number; unique_participants: number; completion_share: number | null }[]
 }
-export type EmployeeList = { items: { employee_id: string; role_id: string; grade: string }[]; total: number }
+export type EmployeeList = { items: { employee_id: string; role_id: string; role_name: LocalizedText; grade: string }[]; total: number }
 export type ImportSummary = { new_employees: number; replaced_employees: number; new_history: number; unchanged_history: number }
 export type ImportValidation = {
   import_id: string | null; valid: boolean; base_dataset_version: number; expires_at: string | null
