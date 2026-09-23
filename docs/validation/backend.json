@@ -1,10 +1,10 @@
 {
-  "created_at_utc": "2026-09-23T09:27:00Z",
-  "code_sha": "5095c77",
+  "created_at_utc": "2026-09-23T09:43:30Z",
+  "code_sha": "a233607",
   "python": "3.12",
   "test_command": ".venv/bin/python -m pytest backend/tests -q",
   "test_result": {
-    "passed": 26,
+    "passed": 41,
     "failed": 0,
     "warning": "Starlette TestClient anyio deprecation"
   },
@@ -39,9 +39,16 @@
     "hr_p50_ms": 77.2,
     "hr_p95_ms": 90.1
   },
+  "a2_integration": {
+    "production_service": "A2 RecommendationService constructed by default in create_app",
+    "no_key_http": "HTTP 200 deterministic_fallback with fallback_reason=unavailable; health remains unavailable",
+    "startup_probe": "Fake provider returns schema-valid readiness once; OpenAI MockTransport probe reserves exactly one paid attempt; health GET performs no provider call",
+    "stale_result": "HTTP 409 when state changes during recommendation"
+  },
   "unverified": [
     "Docker Compose build/restart: Docker and Podman are unavailable, sudo is unavailable.",
-    "A2 live RecommendationService/provider integration: backend/app/recommendations is not present in this checkout.",
+    "Live OpenAI/Ollama model response and AI acceptance: no OpenAI key or running Ollama in A1 environment.",
+    "A2 benchmark requires /api/v1/health in place of its current /health path.",
     "A3 frontend build: frontend is not present in this checkout."
   ]
 }

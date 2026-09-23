@@ -147,6 +147,33 @@ def test_invalid_model_probe_stays_unavailable(tmp_path):
         assert c.get('/api/v1/health').json()['model_status']=='unavailable'
 
 
+def test_openai_startup_probe_uses_paid_limiter_once(tmp_path):
+    import asyncio
+    import json
+    import threading
+    import httpx
+    from app.recommendations import RecommendationService
+    from app.recommendations.providers import OpenAIProvider,PaidCallLimiter
+    called=threading.Event()
+    def transport(request):
+        payload=json.loads(request.content)
+        assert payload['text']['format']['schema']['required']==['ready']
+        called.set()
+        return httpx.Response(200,json={'status':'completed','usage':{'input_tokens':8,'output_tokens':4},
+                                        'output':[{'type':'message','content':[{'type':'output_text','text':'{"ready":true}'}]}]})
+    http_client=httpx.AsyncClient(transport=httpx.MockTransport(transport))
+    limiter=PaidCallLimiter(tmp_path/'usage.json',max_attempts=1)
+    provider=OpenAIProvider(api_key='test-key',limiter=limiter,client=http_client)
+    app=create_app(database_path=tmp_path/'db.sqlite3',kit_dir=KIT,secret_path=tmp_path/'secret',app_origin='http://localhost:8080',recommendation_service=RecommendationService(provider=provider))
+    with TestClient(app) as c:
+        assert called.wait(1)
+        for _ in range(20):
+            if c.get('/api/v1/health').json()['model_status']=='ready':break
+        assert c.get('/api/v1/health').json()['model_status']=='ready'
+        assert limiter.snapshot()['attempts']==1
+    asyncio.run(http_client.aclose())
+
+
 def test_import_commit_rejects_changed_dataset_version(tmp_path):
     import json
     with client(tmp_path) as c:
