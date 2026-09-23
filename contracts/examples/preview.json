@@ -1,0 +1,26 @@
+{
+  "event_id": "EV_BACKEND_01",
+  "employee_version": 1,
+  "dataset_version": 1,
+  "changes": [
+    {
+      "skill_id": "SK_PYTHON",
+      "before": 2,
+      "after": 3,
+      "delta": 1,
+      "target": 4,
+      "remaining_gap": 1
+    },
+    {
+      "skill_id": "SK_SYSTEM_DESIGN",
+      "before": 2,
+      "after": 3,
+      "delta": 1,
+      "target": 4,
+      "remaining_gap": 1
+    }
+  ],
+  "coverage_before": 42.9,
+  "coverage_after": 45.7,
+  "target_gain": 2
+}

@@ -1,0 +1,1242 @@
+[
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND"
+      ]
+    },
+    "description": "Учебная активность: разбор границ сервисов.",
+    "event_id": "EV_BACKEND_01",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PYTHON"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_SYSTEM_DESIGN"
+      }
+    ],
+    "title": {
+      "en": "Service Boundaries Review",
+      "kk": null,
+      "ru": "Разбор границ сервисов"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND"
+      ]
+    },
+    "description": "Учебная активность: практикум api-контрактов.",
+    "event_id": "EV_BACKEND_02",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_BACKEND_02"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_BACKEND_03"
+      }
+    ],
+    "title": {
+      "en": "API Contract Workshop",
+      "kk": null,
+      "ru": "Практикум API-контрактов"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND"
+      ]
+    },
+    "description": "Учебная активность: разбор надёжности.",
+    "event_id": "EV_BACKEND_03",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_BACKEND_04"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_BACKEND_05"
+      }
+    ],
+    "title": {
+      "en": "Reliability Incident Lab",
+      "kk": null,
+      "ru": "Разбор надёжности"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND"
+      ]
+    },
+    "description": "Учебная активность: практикум безопасности.",
+    "event_id": "EV_BACKEND_04",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_BACKEND_06"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_BACKEND_07"
+      }
+    ],
+    "title": {
+      "en": "Security Testing Lab",
+      "kk": null,
+      "ru": "Практикум безопасности"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND"
+      ]
+    },
+    "description": "Учебная активность: проектирование наблюдаемости.",
+    "event_id": "EV_BACKEND_05",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_BACKEND_08"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_BACKEND_09"
+      }
+    ],
+    "title": {
+      "en": "Observability Design",
+      "kk": null,
+      "ru": "Проектирование наблюдаемости"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND"
+      ]
+    },
+    "description": "Учебная активность: наставничество по проектированию систем.",
+    "event_id": "EV_BACKEND_06",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 5,
+        "skill_id": "SK_SYSTEM_DESIGN"
+      }
+    ],
+    "title": {
+      "en": "System Design Mentoring",
+      "kk": null,
+      "ru": "Наставничество по проектированию систем"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "DATA_ANALYST"
+      ]
+    },
+    "description": "Учебная активность: практикум sql и моделей данных.",
+    "event_id": "EV_DATA_ANALYST_01",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_DATA_ANALYST_00"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_DATA_ANALYST_01"
+      }
+    ],
+    "title": {
+      "en": "SQL and Data Model Lab",
+      "kk": null,
+      "ru": "Практикум SQL и моделей данных"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "DATA_ANALYST"
+      ]
+    },
+    "description": "Учебная активность: дашборды и статистика.",
+    "event_id": "EV_DATA_ANALYST_02",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_DATA_ANALYST_02"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_DATA_ANALYST_03"
+      }
+    ],
+    "title": {
+      "en": "Dashboard and Statistics",
+      "kk": null,
+      "ru": "Дашборды и статистика"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "DATA_ANALYST"
+      ]
+    },
+    "description": "Учебная активность: клиника качества данных.",
+    "event_id": "EV_DATA_ANALYST_03",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_DATA_ANALYST_04"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_DATA_ANALYST_05"
+      }
+    ],
+    "title": {
+      "en": "Data Quality Clinic",
+      "kk": null,
+      "ru": "Клиника качества данных"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "DATA_ANALYST"
+      ]
+    },
+    "description": "Учебная активность: эксперименты и визуализация.",
+    "event_id": "EV_DATA_ANALYST_04",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_DATA_ANALYST_06"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_DATA_ANALYST_07"
+      }
+    ],
+    "title": {
+      "en": "Experiment Visualization",
+      "kk": null,
+      "ru": "Эксперименты и визуализация"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "DATA_ANALYST"
+      ]
+    },
+    "description": "Учебная активность: метрики и прогнозирование.",
+    "event_id": "EV_DATA_ANALYST_05",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_DATA_ANALYST_08"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_DATA_ANALYST_09"
+      }
+    ],
+    "title": {
+      "en": "Metric Forecasting",
+      "kk": null,
+      "ru": "Метрики и прогнозирование"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "DATA_ANALYST"
+      ]
+    },
+    "description": "Учебная активность: наставничество по моделированию данных.",
+    "event_id": "EV_DATA_ANALYST_06",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 5,
+        "skill_id": "SK_DATA_ANALYST_01"
+      }
+    ],
+    "title": {
+      "en": "Data Modeling Mentoring",
+      "kk": null,
+      "ru": "Наставничество по моделированию данных"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "QA"
+      ]
+    },
+    "description": "Учебная активность: разбор тест-дизайна и api.",
+    "event_id": "EV_QA_01",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_QA_00"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_QA_01"
+      }
+    ],
+    "title": {
+      "en": "Test Design and API Lab",
+      "kk": null,
+      "ru": "Разбор тест-дизайна и API"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "QA"
+      ]
+    },
+    "description": "Учебная активность: автоматизация и исследование.",
+    "event_id": "EV_QA_02",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_QA_02"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_QA_03"
+      }
+    ],
+    "title": {
+      "en": "Automation Exploration",
+      "kk": null,
+      "ru": "Автоматизация и исследование"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "QA"
+      ]
+    },
+    "description": "Учебная активность: нагрузка и анализ дефектов.",
+    "event_id": "EV_QA_03",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_QA_04"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_QA_05"
+      }
+    ],
+    "title": {
+      "en": "Performance and Bug Analysis",
+      "kk": null,
+      "ru": "Нагрузка и анализ дефектов"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "QA"
+      ]
+    },
+    "description": "Учебная активность: мобильная безопасность.",
+    "event_id": "EV_QA_04",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_QA_06"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_QA_07"
+      }
+    ],
+    "title": {
+      "en": "Mobile Security Testing",
+      "kk": null,
+      "ru": "Мобильная безопасность"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "QA"
+      ]
+    },
+    "description": "Учебная активность: регрессия и тестовые данные.",
+    "event_id": "EV_QA_05",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_QA_08"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_QA_09"
+      }
+    ],
+    "title": {
+      "en": "Regression Data Lab",
+      "kk": null,
+      "ru": "Регрессия и тестовые данные"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "QA"
+      ]
+    },
+    "description": "Учебная активность: наставничество по тестированию api.",
+    "event_id": "EV_QA_06",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 5,
+        "skill_id": "SK_QA_01"
+      }
+    ],
+    "title": {
+      "en": "API Testing Mentoring",
+      "kk": null,
+      "ru": "Наставничество по тестированию API"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "PRODUCT"
+      ]
+    },
+    "description": "Учебная активность: исследование и дорожная карта.",
+    "event_id": "EV_PRODUCT_01",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PRODUCT_00"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PRODUCT_01"
+      }
+    ],
+    "title": {
+      "en": "Discovery and Roadmap",
+      "kk": null,
+      "ru": "Исследование и дорожная карта"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "PRODUCT"
+      ]
+    },
+    "description": "Учебная активность: исследование и приоритеты.",
+    "event_id": "EV_PRODUCT_02",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PRODUCT_02"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PRODUCT_03"
+      }
+    ],
+    "title": {
+      "en": "Research Prioritization",
+      "kk": null,
+      "ru": "Исследование и приоритеты"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "PRODUCT"
+      ]
+    },
+    "description": "Учебная активность: метрики и эксперименты.",
+    "event_id": "EV_PRODUCT_03",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PRODUCT_04"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PRODUCT_05"
+      }
+    ],
+    "title": {
+      "en": "Metrics Experiments",
+      "kk": null,
+      "ru": "Метрики и эксперименты"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "PRODUCT"
+      ]
+    },
+    "description": "Учебная активность: требования и путь клиента.",
+    "event_id": "EV_PRODUCT_04",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PRODUCT_06"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PRODUCT_07"
+      }
+    ],
+    "title": {
+      "en": "Requirements Journey",
+      "kk": null,
+      "ru": "Требования и путь клиента"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "PRODUCT"
+      ]
+    },
+    "description": "Учебная активность: ценность и стейкхолдеры.",
+    "event_id": "EV_PRODUCT_05",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PRODUCT_08"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_PRODUCT_09"
+      }
+    ],
+    "title": {
+      "en": "Value and Stakeholders",
+      "kk": null,
+      "ru": "Ценность и стейкхолдеры"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "PRODUCT"
+      ]
+    },
+    "description": "Учебная активность: наставничество по дорожной карте.",
+    "event_id": "EV_PRODUCT_06",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 5,
+        "skill_id": "SK_PRODUCT_01"
+      }
+    ],
+    "title": {
+      "en": "Roadmap Mentoring",
+      "kk": null,
+      "ru": "Наставничество по дорожной карте"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: обращения и знание продукта.",
+    "event_id": "EV_CUSTOMER_SUPPORT_01",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_CUSTOMER_SUPPORT_00"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_CUSTOMER_SUPPORT_01"
+      }
+    ],
+    "title": {
+      "en": "Case and Product Lab",
+      "kk": null,
+      "ru": "Обращения и знание продукта"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: восстановление сервиса.",
+    "event_id": "EV_CUSTOMER_SUPPORT_02",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_CUSTOMER_SUPPORT_02"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_CUSTOMER_SUPPORT_03"
+      }
+    ],
+    "title": {
+      "en": "Service Recovery Workshop",
+      "kk": null,
+      "ru": "Восстановление сервиса"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: качество и эскалация.",
+    "event_id": "EV_CUSTOMER_SUPPORT_03",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_CUSTOMER_SUPPORT_04"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_CUSTOMER_SUPPORT_05"
+      }
+    ],
+    "title": {
+      "en": "Quality and Escalation",
+      "kk": null,
+      "ru": "Качество и эскалация"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: жалобы и каналы.",
+    "event_id": "EV_CUSTOMER_SUPPORT_04",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_CUSTOMER_SUPPORT_06"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_CUSTOMER_SUPPORT_07"
+      }
+    ],
+    "title": {
+      "en": "Complaint and Channel Lab",
+      "kk": null,
+      "ru": "Жалобы и каналы"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: доступность и улучшения.",
+    "event_id": "EV_CUSTOMER_SUPPORT_05",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_CUSTOMER_SUPPORT_08"
+      },
+      {
+        "gain": 1,
+        "max_level": 4,
+        "skill_id": "SK_CUSTOMER_SUPPORT_09"
+      }
+    ],
+    "title": {
+      "en": "Accessibility Improvement",
+      "kk": null,
+      "ru": "Доступность и улучшения"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: наставничество по знанию продукта.",
+    "event_id": "EV_CUSTOMER_SUPPORT_06",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 5,
+        "skill_id": "SK_CUSTOMER_SUPPORT_01"
+      }
+    ],
+    "title": {
+      "en": "Product Knowledge Mentoring",
+      "kk": null,
+      "ru": "Наставничество по знанию продукта"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND",
+        "DATA_ANALYST",
+        "QA",
+        "PRODUCT",
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: практика публичных выступлений.",
+    "event_id": "EV_SOFT_00",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 3,
+        "skill_id": "SK_PUBLIC_SPEAKING"
+      }
+    ],
+    "title": {
+      "en": "Public Speaking Practice",
+      "kk": null,
+      "ru": "Практика публичных выступлений"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND",
+        "DATA_ANALYST",
+        "QA",
+        "PRODUCT",
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: разговор об обратной связи.",
+    "event_id": "EV_SOFT_01",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 3,
+        "skill_id": "SK_SOFT_01"
+      }
+    ],
+    "title": {
+      "en": "Feedback Conversation",
+      "kk": null,
+      "ru": "Разговор об обратной связи"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND",
+        "DATA_ANALYST",
+        "QA",
+        "PRODUCT",
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: практикум сотрудничества.",
+    "event_id": "EV_SOFT_02",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 3,
+        "skill_id": "SK_SOFT_02"
+      }
+    ],
+    "title": {
+      "en": "Collaboration Lab",
+      "kk": null,
+      "ru": "Практикум сотрудничества"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND",
+        "DATA_ANALYST",
+        "QA",
+        "PRODUCT",
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: планирование времени.",
+    "event_id": "EV_SOFT_03",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 3,
+        "skill_id": "SK_SOFT_03"
+      }
+    ],
+    "title": {
+      "en": "Time Planning",
+      "kk": null,
+      "ru": "Планирование времени"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND",
+        "DATA_ANALYST",
+        "QA",
+        "PRODUCT",
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: практикум эмпатии.",
+    "event_id": "EV_SOFT_04",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 3,
+        "skill_id": "SK_SOFT_04"
+      }
+    ],
+    "title": {
+      "en": "Empathy Workshop",
+      "kk": null,
+      "ru": "Практикум эмпатии"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND",
+        "DATA_ANALYST",
+        "QA",
+        "PRODUCT",
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: практикум критического мышления.",
+    "event_id": "EV_SOFT_05",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 3,
+        "skill_id": "SK_SOFT_05"
+      }
+    ],
+    "title": {
+      "en": "Critical Thinking Lab",
+      "kk": null,
+      "ru": "Практикум критического мышления"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND",
+        "DATA_ANALYST",
+        "QA",
+        "PRODUCT",
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: деловое письмо.",
+    "event_id": "EV_SOFT_06",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 3,
+        "skill_id": "SK_SOFT_06"
+      }
+    ],
+    "title": {
+      "en": "Business Writing",
+      "kk": null,
+      "ru": "Деловое письмо"
+    },
+    "type": "course"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND",
+        "DATA_ANALYST",
+        "QA",
+        "PRODUCT",
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: практика фасилитации.",
+    "event_id": "EV_SOFT_07",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 3,
+        "skill_id": "SK_SOFT_07"
+      }
+    ],
+    "title": {
+      "en": "Facilitation Practice",
+      "kk": null,
+      "ru": "Практика фасилитации"
+    },
+    "type": "workshop"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND",
+        "DATA_ANALYST",
+        "QA",
+        "PRODUCT",
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: практикум адаптивности.",
+    "event_id": "EV_SOFT_08",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 3,
+        "skill_id": "SK_SOFT_08"
+      }
+    ],
+    "title": {
+      "en": "Adaptability Workshop",
+      "kk": null,
+      "ru": "Практикум адаптивности"
+    },
+    "type": "mentoring"
+  },
+  {
+    "audience": {
+      "grades": [
+        "Junior",
+        "Middle",
+        "Senior"
+      ],
+      "role_ids": [
+        "BACKEND",
+        "DATA_ANALYST",
+        "QA",
+        "PRODUCT",
+        "CUSTOMER_SUPPORT"
+      ]
+    },
+    "description": "Учебная активность: практика наставничества.",
+    "event_id": "EV_SOFT_09",
+    "gains": [
+      {
+        "gain": 1,
+        "max_level": 3,
+        "skill_id": "SK_SOFT_09"
+      }
+    ],
+    "title": {
+      "en": "Mentoring Practice",
+      "kk": null,
+      "ru": "Практика наставничества"
+    },
+    "type": "course"
+  }
+]

@@ -1,0 +1,1798 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ШАГРА",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "summary": "Login",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "summary": "Auth Me",
+        "operationId": "auth_me_api_v1_auth_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "summary": "Logout",
+        "operationId": "logout_api_v1_auth_logout_post",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/api/v1/employees": {
+      "get": {
+        "summary": "List Employees",
+        "operationId": "list_employees_api_v1_employees_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Q"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeList"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/employees/{employee_id}": {
+      "get": {
+        "summary": "Employee Profile",
+        "operationId": "employee_profile_api_v1_employees__employee_id__get",
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Employee Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/employees/{employee_id}/preview": {
+      "post": {
+        "summary": "Preview",
+        "operationId": "preview_api_v1_employees__employee_id__preview_post",
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Employee Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Preview"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/employees/{employee_id}/completions": {
+      "post": {
+        "summary": "Completion",
+        "operationId": "completion_api_v1_employees__employee_id__completions_post",
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Employee Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventActionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompletionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/employees/{employee_id}/recommendations": {
+      "post": {
+        "summary": "Recommendations",
+        "operationId": "recommendations_api_v1_employees__employee_id__recommendations_post",
+        "parameters": [
+          {
+            "name": "employee_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Employee Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecommendationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hr/overview": {
+      "get": {
+        "summary": "Hr Overview",
+        "operationId": "hr_overview_api_v1_hr_overview_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HrOverview"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/imports/validate": {
+      "post": {
+        "summary": "Import Validate",
+        "operationId": "import_validate_api_v1_imports_validate_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_import_validate_api_v1_imports_validate_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportValidation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/imports/{import_id}/commit": {
+      "post": {
+        "summary": "Import Commit",
+        "operationId": "import_commit_api_v1_imports__import_id__commit_post",
+        "parameters": [
+          {
+            "name": "import_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Import Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImportCommitRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportCommit"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuthResponse": {
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "employee",
+              "hr"
+            ],
+            "title": "Role"
+          },
+          "employee_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Employee Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "role",
+          "employee_id"
+        ],
+        "title": "AuthResponse"
+      },
+      "AvailableEvent": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Event Id"
+          },
+          "title": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "target_gain": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Target Gain"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_id",
+          "title",
+          "type",
+          "target_gain"
+        ],
+        "title": "AvailableEvent"
+      },
+      "Body_import_validate_api_v1_imports_validate_post": {
+        "properties": {
+          "employees_file": {
+            "type": "string",
+            "format": "binary",
+            "title": "Employees File"
+          },
+          "history_file": {
+            "type": "string",
+            "format": "binary",
+            "title": "History File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "employees_file",
+          "history_file"
+        ],
+        "title": "Body_import_validate_api_v1_imports_validate_post"
+      },
+      "CompletionResponse": {
+        "properties": {
+          "employee_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Employee Id"
+          },
+          "event_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Event Id"
+          },
+          "applied": {
+            "type": "boolean",
+            "title": "Applied"
+          },
+          "employee_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Employee Version"
+          },
+          "dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Dataset Version"
+          },
+          "preview": {
+            "$ref": "#/components/schemas/Preview"
+          },
+          "history_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "History Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "employee_id",
+          "event_id",
+          "applied",
+          "employee_version",
+          "dataset_version",
+          "preview",
+          "history_id"
+        ],
+        "title": "CompletionResponse"
+      },
+      "Employee": {
+        "properties": {
+          "employee_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Employee Id"
+          },
+          "role_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Role Id"
+          },
+          "grade": {
+            "$ref": "#/components/schemas/Grade"
+          },
+          "tenure_months": {
+            "type": "integer",
+            "maximum": 600.0,
+            "minimum": 0.0,
+            "title": "Tenure Months"
+          },
+          "skills": {
+            "patternProperties": {
+              "^[A-Za-z0-9_-]{1,64}$": {
+                "type": "integer",
+                "maximum": 5.0,
+                "minimum": 0.0
+              }
+            },
+            "type": "object",
+            "title": "Skills"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "employee_id",
+          "role_id",
+          "grade",
+          "tenure_months",
+          "skills"
+        ],
+        "title": "Employee"
+      },
+      "EmployeeList": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/EmployeeListItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "EmployeeList"
+      },
+      "EmployeeListItem": {
+        "properties": {
+          "employee_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Employee Id"
+          },
+          "role_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Role Id"
+          },
+          "grade": {
+            "$ref": "#/components/schemas/Grade"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "employee_id",
+          "role_id",
+          "grade"
+        ],
+        "title": "EmployeeListItem"
+      },
+      "ErrorDetail": {
+        "properties": {
+          "file": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File"
+          },
+          "path": {
+            "type": "string",
+            "title": "Path"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "file",
+          "path",
+          "code",
+          "message"
+        ],
+        "title": "ErrorDetail"
+      },
+      "EventActionRequest": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Event Id"
+          },
+          "employee_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Employee Version"
+          },
+          "dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Dataset Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_id",
+          "employee_version",
+          "dataset_version"
+        ],
+        "title": "EventActionRequest"
+      },
+      "EventType": {
+        "type": "string",
+        "enum": [
+          "course",
+          "workshop",
+          "mentoring"
+        ],
+        "title": "EventType"
+      },
+      "Evidence": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "GRADE_TARGET",
+              "SKILL_GAP",
+              "HISTORY",
+              "PREFERENCE"
+            ],
+            "title": "Kind"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Refs"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "text",
+          "refs"
+        ],
+        "title": "Evidence"
+      },
+      "Grade": {
+        "type": "string",
+        "enum": [
+          "Junior",
+          "Middle",
+          "Senior"
+        ],
+        "title": "Grade"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status"
+          },
+          "dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Dataset Version"
+          },
+          "model_status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "loading",
+              "unavailable"
+            ],
+            "title": "Model Status"
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "openai",
+              "ollama"
+            ],
+            "title": "Provider"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "dataset_version",
+          "model_status",
+          "provider",
+          "model"
+        ],
+        "title": "HealthResponse"
+      },
+      "HistoryStatus": {
+        "type": "string",
+        "enum": [
+          "completed",
+          "skipped",
+          "declined"
+        ],
+        "title": "HistoryStatus"
+      },
+      "HrNoStep": {
+        "properties": {
+          "employee_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Employee Id"
+          },
+          "role_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Role Id"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "employee_id",
+          "role_id",
+          "reason"
+        ],
+        "title": "HrNoStep"
+      },
+      "HrOverview": {
+        "properties": {
+          "dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Dataset Version"
+          },
+          "employees_total": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Employees Total"
+          },
+          "skill_gaps": {
+            "items": {
+              "$ref": "#/components/schemas/HrSkillGap"
+            },
+            "type": "array",
+            "title": "Skill Gaps"
+          },
+          "no_step": {
+            "items": {
+              "$ref": "#/components/schemas/HrNoStep"
+            },
+            "type": "array",
+            "title": "No Step"
+          },
+          "participation": {
+            "items": {
+              "$ref": "#/components/schemas/HrParticipation"
+            },
+            "type": "array",
+            "title": "Participation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "dataset_version",
+          "employees_total",
+          "skill_gaps",
+          "no_step",
+          "participation"
+        ],
+        "title": "HrOverview"
+      },
+      "HrParticipation": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Event Id"
+          },
+          "title": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "completed": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Completed"
+          },
+          "skipped": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Skipped"
+          },
+          "declined": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Declined"
+          },
+          "unique_participants": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Unique Participants"
+          },
+          "completion_share": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completion Share"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_id",
+          "title",
+          "completed",
+          "skipped",
+          "declined",
+          "unique_participants",
+          "completion_share"
+        ],
+        "title": "HrParticipation"
+      },
+      "HrSkillGap": {
+        "properties": {
+          "skill_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Skill Id"
+          },
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "affected_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Affected Count"
+          },
+          "assessed_count": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Assessed Count"
+          },
+          "affected_share": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Affected Share"
+          },
+          "mean_gap": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Gap"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "skill_id",
+          "name",
+          "affected_count",
+          "assessed_count",
+          "affected_share",
+          "mean_gap"
+        ],
+        "title": "HrSkillGap"
+      },
+      "ImportCommit": {
+        "properties": {
+          "import_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Import Id"
+          },
+          "dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Dataset Version"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/ImportSummary"
+          },
+          "applied": {
+            "type": "boolean",
+            "title": "Applied"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "import_id",
+          "dataset_version",
+          "summary",
+          "applied"
+        ],
+        "title": "ImportCommit"
+      },
+      "ImportCommitRequest": {
+        "properties": {
+          "base_dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Base Dataset Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "base_dataset_version"
+        ],
+        "title": "ImportCommitRequest"
+      },
+      "ImportSummary": {
+        "properties": {
+          "new_employees": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "New Employees"
+          },
+          "replaced_employees": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Replaced Employees"
+          },
+          "new_history": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "New History"
+          },
+          "unchanged_history": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Unchanged History"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "new_employees",
+          "replaced_employees",
+          "new_history",
+          "unchanged_history"
+        ],
+        "title": "ImportSummary"
+      },
+      "ImportValidation": {
+        "properties": {
+          "import_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Import Id"
+          },
+          "valid": {
+            "type": "boolean",
+            "title": "Valid"
+          },
+          "base_dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Base Dataset Version"
+          },
+          "expires_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expires At"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/ImportSummary"
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/ErrorDetail"
+            },
+            "type": "array",
+            "title": "Errors"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "import_id",
+          "valid",
+          "base_dataset_version",
+          "expires_at",
+          "summary",
+          "errors"
+        ],
+        "title": "ImportValidation"
+      },
+      "LocalizedText": {
+        "properties": {
+          "en": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "En"
+          },
+          "ru": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ru"
+          },
+          "kk": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kk"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "en"
+        ],
+        "title": "LocalizedText"
+      },
+      "LoginRequest": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "LoginRequest"
+      },
+      "Preview": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Event Id"
+          },
+          "employee_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Employee Version"
+          },
+          "dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Dataset Version"
+          },
+          "changes": {
+            "items": {
+              "$ref": "#/components/schemas/SkillChange"
+            },
+            "type": "array",
+            "title": "Changes"
+          },
+          "coverage_before": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverage Before"
+          },
+          "coverage_after": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverage After"
+          },
+          "target_gain": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Target Gain"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_id",
+          "employee_version",
+          "dataset_version",
+          "changes",
+          "coverage_before",
+          "coverage_after",
+          "target_gain"
+        ],
+        "title": "Preview"
+      },
+      "ProfileHistoryRow": {
+        "properties": {
+          "history_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "History Id"
+          },
+          "event_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Event Id"
+          },
+          "title": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/HistoryStatus"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Occurred At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "history_id",
+          "event_id",
+          "title",
+          "type",
+          "status",
+          "occurred_at"
+        ],
+        "title": "ProfileHistoryRow"
+      },
+      "ProfileResponse": {
+        "properties": {
+          "employee": {
+            "$ref": "#/components/schemas/Employee"
+          },
+          "employee_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Employee Version"
+          },
+          "dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Dataset Version"
+          },
+          "role_name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "target_grade": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Grade"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "coverage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coverage"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "active",
+              "no_next_grade",
+              "target_met",
+              "incomplete_skills"
+            ],
+            "title": "State"
+          },
+          "skill_rows": {
+            "items": {
+              "$ref": "#/components/schemas/SkillRow"
+            },
+            "type": "array",
+            "title": "Skill Rows"
+          },
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/ProfileHistoryRow"
+            },
+            "type": "array",
+            "title": "History"
+          },
+          "available_events": {
+            "items": {
+              "$ref": "#/components/schemas/AvailableEvent"
+            },
+            "type": "array",
+            "title": "Available Events"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "employee",
+          "employee_version",
+          "dataset_version",
+          "role_name",
+          "target_grade",
+          "coverage",
+          "state",
+          "skill_rows",
+          "history",
+          "available_events"
+        ],
+        "title": "ProfileResponse"
+      },
+      "RecommendationItem": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Event Id"
+          },
+          "title": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "rank": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Rank"
+          },
+          "preview": {
+            "$ref": "#/components/schemas/Preview"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes"
+          },
+          "comparison_event_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{1,64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comparison Event Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_id",
+          "title",
+          "type",
+          "rank",
+          "preview",
+          "evidence",
+          "reason_codes",
+          "comparison_event_id"
+        ],
+        "title": "RecommendationItem"
+      },
+      "RecommendationRequest": {
+        "properties": {
+          "employee_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Employee Version"
+          },
+          "dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Dataset Version"
+          },
+          "excluded_event_ids": {
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,64}$"
+            },
+            "type": "array",
+            "title": "Excluded Event Ids"
+          },
+          "preferred_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EventType"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "employee_version",
+          "dataset_version"
+        ],
+        "title": "RecommendationRequest"
+      },
+      "RecommendationResult": {
+        "properties": {
+          "employee_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Employee Id"
+          },
+          "employee_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Employee Version"
+          },
+          "dataset_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Dataset Version"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ready",
+              "no_next_grade",
+              "target_met",
+              "incomplete_skills",
+              "no_eligible_events",
+              "all_candidates_excluded"
+            ],
+            "title": "Status"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "llm",
+                  "deterministic_fallback"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "cache_hit": {
+            "type": "boolean",
+            "title": "Cache Hit"
+          },
+          "fallback_reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "timeout",
+                  "unavailable",
+                  "invalid_output",
+                  "busy",
+                  "context_too_large",
+                  "rate_limited",
+                  "call_limit"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fallback Reason"
+          },
+          "no_step_reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "no_catalog_coverage",
+                  "all_useful_completed",
+                  "audience_or_missing_skills"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "No Step Reason"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/RecommendationItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "employee_id",
+          "employee_version",
+          "dataset_version",
+          "status",
+          "source",
+          "cache_hit",
+          "fallback_reason",
+          "no_step_reason",
+          "items"
+        ],
+        "title": "RecommendationResult"
+      },
+      "SkillChange": {
+        "properties": {
+          "skill_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Skill Id"
+          },
+          "before": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Before"
+          },
+          "after": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "After"
+          },
+          "delta": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Delta"
+          },
+          "target": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 5.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target"
+          },
+          "remaining_gap": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remaining Gap"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "skill_id",
+          "before",
+          "after",
+          "delta",
+          "target",
+          "remaining_gap"
+        ],
+        "title": "SkillChange"
+      },
+      "SkillRow": {
+        "properties": {
+          "skill_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,64}$",
+            "title": "Skill Id"
+          },
+          "name": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "current": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 5.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current"
+          },
+          "target": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 5.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target"
+          },
+          "gap": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gap"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "skill_id",
+          "name",
+          "current",
+          "target",
+          "gap"
+        ],
+        "title": "SkillRow"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

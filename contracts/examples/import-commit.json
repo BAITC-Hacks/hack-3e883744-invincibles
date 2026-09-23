@@ -1,0 +1,11 @@
+{
+  "import_id": "IMP_DEMO_01",
+  "dataset_version": 2,
+  "summary": {
+    "new_employees": 1,
+    "replaced_employees": 0,
+    "new_history": 0,
+    "unchanged_history": 0
+  },
+  "applied": true
+}

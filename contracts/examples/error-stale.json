@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "STALE_CONTEXT",
+    "message": "Профиль изменился. Обновите данные.",
+    "details": []
+  },
+  "request_id": "req_demo_01"
+}

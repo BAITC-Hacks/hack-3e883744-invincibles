@@ -1,0 +1,20 @@
+{
+  "import_id": null,
+  "valid": false,
+  "base_dataset_version": 1,
+  "expires_at": null,
+  "summary": {
+    "new_employees": 0,
+    "replaced_employees": 0,
+    "new_history": 0,
+    "unchanged_history": 0
+  },
+  "errors": [
+    {
+      "file": "activity_history.csv",
+      "path": "row[3].occurred_at",
+      "code": "INVALID_DATE",
+      "message": "Неверная дата."
+    }
+  ]
+}
