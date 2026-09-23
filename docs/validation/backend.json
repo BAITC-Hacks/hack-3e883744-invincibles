@@ -1,10 +1,10 @@
 {
-  "created_at_utc": "2026-09-23T09:56:54Z",
-  "code_sha": "8befbaf",
+  "created_at_utc": "2026-09-23T09:59:06Z",
+  "code_sha": "fbc77df",
   "python": "3.12",
   "test_command": ".venv/bin/python -m pytest backend/tests -q",
   "test_result": {
-    "passed": 41,
+    "passed": 42,
     "failed": 0,
     "warning": "Starlette TestClient anyio deprecation"
   },
@@ -53,7 +53,7 @@
     "project": "shagra-a1-check",
     "port": 18080,
     "openai_key": "overridden empty for this check; no paid AI attempt",
-    "image_build": "passed with pinned Node 22 and Python 3.12 images",
+    "image_build": "passed with pinned Node 22 and Python 3.12 images; repeated after A2 prompt update",
     "fresh_volume": "created",
     "html": 200,
     "health": 200,
@@ -70,8 +70,7 @@
     "cleanup": "compose down without -v; isolated verification volume retained"
   },
   "unverified": [
-    "Live OpenAI/Ollama model response and AI acceptance: not exercised in the A1 container check.",
-    "A2 benchmark requires /api/v1/health in place of its current /health path.",
+    "Live OpenAI/Ollama model response: not exercised in the A1 container check; A2 reports separate live OpenAI acceptance in docs/validation/ai.json and latency.json.",
     "A3 live browser E2E and handoff documents are not complete in this checkout."
   ]
 }
