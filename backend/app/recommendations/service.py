@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import os
 import time
 from collections import OrderedDict
@@ -12,7 +13,7 @@ from .candidates import _contracts, _core, build_candidates, shortlist, useful_c
 from .providers import ProviderError, RankingProvider, provider_from_env
 
 
-PROMPT_VERSION = "2"
+PROMPT_VERSION = "3"
 INSTRUCTIONS = (
     "Выбери наиболее полезные следующие шаги для текущего и целевого грейда из разрешённых "
     "кандидатов. Учитывай уменьшение разрывов, историю и явное предпочтение. Пропуски не "
@@ -23,6 +24,7 @@ INSTRUCTIONS = (
     "по схеме, без новых идентификаторов. Не меняй навыки и не обещай повышение."
 )
 REASON_CODES = ("TARGET_GAP", "HISTORY_SUPPORT", "HISTORY_CAUTION", "HISTORY_UNKNOWN", "EXPLICIT_PREFERENCE")
+LOGGER = logging.getLogger(__name__)
 
 
 def _localized(value: object) -> str:
@@ -32,9 +34,10 @@ def _localized(value: object) -> str:
 
 
 def _schema(aliases: list[str]) -> dict:
+    required_count = min(3, len(aliases))
     return {
         "type": "object", "properties": {
-            "choices": {"type": "array", "items": {
+            "choices": {"type": "array", "minItems": required_count, "maxItems": required_count, "items": {
                 "type": "object", "properties": {
                     "candidate": {"type": "string", "enum": aliases},
                     "reason_codes": {"type": "array", "items": {"type": "string", "enum": list(REASON_CODES)}},
@@ -46,31 +49,31 @@ def _schema(aliases: list[str]) -> dict:
 
 def _validate(response: object, mapping: dict[str, object], count: int) -> list[tuple[object, list[str]]]:
     if not isinstance(response, dict) or set(response) != {"choices"}:
-        raise ProviderError("invalid_output")
+        raise ProviderError("invalid_output", "response_shape")
     choices = response["choices"]
     if not isinstance(choices, list) or len(choices) != count:
-        raise ProviderError("invalid_output")
+        raise ProviderError("invalid_output", "choice_count")
     selected = []
     seen = set()
     for choice in choices:
         if not isinstance(choice, dict) or set(choice) != {"candidate", "reason_codes"}:
-            raise ProviderError("invalid_output")
+            raise ProviderError("invalid_output", "choice_shape")
         alias = choice["candidate"]
         codes = choice["reason_codes"]
         if not isinstance(alias, str) or alias not in mapping or alias in seen:
-            raise ProviderError("invalid_output")
+            raise ProviderError("invalid_output", "alias")
         if not isinstance(codes, list) or not codes or len(codes) != len(set(map(str, codes))):
-            raise ProviderError("invalid_output")
+            raise ProviderError("invalid_output", "reason_list")
         candidate = mapping[alias]
         if any(not isinstance(code, str) or code not in candidate.allowed_reason_codes for code in codes):
-            raise ProviderError("invalid_output")
+            raise ProviderError("invalid_output", "reason_fact")
         if "TARGET_GAP" not in codes:
-            raise ProviderError("invalid_output")
+            raise ProviderError("invalid_output", "target_gap_missing")
         seen.add(alias)
         selected.append((candidate, codes))
     maximum = max(c.preview.target_gain for c in mapping.values())
     if all(c.preview.target_gain != maximum for c, _ in selected):
-        raise ProviderError("invalid_output")
+        raise ProviderError("invalid_output", "max_gain_missing")
     return selected
 
 
@@ -235,10 +238,13 @@ class RecommendationService:
             source = "llm"
         except ProviderError as exc:
             fallback_reason = exc.reason
+            if exc.reason == "invalid_output":
+                LOGGER.warning("Recommendation model output rejected: %s", exc.detail or "unspecified")
             ranked = [(candidate, ["TARGET_GAP"]) for candidate in all_candidates[:3]]
             source = "deterministic_fallback"
         except Exception:
             fallback_reason = "invalid_output"
+            LOGGER.warning("Recommendation model output rejected: unexpected_error")
             ranked = [(candidate, ["TARGET_GAP"]) for candidate in all_candidates[:3]]
             source = "deterministic_fallback"
         comparison_default = next((c.event.event_id for c in all_candidates
