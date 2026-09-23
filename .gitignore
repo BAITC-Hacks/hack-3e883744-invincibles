@@ -1,8 +1,83 @@
+# Local environment and secrets (keep shareable templates)
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.sample
+!.env.template
+.secrets/
+
+# Python environments, bytecode and tooling caches
 .venv/
+venv/
+env/
 __pycache__/
 *.py[cod]
+*$py.class
 .pytest_cache/
-.env
+.mypy_cache/
+.ruff_cache/
+.pyright/
+.tox/
+.nox/
+*.egg-info/
+.eggs/
+
+# Frontend dependencies and generated builds
+node_modules/
+dist/
+build/
+.vite/
+.vite-temp/
+*.tsbuildinfo
+
+# Test reports and coverage (keep docs/validation evidence)
+.coverage
+.coverage.*
+coverage/
+htmlcov/
+coverage.xml
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Runtime state: databases, sessions, imports and AI usage
 runtime/
-frontend/node_modules/
-frontend/dist/
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+
+# Downloaded local model weights
+*.gguf
+*.safetensors
+
+# Logs and temporary files
+*.log
+*.pid
+*.pid.lock
+*.tmp
+*.temp
+.cache/
+
+# Editor and operating-system files
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.swp
+*.swo
+*~
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+
+# Keep dependency lockfiles, synthetic/acceptance datasets,
+# API contracts and documentation evidence under version control.
